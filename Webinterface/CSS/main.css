@@ -1,9 +1,13 @@
-.topbar{
-	position: relative;
-	top: 0px;
-	background-color: #ff00ff;
+.distance-top{
+	margin-top: 180px;
 }
 
-.login{
-	
+.center {
+    margin: auto;
+    width: 300px;
+    padding: 10px;
+}
+
+.little-bit-top{
+	margin-top: 10px;
 }
