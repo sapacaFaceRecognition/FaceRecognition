@@ -1,0 +1,38 @@
+.distance-top{
+	margin-top: 180px;
+}
+
+.center-login {
+    margin: auto;
+    width: 300px;
+    padding: 10px;
+}
+
+.center-home {
+    margin: auto;
+    width: 60%;
+    padding: 10px;
+}
+
+.little-bit-top{
+	margin-top: 10px;
+}
+
+.sidebar-top{
+	margin-top: 108px;
+}
+
+.menuicon-left{
+	position: absolute;
+	top: 30px;
+	left: 50px;
+}
+
+.webcam-info{
+	padding-left: 15px;
+	padding-right: 15px;
+	margin-top: 10px;
+	border-style: solid;
+    border-width: 1px;
+    border-radius: 6px;
+}

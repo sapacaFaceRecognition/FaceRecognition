@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" href="./css/main.css"/>
+		<link href="./css/bootstrap.min.css" rel="stylesheet"/>
+		<link href="css/simple-sidebar.css" rel="stylesheet"/>
+		<title>SAPACA</title>
+	</head>
+	<body>
+		<div class="navbar-fixed-top navbar-default navbar">
+			<div class="container little-bit-top">
+				<a href="#menu-toggle" class="menuicon-left" id="menu-toggle">
+					<img src="./pic/menuicon.jpg" alt="Menuicon" style="width: 40px; height: 40px;"/>
+				</a>
+				<h1 class="text-center">SAPACA</h1>
+				<h4 class="text-center">FaceRecognition</h4>
+			</div>
+		</div>
+
+		<div id="wrapper" class="sidebar-top toggled">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="./home.html"><img src="./pic/home_iconx40.png" alt="Home Icon"/>Home</a>
+                </li>
+                <li>
+                    <a href="./face_detection.html">Face Detection</a>
+                </li>
+                <li>
+                    <a href="#">Face Recognition</a>
+                </li>
+                <li>
+                    <a href="#">Browse Image</a>
+                </li>
+                <li>
+                    <a href="#">About Us</a>
+                </li>
+                <li>
+                    <a href="./login.html">Logout</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="center-home">
+                        <h1 class="text-center">Willkommen ihr Luschen!</h1>
+                        <p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                        Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                        Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+	</body>
+</html>
