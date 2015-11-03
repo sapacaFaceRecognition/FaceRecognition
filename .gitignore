@@ -13,7 +13,6 @@ hs_err_pid*
 
 
 *.classpath
-*.project
 *.prefs
 .settings/org.eclipse.jdt.core.prefs
 *.checkstyle
