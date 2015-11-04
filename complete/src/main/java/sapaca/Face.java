@@ -7,29 +7,48 @@ import static org.bytedeco.javacpp.opencv_core.cvRectangle;
 import static org.bytedeco.javacpp.opencv_core.cvSetImageROI;
 import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.bytedeco.javacpp.opencv_core.CvRect;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
+@Entity
+@Table(name="faces")
 public class Face {
-	private String infoFirstname;
-	private String infoLastname;
-	private String infoAge;
-	private String infoNationality;
+	
+	@Id
+	private long id;
+	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
+	
+	@Column(name="age")
+	private String age;
+	
+	@Column(name="nationality")
+	private String nationality;
 	private IplImage temp;
+	
+	@Column(name="image")
 	private IplImage croppedFace;
 	private CvRect r;
 	private boolean saveImage = true;
 	
-	Face(){
-		
+	protected Face(){
 	}
 	
 	private void addInfo() {
-		infoFirstname = "";
-		infoLastname = "";
-		infoAge = "";
-		infoNationality = "";
+		firstName = "";
+		lastName = "";
+		age = "";
+		nationality = "";
 	}
 	
 	public IplImage cropFace(IplImage originalImage, int rwidth, int rheight, int rx, int ry) {
@@ -53,35 +72,35 @@ public class Face {
 		}
 	}
 
-	public String getInfoFirstname() {
-		return infoFirstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setInfoFirstname(String infoFirstname) {
-		this.infoFirstname = infoFirstname;
+	public void setFirstName(String infoFirstname) {
+		this.firstName = infoFirstname;
 	}
 
-	public String getInfoLastname() {
-		return infoLastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setInfoLastname(String infoLastname) {
-		this.infoLastname = infoLastname;
+	public void setLastName(String infoLastname) {
+		this.lastName = infoLastname;
 	}
 
 	public String getInfoAge() {
-		return infoAge;
+		return age;
 	}
 
 	public void setInfoAge(String infoAge) {
-		this.infoAge = infoAge;
+		this.age = infoAge;
 	}
 
 	public String getInfoNationality() {
-		return infoNationality;
+		return nationality;
 	}
 
 	public void setInfoNationality(String infoNationality) {
-		this.infoNationality = infoNationality;
+		this.nationality = infoNationality;
 	}
 }
