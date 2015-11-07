@@ -31,6 +31,8 @@ public class FaceDetection {
 	private int detectedFaces;
 	private String originalImagePath;
 	private String saveImagePath;
+	IplImage originalImage;
+	IplImage grayImage;
  
     private static final String XML_FILE =	 "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
     										+ "haarcascade_frontalface_alt.xml";
@@ -47,14 +49,10 @@ public class FaceDetection {
      */
     private void detect() {
     	
-    	// Load originalImage
-    	IplImage originalImage = cvLoadImage(getOriginalImagePath(), 1);
-    	
-    	// Create new blank image with the size of the original one
-    	IplImage grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U,1);
-    	
-    	// Transform original image to grayscale image
+    	originalImage = cvLoadImage(getOriginalImagePath(), 1);
+    	grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U,1);
     	cvCvtColor(originalImage, grayImage, CV_BGR2GRAY);
+    	
     	CvMemStorage storage = CvMemStorage.create();
     	
     	// Instantiate classifier cascade
@@ -69,14 +67,29 @@ public class FaceDetection {
                     cvPoint(r.x() + r.width(), r.y() + r.height()),
                     CvScalar.GREEN, 1, CV_AA, 0);
         }
-        
-        // Number of detected faces
+
         detectedFaces = faces.total();
-        
-        // Save original image with rectangles
+
         cvSaveImage(getSaveImagePath(), originalImage);
         System.out.println(detectedFaces);
     	
+    }
+    
+    
+    private static byte[] IplImageToByteArray(IplImage src) {
+    	Bitmap bm = null;
+    	int width = src.width();
+    	int height = src.height();
+
+    	IplImage frame2 = IplImage.create(width, height, IPL_DEPTH_8U, 4);
+    	cvCvtColor(src, frame2, BGR2RGBA);
+    	bm = Bitmap.createBitmap(frame2.width(), frame2.height(), Bitmap.Config.ARGB_8888);
+    	bm.copyPixelsFromBuffer(frame2.getByteBuffer());
+    	
+    	frame2.release();
+    	ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    	bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+    	return stream.toByteArray();
     }
     
     /**
