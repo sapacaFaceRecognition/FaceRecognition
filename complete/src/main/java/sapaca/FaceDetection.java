@@ -18,12 +18,15 @@ import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 
+import java.util.ArrayList;
+
 import org.bytedeco.javacpp.FlyCapture2.Image;
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
 import org.bytedeco.javacpp.opencv_core.CvRect;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.CvSeq;
 import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 
 /**
@@ -31,15 +34,18 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
  * @author caro
  * 
  */
+@SuppressWarnings("unchecked")
 public class FaceDetection {
 	
+	Face faceObject;
 	private int detectedFaces;
 	private String originalImagePath;
 	private String saveImagePath;
 	private IplImage originalImage;
 	private IplImage grayImage;
 	private IplImage croppedFace;
-	private ArrayList<Face> faceObjects;
+	private ArrayList faceObjects;
+	private ArrayList croppedFaces;
 	private int counter;
  
     private static final String XML_FILE =	 "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
@@ -53,9 +59,12 @@ public class FaceDetection {
     
     /**
      * Detect faces from an image and draw rectangles around
-     * the detected faces at the original image. 
+     * the detected faces at the original ima@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
+	ge. 
      */
-    private void detect() {
+    @SuppressWarnings("unchecked")
+	private void detect() {
     	
     	originalImage = cvLoadImage(getOriginalImagePath(), 1);
     	grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U,1);
@@ -78,7 +87,7 @@ public class FaceDetection {
             
             CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
             cvSetImageROI(originalImage, r2);
-            liste.add(i,cropFace());
+            croppedFaces.add(i,cropFace());
         }
 
         detectedFaces = faces.total();
@@ -120,8 +129,8 @@ public class FaceDetection {
     	
     	cvResetImageROI(originalImage);
     	
-    	Face face = new Face(croppedFace);
-    	faceObjects.add(counter, face);
+    	faceObject = new Face(croppedFace);
+    	faceObjects.add(counter, faceObject);
     	
     	return croppedFace;
     }
@@ -136,7 +145,7 @@ public class FaceDetection {
      * 
      * @return
      */
-    private Image catchFrame() {
+    private Mat catchFrame() {
 		return null;
     }
     

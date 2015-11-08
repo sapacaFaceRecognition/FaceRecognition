@@ -19,11 +19,5 @@ hs_err_pid*
 *.xml
 *.bin
 .gradle/
-/.idea/
-/.settings/
-/.travis.yml
-/README.md
+bin/.project
 /complete/
-/libs/
-/opencv/
-/test/
