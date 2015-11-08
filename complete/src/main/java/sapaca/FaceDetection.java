@@ -20,7 +20,6 @@ import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 
 import java.util.ArrayList;
 
-import org.bytedeco.javacpp.FlyCapture2.Image;
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
 import org.bytedeco.javacpp.opencv_core.CvRect;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
@@ -35,18 +34,38 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
  * 
  */
 @SuppressWarnings("unchecked")
+
+
+/**
+ * ToDo:
+ * -  private void showFacesAndVerify(): isFace Abfrage einbauen irgendwie.
+ * damit es richtig auf true/false gesetzt wird (durch Benutzereingabe)
+ * - in der selben Methode Strings fuer Name... ueber Eingabe richtig setzen
+ * - saveImage(): boolean saveFace setzen ueber Eingabe vom Webinterface
+ * - cropFace(): Abfrage fuer x,y,w,h Werte, die ausserhalb des Bildes liegen.
+ * z.B. wenn ein Gesicht ganz nah am Rand ist und es keine 100px nach links geht.
+ * @author caro
+ *
+ */
+
 public class FaceDetection {
 	
-	Face faceObject;
+	private Face f;
 	private int detectedFaces;
 	private String originalImagePath;
 	private String saveImagePath;
 	private IplImage originalImage;
 	private IplImage grayImage;
 	private IplImage croppedFace;
-	private ArrayList faceObjects;
-	private ArrayList croppedFaces;
+	private ArrayList<Face> faceObjects;
+	private ArrayList<IplImage> croppedFaces;
 	private int counter;
+	private boolean isFace;
+	private boolean saveFace;
+	private String firstName;
+	private String lastName;
+	private String age;
+	private String nationality;
  
     private static final String XML_FILE =	 "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
     										+ "haarcascade_frontalface_alt.xml";
@@ -61,7 +80,6 @@ public class FaceDetection {
      * Detect faces from an image and draw rectangles around
      * the detected faces at the original ima@SuppressWarnings("unchecked")
 	@SuppressWarnings("unchecked")
-	ge. 
      */
     @SuppressWarnings("unchecked")
 	private void detect() {
@@ -97,7 +115,11 @@ public class FaceDetection {
     	
     }
 
-    
+    /**
+     * Method to convert an IplImage to ByteArray
+     * @param src Image to be converted
+     * @return converted Image
+     */
     private static byte[] IplImageToByteArray(IplImage src) {
     	Bitmap bm = null;
     	int width = src.width();
@@ -122,31 +144,96 @@ public class FaceDetection {
      * @return IplImage the cropped face
      */
     private IplImage cropFace() {
-    	
     	croppedFace = new IplImage();
     	croppedFace = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
     	cvCopy(originalImage, croppedFace);
     	
     	cvResetImageROI(originalImage);
     	
-    	faceObject = new Face(croppedFace);
+    	Face faceObject = new Face(croppedFace);
     	faceObjects.add(counter, faceObject);
+    	
     	
     	return croppedFace;
     }
+    
     /**
-     * 
+     * Start the camera of the users pc when the source is videosource
      */
     protected void startCamera() {
     	
     }
     
     /**
-     * 
-     * @return
+     * Catch a frame from the videoSource
+     * @return IplImage catched Frame
      */
     private Mat catchFrame() {
 		return null;
+    }
+    
+    /**
+     * Method to output the cropped images for the user to
+     * verify the results.
+     */
+    private void showFacesAndVerify() {
+    	int i = 0;
+    	
+    	isFace = true;
+    	
+    	for (Face f : faceObjects) {
+    		cvSaveImage("NAME.jpg", f.getCroppedFace());
+    		if (isFace == true) {
+    			f.setFace(true);
+    			
+    			/**
+    			 * TODO:
+    			 * Strings setzen durch Eingabe ueber Webinterface
+    			 * 
+    			 */
+    			
+    			addInformation(f, firstName, lastName, age, nationality);
+    			saveImage();
+    			i++;
+    		} else {
+    			f.setFace(false);
+    			faceObjects.remove(f);
+    			croppedFaces.remove(f);
+    			i++;
+    		}
+    	}
+    }
+    
+    /**
+     * Adding additional Information about the face
+     * @param f Face Object
+     * @param fname FirstName
+     * @param lname LastName
+     * @param ag Age
+     * @param national Nationality
+     */
+    private void addInformation(Face f, String fname, String lname, String ag, String national) {
+    	Face fa = f;
+    	fa.setFirstName(fname);
+    	fa.setLastName(lname);
+    	fa.setInfoAge(ag);
+    	fa.setInfoNationality(national);
+    }
+    
+    /**
+     * Save the image of the detected face
+     */
+    private void saveImage() {
+    	
+    	if (saveFace == true) {
+    		/**
+    		 * SAVE
+    		 */
+    	} else {
+    		/**
+    		 * DELETE
+    		 */
+    	}
     }
     
 	public String getOriginalImagePath() {
