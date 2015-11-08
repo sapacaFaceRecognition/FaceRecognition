@@ -75,6 +75,14 @@ public class Face {
 		this.firstName = infoFirstname;
 	}
 
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -97,5 +105,29 @@ public class Face {
 
 	public void setInfoNationality(String infoNationality) {
 		this.nationality = infoNationality;
+	}
+
+	public boolean isFace() {
+		return isFace;
+	}
+
+	public void setFace(boolean isFace) {
+		this.isFace = isFace;
+	}
+
+	public boolean isSaveImage() {
+		return saveImage;
+	}
+
+	public void setSaveImage(boolean saveImage) {
+		this.saveImage = saveImage;
+	}
+
+	public IplImage getCroppedFace() {
+		return croppedFace;
+	}
+
+	public void setCroppedFace(IplImage croppedFace) {
+		this.croppedFace = croppedFace;
 	}
 }
