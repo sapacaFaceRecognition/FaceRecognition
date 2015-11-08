@@ -1,4 +1,4 @@
-package sapaca;
+
 import static org.bytedeco.javacpp.opencv_core.CV_AA;
 import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
 import static org.bytedeco.javacpp.opencv_core.cvCopy;
@@ -39,34 +39,29 @@ public class Face {
 	@Column(name="image")
 	private IplImage croppedFace;
 	private CvRect r;
-	private boolean saveImage = true;
+	private boolean isFace;
+	private boolean saveImage;
+
 	
-	protected Face(){
+	protected Face(IplImage croppedFace){
+		this.croppedFace = croppedFace;
+		
+		addInfo();
 	}
 	
 	private void addInfo() {
-		firstName = "";
-		lastName = "";
-		age = "";
-		nationality = "";
+		if (isFace == true) {
+			firstName = "";
+			lastName = "";
+			age = "";
+			nationality = "";
+			
+			saveImage();
+		}
 	}
 	
-	public IplImage cropFace(IplImage originalImage, int rwidth, int rheight, int rx, int ry) {
-        cvCopy(originalImage, temp);
-        r = new CvRect();
-        cvRectangle(originalImage, cvPoint(rx, ry),
-                cvPoint(rx + rwidth, ry + rheight),
-                CvScalar.GREEN, 1, CV_AA, 0);
-        cvSetImageROI(temp, r);
-        croppedFace = IplImage.create(r.width(), r.height(), IPL_DEPTH_8U, 1);
-        cvCopy(temp, croppedFace);
-        
-        saveImage(croppedFace);
-        
-		return croppedFace;
-	}
 	
-	private void saveImage(IplImage croppedFace) {
+	private void saveImage() {
 		if (saveImage == true) {
 			cvSaveImage("PATH", croppedFace);
 		}

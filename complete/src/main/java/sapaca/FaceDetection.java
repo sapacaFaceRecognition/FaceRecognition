@@ -4,14 +4,21 @@ package sapaca;
 import static org.bytedeco.javacpp.helper.opencv_objdetect.cvHaarDetectObjects;
 import static org.bytedeco.javacpp.opencv_core.CV_AA;
 import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
+import static org.bytedeco.javacpp.opencv_core.cvCopy;
 import static org.bytedeco.javacpp.opencv_core.cvGetSeqElem;
+import static org.bytedeco.javacpp.opencv_core.cvGetSize;
 import static org.bytedeco.javacpp.opencv_core.cvLoad;
 import static org.bytedeco.javacpp.opencv_core.cvPoint;
+import static org.bytedeco.javacpp.opencv_core.cvRect;
 import static org.bytedeco.javacpp.opencv_core.cvRectangle;
+import static org.bytedeco.javacpp.opencv_core.cvResetImageROI;
+import static org.bytedeco.javacpp.opencv_core.cvSetImageROI;
 import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
 import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
+
+import java.util.ArrayList;
 
 import org.bytedeco.javacpp.FlyCapture2.Image;
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
@@ -19,6 +26,7 @@ import org.bytedeco.javacpp.opencv_core.CvRect;
 import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.CvSeq;
 import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 
 /**
@@ -26,11 +34,19 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
  * @author caro
  * 
  */
+@SuppressWarnings("unchecked")
 public class FaceDetection {
 	
+	Face faceObject;
 	private int detectedFaces;
 	private String originalImagePath;
 	private String saveImagePath;
+	private IplImage originalImage;
+	private IplImage grayImage;
+	private IplImage croppedFace;
+	private ArrayList faceObjects;
+	private ArrayList croppedFaces;
+	private int counter;
  
     private static final String XML_FILE =	 "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
     										+ "haarcascade_frontalface_alt.xml";
@@ -43,18 +59,17 @@ public class FaceDetection {
     
     /**
      * Detect faces from an image and draw rectangles around
-     * the detected faces at the original image. 
+     * the detected faces at the original ima@SuppressWarnings("unchecked")
+	@SuppressWarnings("unchecked")
+	ge. 
      */
-    private void detect() {
+    @SuppressWarnings("unchecked")
+	private void detect() {
     	
-    	// Load originalImage
-    	IplImage originalImage = cvLoadImage(getOriginalImagePath(), 1);
-    	
-    	// Create new blank image with the size of the original one
-    	IplImage grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U,1);
-    	
-    	// Transform original image to grayscale image
+    	originalImage = cvLoadImage(getOriginalImagePath(), 1);
+    	grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U,1);
     	cvCvtColor(originalImage, grayImage, CV_BGR2GRAY);
+    	
     	CvMemStorage storage = CvMemStorage.create();
     	
     	// Instantiate classifier cascade
@@ -64,28 +79,61 @@ public class FaceDetection {
     	
     	// Draw rectangles (on original image)
         for (int i = 0; i < faces.total(); i++) {
+        	counter = i;
             CvRect r = new CvRect(cvGetSeqElem(faces, i));
             cvRectangle(originalImage, cvPoint(r.x(), r.y()),
                     cvPoint(r.x() + r.width(), r.y() + r.height()),
                     CvScalar.GREEN, 1, CV_AA, 0);
+            
+            CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
+            cvSetImageROI(originalImage, r2);
+            croppedFaces.add(i,cropFace());
         }
-        
-        // Number of detected faces
+
         detectedFaces = faces.total();
-        
-        // Save original image with rectangles
-        cvSaveImage(getSaveImagePath(), originalImage);
+
+        //cvSaveImage(getSaveImagePath(), originalImage);
         System.out.println(detectedFaces);
     	
     }
+
     
-    /**
-     * Detected faces are cropped out of the image and saved.
-     */
-    private void outputFaces() {
+    private static byte[] IplImageToByteArray(IplImage src) {
+    	Bitmap bm = null;
+    	int width = src.width();
+    	int height = src.height();
+
+    	IplImage frame2 = IplImage.create(width, height, IPL_DEPTH_8U, 4);
+    	cvCvtColor(src, frame2, BGR2RGBA);
+    	bm = Bitmap.createBitmap(frame2.width(), frame2.height(), Bitmap.Config.ARGB_8888);
+    	bm.copyPixelsFromBuffer(frame2.getByteBuffer());
     	
+    	frame2.release();
+    	ByteArrayOutputStream stream = new ByteArrayOutputStream();
+    	bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+    	return stream.toByteArray();
     }
     
+    /**
+     * Method to crop a detected Face out of the original Image
+     * with the rectangle included
+     * For every cropped Face a face object is created and stored
+     * into an ArrayList (faceObjects)
+     * @return IplImage the cropped face
+     */
+    private IplImage cropFace() {
+    	
+    	croppedFace = new IplImage();
+    	croppedFace = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
+    	cvCopy(originalImage, croppedFace);
+    	
+    	cvResetImageROI(originalImage);
+    	
+    	faceObject = new Face(croppedFace);
+    	faceObjects.add(counter, faceObject);
+    	
+    	return croppedFace;
+    }
     /**
      * 
      */
@@ -97,7 +145,7 @@ public class FaceDetection {
      * 
      * @return
      */
-    private Image catchFrame() {
+    private Mat catchFrame() {
 		return null;
     }
     
