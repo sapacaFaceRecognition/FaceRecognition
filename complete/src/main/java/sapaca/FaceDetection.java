@@ -81,7 +81,6 @@ public class FaceDetection {
      * the detected faces at the original ima@SuppressWarnings("unchecked")
 	@SuppressWarnings("unchecked")
      */
-    @SuppressWarnings("unchecked")
 	private void detect() {
     	
     	originalImage = cvLoadImage(getOriginalImagePath(), 1);
