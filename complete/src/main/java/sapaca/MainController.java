@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class MainController {
@@ -59,5 +60,12 @@ public class MainController {
 	public String aboutUs(Model model) {
 		return "about_us";
 	}
-
+	
+	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST) 
+    public String uploadImage(@RequestParam("myFile") MultipartFile myFile) { 
+         // ... do whatever you want with 'myFile' 
+         // Redirect to a successful upload page 
+		 System.out.println("test");
+         return "face_detection"; 
+    } 
 }
