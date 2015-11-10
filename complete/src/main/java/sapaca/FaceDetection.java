@@ -119,21 +119,21 @@ public class FaceDetection {
      * @param src Image to be converted
      * @return converted Image
      */
-    private static byte[] IplImageToByteArray(IplImage src) {
-    	Bitmap bm = null;
-    	int width = src.width();
-    	int height = src.height();
-
-    	IplImage frame2 = IplImage.create(width, height, IPL_DEPTH_8U, 4);
-    	cvCvtColor(src, frame2, BGR2RGBA);
-    	bm = Bitmap.createBitmap(frame2.width(), frame2.height(), Bitmap.Config.ARGB_8888);
-    	bm.copyPixelsFromBuffer(frame2.getByteBuffer());
-    	
-    	frame2.release();
-    	ByteArrayOutputStream stream = new ByteArrayOutputStream();
-    	bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
-    	return stream.toByteArray();
-    }
+//    private static byte[] IplImageToByteArray(IplImage src) {
+//    	Bitmap bm = null;
+//    	int width = src.width();
+//    	int height = src.height();
+//
+//    	IplImage frame2 = IplImage.create(width, height, IPL_DEPTH_8U, 4);
+//    	cvCvtColor(src, frame2, BGR2RGBA);
+//    	bm = Bitmap.createBitmap(frame2.width(), frame2.height(), Bitmap.Config.ARGB_8888);
+//    	bm.copyPixelsFromBuffer(frame2.getByteBuffer());
+//    	
+//    	frame2.release();
+//    	ByteArrayOutputStream stream = new ByteArrayOutputStream();
+//    	bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
+//    	return stream.toByteArray();
+//    }
     
     /**
      * Method to crop a detected Face out of the original Image
