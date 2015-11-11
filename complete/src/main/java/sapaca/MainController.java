@@ -61,11 +61,11 @@ public class MainController {
 		return "about_us";
 	}
 	
-	@RequestMapping(value = "/uploadImage", method = RequestMethod.POST) 
+	@RequestMapping(value = "/face_detection.html", method = RequestMethod.POST) 
     public String uploadImage(@RequestParam("myFile") MultipartFile myFile) { 
          // ... do whatever you want with 'myFile' 
-         // Redirect to a successful upload page 
-		 System.out.println("test");
+         // Redirect to a successful upload page
+		 System.out.println(myFile.getOriginalFilename());
          return "face_detection"; 
     } 
 }
