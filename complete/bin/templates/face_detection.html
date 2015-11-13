@@ -47,10 +47,15 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <img class="img-rounded col-lg-7" src="./pic/Detecting.png" alt="Picture"/>
+                	<!-- <div class="col-lg-7" th:if="${}"> -->
+                    	<img id="detectingResult" class="img-rounded col-lg-7" th:src="${image_path != null} ? ${image_path} : './pic/Detecting.png'" alt="Picture"/>
+                    <!-- </div>	
+                    <div class="col-lg-7" th:unless="${}">
+                    	<img id="detectingResult" class="img-rounded" src="./pic/Detecting.png" alt="Picture"/>
+                    </div> -->
                     <div class="col-lg-5">
                         <h1>Additional Information </h1>
-                        <p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                        <p><p th:if="${isUploadedImageEmpty == false}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
                     </div>
@@ -58,12 +63,20 @@
                 <div class="row">
                     <p class=" col-lg-7 webcam-info">Webcam Information</p>
                 </div>
+                <!--
                 <div class="row">
-                    <div class="col-lg-7">
-                        <button type="button" class="btn btn-default col-md-4">Upload Image  <img src="./pic/upload_icon.png" alt="Upload Icon"/></button>
-                        <button type="button" class="btn btn-default col-md-4 col-md-offset-4">Start Camera  <img src="./pic/camera_icon.png" alt="Camera Icon"/></button>
-                    </div>
+                    <form action="#" th:action="@{/uploadImage}" th:object="${uploadImage}" method="POST" class="class="btn btn-default col-lg-7">
+                       <input type="file"  accept="image/*" onclick="uploadImage();">Upload Image</input>
+                    </form>
+                    <form class="class="btn btn-default col-lg-7">
+                    	 <input type="button">Start Camera  <img src="./pic/camera_icon.png" alt="Camera Icon"/></input>
+                    </form>
                 </div>
+                -->
+                <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
+       				<input type="file" name="uploadedFile" accept="image/*" />
+      				<input type="submit" />
+    			</form>
             </div>
         </div>
 
