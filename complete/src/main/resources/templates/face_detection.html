@@ -48,14 +48,14 @@
             <div class="container-fluid">
                 <div class="row">
                 	<!-- <div class="col-lg-7" th:if="${}"> -->
-                    	<img id="detectingResult" class="img-rounded col-lg-7" src="./pic/Detecting.png" alt="Picture"/>
+                    	<img id="detectingResult" class="img-rounded col-lg-7" th:src="${image_path != null} ? ${image_path} : './pic/Detecting.png'" alt="Picture"/>
                     <!-- </div>	
                     <div class="col-lg-7" th:unless="${}">
                     	<img id="detectingResult" class="img-rounded" src="./pic/Detecting.png" alt="Picture"/>
                     </div> -->
                     <div class="col-lg-5">
                         <h1>Additional Information </h1>
-                        <p><p th:if="${isMyFileFilled}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                        <p><p th:if="${isUploadedImageEmpty == false}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
                     </div>
@@ -74,7 +74,7 @@
                 </div>
                 -->
                 <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       				<input type="file" name="myFile" accept="image/*" />
+       				<input type="file" name="uploadedFile" accept="image/*" />
       				<input type="submit" />
     			</form>
             </div>
