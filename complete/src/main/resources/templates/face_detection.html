@@ -47,10 +47,15 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="row">
-                    <img id="detectingResult" class="img-rounded col-lg-7" src="./pic/Detecting.png" alt="Picture"/>
+                	<!-- <div class="col-lg-7" th:if="${}"> -->
+                    	<img id="detectingResult" class="img-rounded col-lg-7" src="./pic/Detecting.png" alt="Picture"/>
+                    <!-- </div>	
+                    <div class="col-lg-7" th:unless="${}">
+                    	<img id="detectingResult" class="img-rounded" src="./pic/Detecting.png" alt="Picture"/>
+                    </div> -->
                     <div class="col-lg-5">
                         <h1>Additional Information </h1>
-                        <p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                        <p><p th:if="${isMyFileFilled}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
                     </div>
@@ -68,7 +73,7 @@
                     </form>
                 </div>
                 -->
-                <form action="uploadImage();" th:action="@{/face_detection.html}" method="post">
+                <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
        				<input type="file" name="myFile" accept="image/*" />
       				<input type="submit" />
     			</form>

@@ -1,5 +1,10 @@
 package sapaca;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Part;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +14,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class MainController {
+	
+	private MultipartFile myFile;
+	private Boolean isMyFileFilled;
+	
+	public MainController() {
+		isMyFileFilled = false;
+	}
 
 	// @RequestMapping("/test")
 	// public String test(@RequestParam(value = "name", required = false,
@@ -60,12 +72,22 @@ public class MainController {
 	public String aboutUs(Model model) {
 		return "about_us";
 	}
+
+	@RequestMapping(value = "/face_detection.html", headers = "content-type=application/x-www-form-urlencoded, multipart/*", method = RequestMethod.POST)
+	public String uploadImage(@RequestParam("myFile") MultipartFile myFile) throws IOException, ServletException {
+		// ... do whatever you want with 'myFile'
+		// Redirect to a successful upload page
+		this.myFile = myFile;
+		refreshMyFileBoolean();
+		System.out.println(myFile.getOriginalFilename());
+		return "face_detection";
+	}
 	
-	@RequestMapping(value = "/face_detection.html", method = RequestMethod.POST) 
-    public String uploadImage(@RequestParam("myFile") MultipartFile myFile) { 
-         // ... do whatever you want with 'myFile' 
-         // Redirect to a successful upload page
-		 System.out.println(myFile.getOriginalFilename());
-         return "face_detection"; 
-    } 
+	public void refreshMyFileBoolean(){
+		if(myFile.isEmpty()){
+			isMyFileFilled = false;
+		}else{
+			isMyFileFilled = true;
+		}
+	}
 }
