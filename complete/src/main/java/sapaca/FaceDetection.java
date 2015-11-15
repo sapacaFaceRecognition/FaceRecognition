@@ -78,7 +78,7 @@ public class FaceDetection {
 
 	/**
 	 * Detect faces from an image and draw rectangles around the detected faces
-	 * at the original
+	 * testat the original
 	 * ima@SuppressWarnings("unchecked") @SuppressWarnings("unchecked")
 	 */
 	private void detect() {
