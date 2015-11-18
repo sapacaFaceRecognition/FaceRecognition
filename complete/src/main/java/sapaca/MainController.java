@@ -86,16 +86,14 @@ public class MainController {
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
 		if (!isUploadedImageEmpty) {
 			String test = saveFile();
-			// String fileName = test.split("/")[test.split("/").length - 1];
-			// String imagePath =
-			// getClass().getClassLoader().getResource(".").getFile() +
-			// "uploaded_images/" + fileName;
-			// if (System.getProperty("os.name").contains("indow")) {
-			// imagePath = imagePath.substring(1, imagePath.length());
-			// }
-			// String newImagePath = imagePath.replace(".jpg", "_face.jpg");
-			// new FaceDetection(imagePath, newImagePath);
-			model.addAttribute("image_path", test);
+			String fileName = test.split("/")[test.split("/").length - 1];
+			String imagePath = getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName;
+			if (System.getProperty("os.name").contains("indow")) {
+				imagePath = imagePath.substring(1, imagePath.length());
+			}
+			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
+			new FaceDetection(imagePath, newImagePath);
+			model.addAttribute("image_path", newImagePath);
 		}
 		return "face_detection";
 	}
