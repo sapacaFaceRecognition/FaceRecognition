@@ -16,7 +16,6 @@ hs_err_pid*
 *.prefs
 .settings/org.eclipse.jdt.core.prefs
 *.checkstyle
-*.xml
 *.bin
 .gradle/
 bin/.project
