@@ -58,6 +58,13 @@
                         <p><p th:if="${isUploadedImageEmpty == false}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
+                        <div th:if="${isUploadedImageEmpty == true}">
+                            <p>Wurde das Gesicht richtig erkannt?</p>
+                            <form action="" method="POST">
+                                <input type="submit" value="Ja"></input>
+                                <input type="submit" value="Nein"></input>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
