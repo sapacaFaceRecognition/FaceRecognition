@@ -11,12 +11,34 @@ import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-
-import java.util.List;
+import cucumberTest.SeleniumTest;
 
 public class Test_Steps {
 	public WebDriver driver = null;
 	public WebElement element = null;
+	private SeleniumTest selenium;
+	
+	public void setUp() {
+		selenium = new SeleniumTest();
+		selenium.setUp();
+		selenium.goToHomePage();
+	}
+	
+	@Given("^I am logged in$") 
+	public void i_am_logged_in() throws Throwable {
+		setUp();
+		selenium.login();
+	}
+	
+	@When("^I press the \"(.*?)\" button$") 
+	public void i_press_the_button(String button) throws Throwable {
+		selenium.clickButton(button);
+	}
+	
+	@When("^I navigate to page \"(.*?)\" $")
+	public void i_navigate_to_page(String page) throws Throwable {
+		selenium.clickButton(page);
+	}
 	
 	@Given("^User is logged in")
 	public void user_is_logged_in() throws Throwable {
