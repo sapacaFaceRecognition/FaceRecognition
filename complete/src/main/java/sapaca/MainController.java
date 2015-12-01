@@ -85,7 +85,17 @@ public class MainController {
 		System.out.println(uploadedFile.getOriginalFilename());
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
 		if (!isUploadedImageEmpty) {
-			model.addAttribute("image_path", saveFile());
+			String fileName = saveFile();
+			String fullFileName = fileName.split("/")[fileName.split("/").length - 1];
+			String fullImagePath = getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/"
+					+ fullFileName;
+			if (System.getProperty("os.name").contains("indow")) {
+				fullImagePath = fullImagePath.substring(1, fullImagePath.length());
+			}
+			String newFullImagePath = fullImagePath.replace(".jpg", "_face.jpg");
+			new FaceDetection(fullImagePath, newFullImagePath);
+			model.addAttribute("image_path",
+					fileName.split("/")[fileName.split("/").length - 1].replace(".jpg", "_face.jpg"));
 		}
 		return "face_detection";
 	}
@@ -96,7 +106,7 @@ public class MainController {
 		byte[] data = {};
 		try {
 			String imagePath = getClass().getClassLoader().getResource(".").getFile() + "/uploaded_images/" + imageId
-					+ ".img";
+					+ ".jpg";
 			Path path;
 			if (System.getProperty("os.name").contains("indow")) {
 				path = Paths.get(imagePath.substring(1, imagePath.length()));
@@ -112,7 +122,7 @@ public class MainController {
 
 	private String saveFile() {
 		File imagePath = new File(getClass().getClassLoader().getResource(".").getFile() + "/uploaded_images/image_"
-				+ System.currentTimeMillis() + ".img");
+				+ System.currentTimeMillis() + ".jpg");
 		System.out.println("ImagePath: " + imagePath.toString());
 		if (!imagePath.getParentFile().exists()) {
 			imagePath.getParentFile().mkdir();
