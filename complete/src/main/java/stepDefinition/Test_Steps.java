@@ -14,6 +14,9 @@ import cucumber.api.java.en.When;
 import cucumberTest.SeleniumTest;
 
 public class Test_Steps {
+	// https://github.com/wayoflife/softwareengineering/blob/master/CucumberTests/src/cucumbertests/SeleniumTest.java
+	// https://github.com/wayoflife/softwareengineering/blob/master/CucumberTests/src/cucumbertests/StepDefs.java
+	
 	public WebDriver driver = null;
 	public WebElement element = null;
 	private SeleniumTest selenium;
@@ -30,15 +33,26 @@ public class Test_Steps {
 		selenium.login();
 	}
 	
-	@When("^I press the \"(.*?)\" button$") 
+	@When("^I press the \"(.*?)\" Button$") 
 	public void i_press_the_button(String button) throws Throwable {
 		selenium.clickButton(button);
 	}
 	
-	@When("^I navigate to page \"(.*?)\" $")
+	@When("^I navigate to page \"(.*?)\"$")
 	public void i_navigate_to_page(String page) throws Throwable {
-		selenium.clickButton(page);
+		selenium.navigateToPage(page);
 	}
+	
+	@When("^I select an Image$")
+	public void i_select_an_image() throws Throwable {
+		// :(
+	}
+	
+	@When("^I see the uploaded Image with detected Faces$")
+	public void i_sse_uploaded_image() throws Throwable {
+		selenium.checkUploadedImage();
+	}
+	
 	
 	@Given("^User is logged in")
 	public void user_is_logged_in() throws Throwable {

@@ -1,6 +1,8 @@
 package cucumberTest;
  
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertTrue;
  
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
@@ -13,6 +15,7 @@ public class SeleniumTest {
 	private String browserName;
 	private String browserVersion;
 	private String mainUrl;
+	private String uploadImage = "Upload Image";
 	
 	public void setUp() {
 		driver = new FirefoxDriver();
@@ -33,7 +36,16 @@ public class SeleniumTest {
 	}
 	
 	public void clickButton(String button) {
-		driver.findElement(By.id(button)).click();
+		if (button.equals(uploadImage)) {
+			driver.findElement(By.xpath("//form/*[@name='uploadedFile']")).
+							sendKeys("//users//caro//Desktop//unnamed.jpg");
+		} 
+		else if (button.equals("Submit")) {
+			driver.findElement(By.xpath("//form/*[@name='submit']")).click();
+		}
+		else {	
+			driver.findElement(By.id(button)).click();
+		}
 	}
 	
 	public void goToHomePage() {
@@ -43,5 +55,13 @@ public class SeleniumTest {
 	public void navigateToPage(String page) {
 		driver.findElement(By.id("menu-toggle")).click();
 		driver.findElement(By.linkText(page)).click();
+	}
+	
+	public void selectImage() {
+		// :(
+	}
+	
+	public void checkUploadedImage() {
+		assertTrue(driver.findElement(By.id("detectingResult")) != null);
 	}
 }
