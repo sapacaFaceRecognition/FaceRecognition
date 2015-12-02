@@ -57,7 +57,6 @@ public class Test_Steps {
 	@Then("^I see an error message$")
 	public void i_see_an_error_message() throws Throwable {
 	    selenium.errorMessage();
-	    throw new PendingException();
 	}
 	
 	
