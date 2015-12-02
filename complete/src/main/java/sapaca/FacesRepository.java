@@ -4,9 +4,7 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface FacesRepository
- extends CrudRepository<Face, Double>
-{
+public interface FacesRepository extends CrudRepository<Face, Double> {
 	List<Face> findById(long id);
 
 	List<Face> findByFirstName(String firstName);
