@@ -7,11 +7,13 @@ import static org.junit.Assert.assertTrue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
  
 public class SeleniumTest {
 	private static WebDriver driver = null;
+	WebElement element;
 	private String browserName;
 	private String browserVersion;
 	private String mainUrl;
@@ -37,8 +39,7 @@ public class SeleniumTest {
 	
 	public void clickButton(String button) {
 		if (button.equals(uploadImage)) {
-			driver.findElement(By.xpath("//form/*[@name='uploadedFile']")).
-							sendKeys("//users//caro//Desktop//unnamed.jpg");
+			element = driver.findElement(By.xpath("//form/*[@name='uploadedFile']"));
 		} 
 		else if (button.equals("Submit")) {
 			driver.findElement(By.xpath("//form/*[@name='submit']")).click();
@@ -58,8 +59,8 @@ public class SeleniumTest {
 	}
 	
 	public void selectImage() {
-		// :(
-	}
+		element.sendKeys("//users//caro//Desktop//unnamed.jpg");
+		}
 	
 	public void checkUploadedImage() {
 		assertTrue(driver.findElement(By.id("detectingResult")) != null);
