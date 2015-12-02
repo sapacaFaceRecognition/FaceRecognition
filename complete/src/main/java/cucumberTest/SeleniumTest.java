@@ -58,11 +58,19 @@ public class SeleniumTest {
 		driver.findElement(By.linkText(page)).click();
 	}
 	
-	public void selectImage() {
-		element.sendKeys("//users//caro//Desktop//unnamed.jpg");
+	public void selectImage(int size) {
+		if (size <= 5) {
+			element.sendKeys("//users//caro//Desktop//unnamed.jpg");
+		} else if (size >= 5) {
+			element.sendKeys("//users//caro//Desktop//65340036.JPG");
 		}
+	}
 	
 	public void checkUploadedImage() {
 		assertTrue(driver.findElement(By.id("detectingResult")) != null);
+	}
+	
+	public void errorMessage() {
+		System.out.println("Nope. Error :)");
 	}
 }

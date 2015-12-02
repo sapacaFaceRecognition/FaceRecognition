@@ -43,14 +43,21 @@ public class Test_Steps {
 		selenium.navigateToPage(page);
 	}
 	
-	@When("^I select an Image$")
-	public void i_select_an_image() throws Throwable {
-		// :(
+	@When("^I select an Image with size \"([^\"]*)\" MB$")
+	public void i_select_an_image(int size) throws Throwable {
+		selenium.selectImage(size);
 	}
 	
-	@When("^I see the uploaded Image with detected Faces$")
+	@Then("^I see the uploaded Image with detected Faces$")
 	public void i_sse_uploaded_image() throws Throwable {
 		selenium.checkUploadedImage();
+	}
+	
+	
+	@Then("^I see an error message$")
+	public void i_see_an_error_message() throws Throwable {
+	    selenium.errorMessage();
+	    throw new PendingException();
 	}
 	
 	
