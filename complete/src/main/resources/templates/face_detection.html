@@ -26,7 +26,7 @@
                     <a href="./home.html"><img src="./pic/home_iconx40.png" alt="Home Icon"/>Home</a>
                 </li>
                 <li>
-                    <a href="./face_detection.html">Face Detection</a>
+                    <a id="detect_face" href="./face_detection.html">Face Detection</a>
                 </li>
                 <li>
                     <a href="#">Face Recognition</a>
@@ -75,7 +75,7 @@
                 -->
                 <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
        				<input type="file" name="uploadedFile" accept="image/*" />
-      				<input type="submit" />
+      				<input type="submit" name="submit" />
     			</form>
             </div>
         </div>
