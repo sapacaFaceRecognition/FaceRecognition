@@ -18,6 +18,7 @@ import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
@@ -58,8 +59,8 @@ public class FaceDetection {
 	private IplImage originalImage;
 	private IplImage grayImage;
 	private IplImage croppedFace;
-	private ArrayList<Face> faceObjects;
-	private ArrayList<IplImage> croppedFaces;
+	private ArrayList<Face> faceObjects = new ArrayList<Face>();
+	private ArrayList<IplImage> croppedFaces = new ArrayList<IplImage>();
 	private int counter;
 	private boolean isFace;
 	private boolean saveFace;
@@ -74,6 +75,15 @@ public class FaceDetection {
 	FaceDetection(String originalImagePath, String saveImagePath) {
 		this.setOriginalImagePath(originalImagePath);
 		this.setSaveImagePath(saveImagePath);
+	private static String XML_FILE;
+
+	public FaceDetection(String originalImagePath, String saveImagePath) {
+		this.setOriginalImagePath(originalImagePath);
+		this.setSaveImagePath(saveImagePath);
+		XML_FILE = getClass().getClassLoader().getResource(".").getFile() + "haarcascade_frontalface_alt.xml";
+		if (System.getProperty("os.name").contains("indow")) {
+			XML_FILE = XML_FILE.substring(1, XML_FILE.length());
+		}
 		detect();
 	}
 
@@ -83,6 +93,8 @@ public class FaceDetection {
 	 * ima@SuppressWarnings("unchecked") @SuppressWarnings("unchecked")
 	 */
 	private void detect() {
+
+		System.out.println(getOriginalImagePath());
 
 		originalImage = cvLoadImage(getOriginalImagePath(), 1);
 		grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
@@ -105,11 +117,14 @@ public class FaceDetection {
 			CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
 			cvSetImageROI(originalImage, r2);
 			croppedFaces.add(i, cropFace());
+			// cvSetImageROI(originalImage, r2);
+			// croppedFaces.add(i, cropFace());
 		}
 
 		detectedFaces = faces.total();
 
 		// cvSaveImage(getSaveImagePath(), originalImage);
+		cvSaveImage(getSaveImagePath(), originalImage);
 		System.out.println(detectedFaces);
 
 	}
@@ -157,6 +172,19 @@ public class FaceDetection {
 
 		return croppedFace;
 	}
+	// private IplImage cropFace() {
+	// croppedFace = new IplImage();
+	// croppedFace = IplImage.create(cvGetSize(originalImage),
+	// originalImage.depth(), originalImage.nChannels());
+	// cvCopy(originalImage, croppedFace);
+	//
+	// cvResetImageROI(originalImage);
+	//
+	// Face faceObject = new Face(croppedFace);
+	// faceObjects.add(counter, faceObject);
+	//
+	// return croppedFace;
+	// }
 
 	/**
 	 * Start the camera of the users pc when the source is videosource
@@ -203,6 +231,32 @@ public class FaceDetection {
 			}
 		}
 	}
+	// private void showFacesAndVerify() {
+	// int i = 0;
+	//
+	// isFace = true;
+	//
+	// for (Face f : faceObjects) {
+	// cvSaveImage("NAME.jpg", f.getCroppedFace());
+	// if (isFace == true) {
+	// f.setFace(true);
+	//
+	// /**
+	// * TODO: Strings setzen durch Eingabe ueber Webinterface
+	// *
+	// */
+	//
+	// addInformation(f, firstName, lastName, age, nationality);
+	// saveImage();
+	// i++;
+	// } else {
+	// f.setFace(false);
+	// faceObjects.remove(f);
+	// croppedFaces.remove(f);
+	// i++;
+	// }
+	// }
+	// }
 
 	/**
 	 * Adding additional Information about the face
