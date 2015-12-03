@@ -68,7 +68,6 @@ public class FaceDetection {
 	private String age;
 	private String nationality;
 
-<<<<<<< HEAD
 	private static String XML_FILE;
 
 	public FaceDetection(String originalImagePath, String saveImagePath) {

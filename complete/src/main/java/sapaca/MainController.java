@@ -85,34 +85,18 @@ public class MainController {
 		System.out.println(uploadedFile.getOriginalFilename());
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
 		if (!isUploadedImageEmpty) {
-<<<<<<< HEAD
-			String fileName = saveFile();
-			String fullFileName = fileName.split("/")[fileName.split("/").length - 1];
-			String fullImagePath = getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/"
-					+ fullFileName;
-			if (System.getProperty("os.name").contains("indow")) {
-				fullImagePath = fullImagePath.substring(1, fullImagePath.length());
-			}
-			String newFullImagePath = fullImagePath.replace(".jpg", "_face.jpg");
-			new FaceDetection(fullImagePath, newFullImagePath);
-			model.addAttribute("image_path",
-					fileName.split("/")[fileName.split("/").length - 1].replace(".jpg", "_face.jpg"));
-=======
 			String test = saveFile();
-			 String fileName = test.split("/")[test.split("/").length - 1];
-			 String imagePath =
-			 getClass().getClassLoader().getResource(".").getFile() +
-			 "uploaded_images/" + fileName;
-			 if (System.getProperty("os.name").contains("indow")) {
-			 imagePath = imagePath.substring(1, imagePath.length());
-			 }
-			 String newImagePath = imagePath.replace(".jpg", "_face.jpg");
-			 new FaceDetection(imagePath, newImagePath);
+			String fileName = test.split("/")[test.split("/").length - 1];
+			String imagePath = getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName;
+			if (System.getProperty("os.name").contains("indow")) {
+				imagePath = imagePath.substring(1, imagePath.length());
+			}
+			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
+			new FaceDetection(imagePath, newImagePath);
 			model.addAttribute("image_path", test.replace(".jpg", "_face.jpg"));
->>>>>>> refs/remotes/origin/playground
 		}
 		return "face_detection";
-		//return test.replace(".jpg", "_face.jpg")
+		// return test.replace(".jpg", "_face.jpg")
 	}
 
 	@RequestMapping(value = "/getImage/{imageId}")
