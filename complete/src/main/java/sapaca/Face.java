@@ -16,7 +16,7 @@ import org.bytedeco.javacpp.opencv_core.IplImage;
 //@Table(name="faces")
 public class Face {
 
-//	 @Id
+	// @Id
 	private long id;
 
 	// @Column(name="first_name")
