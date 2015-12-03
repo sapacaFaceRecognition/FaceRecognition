@@ -68,6 +68,10 @@ public class FaceDetection {
 	private String age;
 	private String nationality;
 
+//	private static final String XML_FILE = "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
+//			+ "haarcascade_frontalface_alt.xml";
+	
+	private static final String XML_FILE = "C:\\Users\\caro\\workspace\\FaceDetection3\\src\\haarcascade_frontalface_alt.xml";
 	private static String XML_FILE;
 
 	public FaceDetection(String originalImagePath, String saveImagePath) {
@@ -82,7 +86,7 @@ public class FaceDetection {
 
 	/**
 	 * Detect faces from an image and draw rectangles around the detected faces
-	 * at the original
+	 * testat the original
 	 * ima@SuppressWarnings("unchecked") @SuppressWarnings("unchecked")
 	 */
 	private void detect() {
