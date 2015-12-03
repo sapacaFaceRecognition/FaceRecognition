@@ -307,5 +307,9 @@ public class FaceDetection {
 	public void setSaveImagePath(String saveImagePath) {
 		this.saveImagePath = saveImagePath;
 	}
+	
+	protected ArrayList<Face> getFaces() {
+		return faceObjects;
+	}
 
 }

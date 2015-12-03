@@ -27,13 +27,37 @@ public class Face {
 	@Column(name = "age")
 	private String age;
 
+	public String getAge() {
+		return age;
+	}
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public byte[] getDbImage() {
+		return dbImage;
+	}
+
+	public void setDbImage(byte[] dbImage) {
+		this.dbImage = dbImage;
+	}
+
 	@Column(name = "nationality")
 	private String nationality;
 
 	@Transient
 	private IplImage temp;
 
-	@Column(name = "image")
+	@Column(name = "image", columnDefinition = "longblob")
 	private byte[] dbImage;
 
 	@Transient

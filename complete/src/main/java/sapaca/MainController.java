@@ -1,15 +1,23 @@
 package sapaca;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 
+import org.bytedeco.javacpp.opencv_core.IplImage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +32,8 @@ public class MainController {
 
 	private MultipartFile uploadedFile;
 	private boolean isUploadedImageEmpty;
+	@Autowired
+	private FacesRepository facesRepository;
 
 	// @RequestMapping("/test")
 	// public String test(@RequestParam(value = "name", required = false,
@@ -92,7 +102,12 @@ public class MainController {
 				imagePath = imagePath.substring(1, imagePath.length());
 			}
 			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
-			new FaceDetection(imagePath, newImagePath);
+			FaceDetection detection = new FaceDetection(imagePath, newImagePath);
+			ArrayList<Face> faces = detection.getFaces();
+			for (Face currentFace : faces) {
+				currentFace.setDbImage(convertIplImageToByteArray(currentFace));
+			}
+			facesRepository.save(faces);
 			model.addAttribute("image_path", imageParam.replace(".jpg", "_face.jpg"));
 		}
 		return "face_detection";
@@ -135,4 +150,29 @@ public class MainController {
 		}
 		return "getImage/" + imagePath.getName();
 	}
+
+	private byte[] convertIplImageToByteArray(Face face) {
+		try {
+			BufferedImage bufferedImage = face.getCroppedFace().getBufferedImage();
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
+			byte[] imageAsByteArray = byteArrayOutputStream.toByteArray();
+			return imageAsByteArray;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return null;
+	}
+
+	private void convertByteArrayToIplImage(Face face) {
+		try {
+			InputStream in = new ByteArrayInputStream(face.getDbImage());
+			BufferedImage bufferedImage = ImageIO.read(in);
+			IplImage iplImage = new IplImage().createFrom(bufferedImage);
+			face.setCroppedFace(iplImage);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
 }
