@@ -18,7 +18,6 @@ import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
@@ -69,12 +68,6 @@ public class FaceDetection {
 	private String age;
 	private String nationality;
 
-	private static final String XML_FILE = "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
-			+ "haarcascade_frontalface_alt.xml";
-
-	FaceDetection(String originalImagePath, String saveImagePath) {
-		this.setOriginalImagePath(originalImagePath);
-		this.setSaveImagePath(saveImagePath);
 	private static String XML_FILE;
 
 	public FaceDetection(String originalImagePath, String saveImagePath) {
@@ -89,7 +82,8 @@ public class FaceDetection {
 
 	/**
 	 * Detect faces from an image and draw rectangles around the detected faces
-	 * at the original
+	 * <<<<<<< HEAD at the original ======= testat the original >>>>>>>
+	 * refs/remotes/origin/master
 	 * ima@SuppressWarnings("unchecked") @SuppressWarnings("unchecked")
 	 */
 	private void detect() {
@@ -160,6 +154,7 @@ public class FaceDetection {
 	 * 
 	 * @return IplImage the cropped face
 	 */
+
 	private IplImage cropFace() {
 		croppedFace = new IplImage();
 		croppedFace = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
@@ -205,6 +200,7 @@ public class FaceDetection {
 	/**
 	 * Method to output the cropped images for the user to verify the results.
 	 */
+
 	private void showFacesAndVerify() {
 		int i = 0;
 
