@@ -18,6 +18,7 @@ import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
@@ -57,8 +58,8 @@ public class FaceDetection {
 	private IplImage originalImage;
 	private IplImage grayImage;
 	private IplImage croppedFace;
-	private ArrayList<Face> faceObjects;
-	private ArrayList<IplImage> croppedFaces;
+	private ArrayList<Face> faceObjects = new ArrayList<Face>();
+	private ArrayList<IplImage> croppedFaces = new ArrayList<IplImage>();
 	private int counter;
 	private boolean isFace;
 	private boolean saveFace;
@@ -71,10 +72,15 @@ public class FaceDetection {
 //			+ "haarcascade_frontalface_alt.xml";
 	
 	private static final String XML_FILE = "C:\\Users\\caro\\workspace\\FaceDetection3\\src\\haarcascade_frontalface_alt.xml";
+	private static String XML_FILE;
 
-	FaceDetection(String originalImagePath, String saveImagePath) {
+	public FaceDetection(String originalImagePath, String saveImagePath) {
 		this.setOriginalImagePath(originalImagePath);
 		this.setSaveImagePath(saveImagePath);
+		XML_FILE = getClass().getClassLoader().getResource(".").getFile() + "haarcascade_frontalface_alt.xml";
+		if (System.getProperty("os.name").contains("indow")) {
+			XML_FILE = XML_FILE.substring(1, XML_FILE.length());
+		}
 		detect();
 	}
 
