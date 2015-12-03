@@ -2,33 +2,50 @@ package sapaca;
 
 import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.bytedeco.javacpp.opencv_core.CvRect;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
-//@Entity
-//@Table(name = "faces")
+@Entity
+@Table(name = "faces")
 public class Face {
 
-	// @Id
+	@Id
 	private long id;
 
-	// @Column(name = "first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
-	// @Column(name = "last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
-	// @Column(name = "age")
+	@Column(name = "age")
 	private String age;
 
-	// @Column(name = "nationality")
+	@Column(name = "nationality")
 	private String nationality;
+
+	@Transient
 	private IplImage temp;
 
-	// @Column(name = "image")
+	@Column(name = "image")
+	private byte[] dbImage;
+
+	@Transient
 	private IplImage croppedFace;
+
+	@Transient
 	private CvRect r;
+
+	@Transient
 	private boolean isFace;
+
+	@Transient
 	private boolean saveImage;
 
 	protected Face(IplImage croppedFace) {
