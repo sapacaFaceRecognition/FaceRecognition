@@ -18,7 +18,6 @@ import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 import static org.bytedeco.javacpp.opencv_imgproc.CV_BGR2GRAY;
 import static org.bytedeco.javacpp.opencv_imgproc.cvCvtColor;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.bytedeco.javacpp.opencv_core.CvMemStorage;
@@ -35,6 +34,7 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
  * @author caro
  * 
  */
+@SuppressWarnings("unchecked")
 
 /**
  * ToDo: - private void showFacesAndVerify(): isFace Abfrage einbauen irgendwie.
@@ -68,10 +68,6 @@ public class FaceDetection {
 	private String age;
 	private String nationality;
 
-	// private static final String XML_FILE =
-	// "C:\\Users\\caro\\Documents\\GitHub\\FaceDetection\\src\\"
-	// + "haarcascade_frontalface_alt.xml";
-
 	private static String XML_FILE;
 
 	public FaceDetection(String originalImagePath, String saveImagePath) {
@@ -86,7 +82,8 @@ public class FaceDetection {
 
 	/**
 	 * Detect faces from an image and draw rectangles around the detected faces
-	 * testat the original
+	 * <<<<<<< HEAD at the original ======= testat the original >>>>>>>
+	 * refs/remotes/origin/master
 	 * ima@SuppressWarnings("unchecked") @SuppressWarnings("unchecked")
 	 */
 	private void detect() {
@@ -112,12 +109,15 @@ public class FaceDetection {
 					CvScalar.GREEN, 1, CV_AA, 0);
 
 			CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
+			cvSetImageROI(originalImage, r2);
+			croppedFaces.add(i, cropFace());
 			// cvSetImageROI(originalImage, r2);
 			// croppedFaces.add(i, cropFace());
 		}
 
 		detectedFaces = faces.total();
 
+		// cvSaveImage(getSaveImagePath(), originalImage);
 		cvSaveImage(getSaveImagePath(), originalImage);
 		System.out.println(detectedFaces);
 
@@ -154,6 +154,19 @@ public class FaceDetection {
 	 * 
 	 * @return IplImage the cropped face
 	 */
+
+	private IplImage cropFace() {
+		croppedFace = new IplImage();
+		croppedFace = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
+		cvCopy(originalImage, croppedFace);
+
+		cvResetImageROI(originalImage);
+
+		Face faceObject = new Face(croppedFace);
+		faceObjects.add(counter, faceObject);
+
+		return croppedFace;
+	}
 	// private IplImage cropFace() {
 	// croppedFace = new IplImage();
 	// croppedFace = IplImage.create(cvGetSize(originalImage),
@@ -187,6 +200,33 @@ public class FaceDetection {
 	/**
 	 * Method to output the cropped images for the user to verify the results.
 	 */
+
+	private void showFacesAndVerify() {
+		int i = 0;
+
+		isFace = true;
+
+		for (Face f : faceObjects) {
+			cvSaveImage("NAME.jpg", f.getCroppedFace());
+			if (isFace == true) {
+				f.setFace(true);
+
+				/**
+				 * TODO: Strings setzen durch Eingabe ueber Webinterface
+				 * 
+				 */
+
+				addInformation(f, firstName, lastName, age, nationality);
+				saveImage();
+				i++;
+			} else {
+				f.setFace(false);
+				faceObjects.remove(f);
+				croppedFaces.remove(f);
+				i++;
+			}
+		}
+	}
 	// private void showFacesAndVerify() {
 	// int i = 0;
 	//
@@ -266,6 +306,10 @@ public class FaceDetection {
 
 	public void setSaveImagePath(String saveImagePath) {
 		this.saveImagePath = saveImagePath;
+	}
+	
+	protected ArrayList<Face> getFaces() {
+		return faceObjects;
 	}
 
 }
