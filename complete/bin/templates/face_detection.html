@@ -58,11 +58,19 @@
                         <p><p th:if="${isUploadedImageEmpty == false}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
-                         <div th:if="${isUploadedImageEmpty == true}">
-                            <p>Wurde das Gesicht richtig erkannt?</p>
-                            <form action="" method="POST">
-                                <input type="submit" value="Ja"></input>
-                                <input type="submit" value="Nein"></input>
+                        <div th:if="${isUploadedImageEmpty == true}">
+                            <form action="labelImage();" th:action="@{/face_detection.html}" method="POST">
+                                Name:           <input type="text" id="name"/> <br/>
+                                Nationalität:   <select size="5" id="nationalitaet">
+                                                    <option>Deutschland</option>
+                                                    <option>England</option>
+                                                    <option>USA</option>
+                                                    <option>Frankreich</option>
+                                                    <option>Sonstiges</option>
+                                                </select> </br>
+                                Loccation:      <input type="text" id="location"/> </br>
+                                <input type="submit" id="facedetected"></input>
+                                <input type="submit" id="nofacedetected"></input>
                             </form>
                         </div>     
                     </div>
