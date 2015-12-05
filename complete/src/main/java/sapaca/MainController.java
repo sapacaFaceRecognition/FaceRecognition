@@ -104,12 +104,20 @@ public class MainController {
 			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
 			FaceDetection detection = new FaceDetection(imagePath, newImagePath);
 			ArrayList<Face> faces = detection.getFaces();
-			for (Face currentFace : faces) {
-				currentFace.setDbImage(convertIplImageToByteArray(currentFace));
+			if (faces != null && !faces.isEmpty()) {
+				for (Face currentFace : faces) {
+					currentFace.setDbImage(convertIplImageToByteArray(currentFace));
+				}
+				facesRepository.save(faces);
+				model.addAttribute("is_face_detected", "true");
+				model.addAttribute("image_path", imageParam.replace(".jpg", "_face.jpg"));
+				System.out.println("Face detected and saved;");
+			} else {
+				model.addAttribute("isFaceDetected", "false");
 			}
-			facesRepository.save(faces);
-			model.addAttribute("image_path", imageParam.replace(".jpg", "_face.jpg"));
+
 		}
+		model.addAttribute("isFaceDetected", "false");
 		return "face_detection";
 		// return test.replace(".jpg", "_face.jpg")
 	}

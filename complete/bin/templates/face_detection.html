@@ -46,7 +46,7 @@
         <!-- Page Content -->
         <div id="page-content-wrapper">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row">	
                 	<!-- <div class="col-lg-7" th:if="${}"> -->
                     	<img id="detectingResult" class="img-rounded col-lg-7" th:src="${image_path != null} ? ${image_path} : './pic/Detecting.png'" alt="Picture"/>
                     <!-- </div>	
@@ -55,24 +55,23 @@
                     </div> -->
                     <div class="col-lg-5">
                         <h1>Additional Information </h1>
-                        <p><p th:if="${isUploadedImageEmpty == false}">LALALALA</p>Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                      	<p th:unless="${is_face_detected}">Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
-                        <div th:if="${isUploadedImageEmpty == true}">
+                        <div th:if="${is_face_detected}">
                             <form action="labelImage();" th:action="@{/face_detection.html}" method="POST">
-                                Name:           <input type="text" id="name"/> <br/>
+                                Name:           <input type="text" id="name"></input> <br></br>
                                 Nationalität:   <select size="5" id="nationalitaet">
                                                     <option>Deutschland</option>
                                                     <option>England</option>
                                                     <option>USA</option>
                                                     <option>Frankreich</option>
                                                     <option>Sonstiges</option>
-                                                </select> </br>
-                                Loccation:      <input type="text" id="location"/> </br>
+                                                </select> <br></br>
+                                Location:      <input type="text" id="location"></input> <br></br>
                                 <input type="submit" id="facedetected"></input>
-                                <input type="submit" id="nofacedetected"></input>
+                                <input type="submit" id="nofacedetected"></input>    
                             </form>
-                        </div>     
                     </div>
                 </div>
                 <div class="row">
@@ -89,12 +88,12 @@
                 </div>
                 -->
                 <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       				<input type="file" name="uploadedFile" accept="image/*" />
-      				<input type="submit" />
+       				<input type="file" name="uploadedFile" accept="image/*" ></input>
+      				<input type="submit" ></input>
     			</form>
             </div>
         </div>
-
+	 </div>
     </div>
 
     <script src="js/jquery.js"></script>
