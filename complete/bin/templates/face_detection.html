@@ -60,17 +60,19 @@
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
                         <div th:if="${is_face_detected}">
                             <form action="labelImage();" th:action="@{/face_detection.html}" method="POST">
-                                Name:           <input type="text" id="name"></input> <br></br>
-                                Nationalität:   <select size="5" id="nationalitaet">
+                                <p>Vorname:</p>     <input class="form-control" type="text" id="vorname"></input> <br></br>
+                                <p>Nachname:</p>    <input class="form-control" type="text" id="nachname"></input> <br></br>
+                                <p>Alter:</p>    <input class="form-control" type="number" id="alter"></input> <br></br>
+                                <p>Nationalität:</p><select class="form-control" id="nationalitaet">
                                                     <option>Deutschland</option>
                                                     <option>England</option>
                                                     <option>USA</option>
                                                     <option>Frankreich</option>
                                                     <option>Sonstiges</option>
                                                 </select> <br></br>
-                                Location:      <input type="text" id="location"></input> <br></br>
-                                <input type="submit" id="facedetected"></input>
-                                <input type="submit" id="nofacedetected"></input>    
+                                <p>Location:</p>    <input class="form-control" type="text" id="location"></input> <br></br>
+                                <input class="btn btn-default" type="submit" id="facedetected" value="Speichere Daten"></input>
+                                <input class="btn btn-default" type="submit" id="nofacedetected" value="Ist kein Gesicht!"></input>    
                             </form>
                     </div>
                 </div>
@@ -88,8 +90,8 @@
                 </div>
                 -->
                 <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       				<input type="file" name="uploadedFile" accept="image/*" ></input>
-      				<input type="submit" ></input>
+       				<input class="btn btn-default" type="file" name="uploadedFile" accept="image/*" ></input>
+      				<input class="btn btn-default" type="submit" ></input>
     			</form>
             </div>
         </div>
