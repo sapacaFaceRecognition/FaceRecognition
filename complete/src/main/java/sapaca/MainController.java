@@ -32,8 +32,11 @@ public class MainController {
 
 	private MultipartFile uploadedFile;
 	private boolean isUploadedImageEmpty;
+	
 	@Autowired
 	private FacesRepository facesRepository;
+	
+	private ArrayList<Face> faces;
 
 	// @RequestMapping("/test")
 	// public String test(@RequestParam(value = "name", required = false,
@@ -103,7 +106,7 @@ public class MainController {
 			}
 			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
 			FaceDetection detection = new FaceDetection(imagePath, newImagePath);
-			ArrayList<Face> faces = detection.getFaces();
+			faces = detection.getFaces();
 			if (faces != null && !faces.isEmpty()) {
 				for (Face currentFace : faces) {
 					currentFace.setDbImage(convertIplImageToByteArray(currentFace));
@@ -111,6 +114,7 @@ public class MainController {
 				facesRepository.save(faces);
 				model.addAttribute("is_face_detected", "true");
 				model.addAttribute("image_path", imageParam.replace(".jpg", "_face.jpg"));
+				faces.remove(0);
 				System.out.println("Face detected and saved;");
 			} else {
 				model.addAttribute("isFaceDetected", "false");
