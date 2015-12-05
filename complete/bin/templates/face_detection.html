@@ -48,33 +48,34 @@
             <div class="container-fluid">
                 <div class="row">	
                 	<!-- <div class="col-lg-7" th:if="${}"> -->
-                    	<img id="detectingResult" class="img-rounded col-lg-7" th:src="${image_path != null} ? ${image_path} : './pic/Detecting.png'" alt="Picture"/>
+                    	<img id="detectingResult" class="img-rounded col-lg-7" th:src="@{/get_current_image/}" alt="Picture"/>
                     <!-- </div>	
                     <div class="col-lg-7" th:unless="${}">
                     	<img id="detectingResult" class="img-rounded" src="./pic/Detecting.png" alt="Picture"/>
                     </div> -->
                     <div class="col-lg-5">
                         <h1>Additional Information </h1>
-                      	<p th:unless="${is_face_detected}">Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
+                      	<p th:if="${is_face_detected==false and faces_empty==false}">Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
                         <div th:if="${is_face_detected}">
-                            <form action="labelImage();" th:action="@{/face_detection.html}" method="POST">
-                                <p>Vorname:</p>     <input class="form-control" type="text" id="vorname"></input> <br></br>
-                                <p>Nachname:</p>    <input class="form-control" type="text" id="nachname"></input> <br></br>
-                                <p>Alter:</p>    <input class="form-control" type="number" id="alter"></input> <br></br>
-                                <p>Nationalität:</p><select class="form-control" id="nationalitaet">
+                            <form action="labelImage();" th:action="@{/next_face.html}" method="POST">
+                                <p>Vorname:</p>     <input class="form-control" type="text" id="vorname" name="firstName"></input> <br></br>
+                                <p>Nachname:</p>    <input class="form-control" type="text" id="nachname" name="lastName"></input> <br></br>
+                                <p>Alter:</p>    <input class="form-control" type="number" id="alter" name="age"></input> <br></br>
+                                <p>Nationalität:</p><select class="form-control" id="nationalitaet" name="nationality">
                                                     <option>Deutschland</option>
                                                     <option>England</option>
                                                     <option>USA</option>
                                                     <option>Frankreich</option>
                                                     <option>Sonstiges</option>
                                                 </select> <br></br>
-                                <p>Location:</p>    <input class="form-control" type="text" id="location"></input> <br></br>
-                                <input class="btn btn-default" type="submit" id="facedetected" value="Speichere Daten"></input>
-                                <input class="btn btn-default" type="submit" id="nofacedetected" value="Ist kein Gesicht!"></input>    
+                                <p>Location:</p>    <input class="form-control" type="text" id="location" name="location"></input> <br></br>
+                                <input class="btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Speichere Daten"></input>
+                                <input class="btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>    
                             </form>
                     </div>
+                    <p th:if="${faces_empty}">Alle erkannten Gesichter wurden bereits angezeigt.</p>
                 </div>
                 <div class="row">
                     <p class=" col-lg-7 webcam-info">Webcam Information</p>
@@ -90,8 +91,8 @@
                 </div>
                 -->
                 <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       				<input class="btn btn-default" type="file" name="uploadedFile" accept="image/*" ></input>
-      				<input class="btn btn-default" type="submit" ></input>
+       				<input type="file" name="uploadedFile" accept="image/*" ></input>
+      				<input type="submit" ></input>
     			</form>
             </div>
         </div>

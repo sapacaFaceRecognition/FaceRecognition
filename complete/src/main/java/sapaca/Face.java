@@ -4,6 +4,7 @@ import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -16,6 +17,8 @@ import org.bytedeco.javacpp.opencv_core.IplImage;
 public class Face {
 
 	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private long id;
 
 	@Column(name = "first_name")
@@ -25,16 +28,19 @@ public class Face {
 	private String lastName;
 
 	@Column(name = "age")
-	private String age;
+	private int age;
 
 	@Column(name = "nationality")
 	private String nationality;
 
-	@Transient
-	private IplImage temp;
+	@Column(name = "location")
+	private String location;
 
 	@Column(name = "image", columnDefinition = "longblob")
 	private byte[] dbImage;
+
+	@Transient
+	private IplImage temp;
 
 	@Transient
 	private IplImage croppedFace;
@@ -58,7 +64,7 @@ public class Face {
 		if (isFace == true) {
 			firstName = "";
 			lastName = "";
-			age = "";
+			age = -1;
 			nationality = "";
 
 			saveImage();
@@ -75,8 +81,8 @@ public class Face {
 		return firstName;
 	}
 
-	public void setFirstName(String infoFirstname) {
-		this.firstName = infoFirstname;
+	public void setFirstName(String firstname) {
+		this.firstName = firstname;
 	}
 
 	public long getId() {
@@ -91,24 +97,8 @@ public class Face {
 		return lastName;
 	}
 
-	public void setLastName(String infoLastname) {
-		this.lastName = infoLastname;
-	}
-
-	public String getInfoAge() {
-		return age;
-	}
-
-	public void setInfoAge(String infoAge) {
-		this.age = infoAge;
-	}
-
-	public String getInfoNationality() {
-		return nationality;
-	}
-
-	public void setInfoNationality(String infoNationality) {
-		this.nationality = infoNationality;
+	public void setLastName(String lastname) {
+		this.lastName = lastname;
 	}
 
 	public boolean isFace() {
@@ -135,11 +125,11 @@ public class Face {
 		this.croppedFace = croppedFace;
 	}
 
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
 
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 
@@ -157,6 +147,14 @@ public class Face {
 
 	public void setDbImage(byte[] dbImage) {
 		this.dbImage = dbImage;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 }

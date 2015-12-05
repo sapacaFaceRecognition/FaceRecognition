@@ -65,7 +65,7 @@ public class FaceDetection {
 	private boolean saveFace;
 	private String firstName;
 	private String lastName;
-	private String age;
+	private int age;
 	private String nationality;
 
 	private static String XML_FILE;
@@ -268,12 +268,12 @@ public class FaceDetection {
 	 * @param national
 	 *            Nationality
 	 */
-	private void addInformation(Face f, String fname, String lname, String ag, String national) {
+	private void addInformation(Face f, String fname, String lname, int ag, String national) {
 		Face fa = f;
 		fa.setFirstName(fname);
 		fa.setLastName(lname);
-		fa.setInfoAge(ag);
-		fa.setInfoNationality(national);
+		fa.setAge(ag);
+		fa.setNationality(national);
 	}
 
 	/**

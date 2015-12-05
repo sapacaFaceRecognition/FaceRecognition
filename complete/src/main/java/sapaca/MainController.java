@@ -18,9 +18,12 @@ import javax.servlet.ServletException;
 
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,10 +35,11 @@ public class MainController {
 
 	private MultipartFile uploadedFile;
 	private boolean isUploadedImageEmpty;
-	
+	private byte[] currentImageInBytes;
+
 	@Autowired
 	private FacesRepository facesRepository;
-	
+
 	private ArrayList<Face> faces;
 
 	// @RequestMapping("/test")
@@ -90,14 +94,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.POST)
-	public String uploadImage(@RequestParam("uploadedFile") MultipartFile uploadedFile, Model model)
-			throws IOException, ServletException {
+	public String uploadImage(@RequestParam(value = "uploadedFile", required = false) MultipartFile uploadedFile,
+			Model model) throws IOException, ServletException {
 		// ... do whatever you want with 'myFile'
 		// Redirect to a successful upload page
 		this.uploadedFile = uploadedFile;
 		System.out.println(uploadedFile.getOriginalFilename());
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
 		if (!isUploadedImageEmpty) {
+			currentImageInBytes = uploadedFile.getBytes();
 			String imageParam = saveFile();
 			String fileName = imageParam.split("/")[imageParam.split("/").length - 1];
 			String imagePath = getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName;
@@ -106,15 +111,16 @@ public class MainController {
 			}
 			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
 			FaceDetection detection = new FaceDetection(imagePath, newImagePath);
+			if (faces != null) {
+				faces.clear();
+			}
 			faces = detection.getFaces();
 			if (faces != null && !faces.isEmpty()) {
 				for (Face currentFace : faces) {
 					currentFace.setDbImage(convertIplImageToByteArray(currentFace));
 				}
-				facesRepository.save(faces);
 				model.addAttribute("is_face_detected", "true");
 				model.addAttribute("image_path", imageParam.replace(".jpg", "_face.jpg"));
-				faces.remove(0);
 				System.out.println("Face detected and saved;");
 			} else {
 				model.addAttribute("isFaceDetected", "false");
@@ -126,19 +132,76 @@ public class MainController {
 		// return test.replace(".jpg", "_face.jpg")
 	}
 
-	@RequestMapping(value = "/getImage/{imageId}")
+	@RequestMapping(value = "/next_face.html", method = RequestMethod.POST)
+	public String nextFace(@RequestParam(value = "firstName", required = false) String firstName,
+			@RequestParam(value = "lastName", required = false) String lastName,
+			@RequestParam(value = "age", required = false) Integer age,
+			@RequestParam(value = "nationality", required = false) String nationality,
+			@RequestParam(value = "location", required = false) String location,
+			@RequestParam(value = "faceDetected", required = false) String faceDetected,
+			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected, Model model) {
+
+		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
+				+ faceDetected + ", " + noFaceDetected);
+
+		if (faces != null && !faces.isEmpty()) {
+			if (faceDetected != null) {
+				Face currentFace = faces.get(0);
+				currentFace.setFirstName(firstName);
+				currentFace.setLastName(lastName);
+				currentFace.setAge(age);
+				currentFace.setNationality(nationality);
+				currentFace.setLocation(location);
+				facesRepository.save(faces.get(0));
+				faces.remove(0);
+			} else if (noFaceDetected != null) {
+				faces.remove(0);
+			}
+
+			if (faces.isEmpty()) {
+				model.addAttribute("is_face_detected", "false");
+				model.addAttribute("faces_empty", "true");
+			} else {
+				model.addAttribute("is_face_detected", "true");
+			}
+		} else {
+			model.addAttribute("isFaceDetected", "false");
+		}
+
+		return "face_detection";
+	}
+
+	@RequestMapping(value = "get_current_image", produces = MediaType.IMAGE_PNG_VALUE, method = RequestMethod.GET)
 	@ResponseBody
-	public byte[] getImage(@PathVariable String imageId) {
+	public ResponseEntity<byte[]> getCurrentImage() {
+		if (faces != null && !faces.isEmpty()) {
+			byte[] imageContent = faces.get(0).getDbImage();
+			final HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_PNG);
+			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+		} else if (currentImageInBytes != null) {
+			byte[] imageContent = currentImageInBytes;
+			final HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_PNG);
+			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+		} else {
+			byte[] imageContent = getImage("./static/pic/Detecting.png");
+			final HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_PNG);
+			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+		}
+	}
+
+	public byte[] getImage(String filePath) {
 		byte[] data = {};
 		try {
-			String imagePath = getClass().getClassLoader().getResource(".").getFile() + "/uploaded_images/" + imageId
-					+ ".jpg";
-			Path path;
-			if (System.getProperty("os.name").contains("indow")) {
-				path = Paths.get(imagePath.substring(1, imagePath.length()));
-			} else {
-				path = Paths.get(imagePath);
-			}
+			String imagePath = filePath;
+			Path path = Paths.get(imagePath);
+			// if (System.getProperty("os.name").contains("indow")) {
+			// path = Paths.get(imagePath.substring(1, imagePath.length()));
+			// } else {
+			// path = Paths.get(imagePath);
+			// }
 			data = Files.readAllBytes(path);
 		} catch (Exception ex) {
 			ex.printStackTrace();
