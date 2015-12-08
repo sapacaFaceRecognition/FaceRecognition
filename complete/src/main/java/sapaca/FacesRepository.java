@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 public interface FacesRepository extends CrudRepository<Face, Double> {
-	List<Face> findById(long id);
+	Face findById(long id);
 
 	List<Face> findByFirstName(String firstName);
 
@@ -13,7 +13,9 @@ public interface FacesRepository extends CrudRepository<Face, Double> {
 
 	List<Face> findByNationality(String nationality);
 
-	List<Face> findByAge(String age);
+	List<Face> findByAge(int age);
 
 	List<Face> findByFirstNameAndLastName(String firstName, String lastName);
+	
+	List<Face> findAllByOrderByIdAsc();
 }

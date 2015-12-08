@@ -29,12 +29,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class MainController {
 
 	private MultipartFile uploadedFile;
-	private boolean isUploadedImageEmpty, faceDetection = true;
+	private boolean isUploadedImageEmpty;
 	private byte[] currentImageInBytes;
 
 	@Autowired
@@ -85,12 +86,13 @@ public class MainController {
 
 	@RequestMapping(value = "/browse_images.html", method = RequestMethod.GET)
 	public String browseImage(Model model) {
-		faces = (ArrayList<Face>) facesRepository.findAll();
+		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
+		ArrayList<Long> ids = new ArrayList<Long>();
 		for (Face currentFace : faces) {
-			System.out.println("Face: " + currentFace.getFirstName());
+			System.out.println("Face (" + currentFace.getId() + ") : " + currentFace.getFirstName());
+			ids.add(currentFace.getId());
 		}
-		model.addAttribute("imagesCount", faces.size());
-		faceDetection = false;
+		model.addAttribute("ids", ids);
 		return "browse_images";
 	}
 
@@ -134,7 +136,6 @@ public class MainController {
 
 		}
 		model.addAttribute("isFaceDetected", "false");
-		faceDetection = true;
 		return "face_detection";
 		// return test.replace(".jpg", "_face.jpg")
 	}
@@ -146,7 +147,7 @@ public class MainController {
 			@RequestParam(value = "nationality", required = false) String nationality,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "faceDetected", required = false) String faceDetected,
-			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected, Model model) {
+			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected, RedirectAttributes model) {
 
 		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
 				+ faceDetected + ", " + noFaceDetected);
@@ -166,46 +167,51 @@ public class MainController {
 			}
 
 			if (faces.isEmpty()) {
-				model.addAttribute("is_face_detected", "false");
-				model.addAttribute("faces_empty", "true");
+				model.addFlashAttribute("is_face_detected", "false");
+				model.addFlashAttribute("faces_empty", "true");
 			} else {
-				model.addAttribute("is_face_detected", "true");
+				model.addFlashAttribute("is_face_detected", "true");
 			}
 		} else {
-			model.addAttribute("isFaceDetected", "false");
+			model.addFlashAttribute("isFaceDetected", "false");
 		}
 
-		faceDetection = true;
-
-		return "face_detection";
+		return "redirect:/face_detection.html";
 	}
 
 	@RequestMapping(value = "get_current_image", produces = MediaType.IMAGE_PNG_VALUE, method = RequestMethod.GET)
 	@ResponseBody
-	public synchronized ResponseEntity<byte[]> getCurrentImage() {
+	public synchronized ResponseEntity<byte[]> getCurrentImage(@RequestParam(value = "id", required = false) Long id) {
 		System.out.println("getCurrentImage... ");
-		if (faces != null && !faces.isEmpty()) {
-			System.out.println("getCurrentImage: " + faces.get(0).getFirstName());
+		if (id != null) {
+			byte[] imageContent = facesRepository.findById(id).getDbImage();
+			final HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.IMAGE_PNG);
+			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+
+		} else if (faces != null && !faces.isEmpty()) {
 			byte[] imageContent = faces.get(0).getDbImage();
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
-			if (!faceDetection) {
-				faces.remove(0);
-			}
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-		} else if (currentImageInBytes != null && faceDetection) {
+		} else if (currentImageInBytes != null) {
 			byte[] imageContent = currentImageInBytes;
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-		} else if (faceDetection) {
+		} else {
 			byte[] imageContent = getImage("./static/pic/Detecting.png");
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-		} else {
-			return null;
 		}
+	}
+
+	// Should be DELETE (not supported by html)
+	@RequestMapping(value = "/delete_image.html", method = RequestMethod.GET)
+	public String deleteImage(Model model, @RequestParam(value = "id", required = true) long id) {
+		facesRepository.delete(facesRepository.findById(id));
+		return "redirect:/browse_images.html";
 	}
 
 	public byte[] getImage(String filePath) {

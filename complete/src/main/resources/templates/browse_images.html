@@ -45,16 +45,19 @@
         </div>
 
 		<!-- Page Content -->
-		<div class="row" th:each="i : ${#numbers.sequence(1, imagesCount)}">
+		<div class="row" th:each="id : ${ids}">
 		 	<div id="page-content-wrapper">
             	<div class="container-fluid">
                 	<div class="row">
                     	<div class="center-home">
-                        	<div th:id="'Bild' + ${i}" class="col-lg">
-                            	<a class="example-image-link" th:href="@{/get_current_image/(id=${i})}" data-lightbox="faces-set" th:data-title="'Bild ' + ${i}">
-                                	<img class="example-image" th:src="@{/get_current_image/(id=${i})}" width="200" height="133"/>
+                        	<div th:id="'Bild' + ${id}" class="col-lg">
+                        	<form th:action="@{/delete_image.html/}" method="get">
+                            	<a class="example-image-link" th:href="@{/get_current_image/(id=${id})}" data-lightbox="faces-set" th:data-title="'Bild ' + ${id}">
+                                	<img class="example-image" th:src="@{/get_current_image/(id=${id})}" width="200" height="133"/>
                             	</a><br></br>
-                            	<button action="deletePic();" value="Löschen" class="btn btn-default">Löschen</button>
+                            	<input type="hidden" name="id" th:value="${id}"/>
+                            	<button type="submit" value="Löschen" class="btn btn-default">Löschen</button>
+                        	</form>
                         	</div>
                     	</div>
                 	</div>
