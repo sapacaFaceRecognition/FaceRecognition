@@ -34,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MainController {
 
 	private MultipartFile uploadedFile;
-	private boolean isUploadedImageEmpty;
+	private boolean isUploadedImageEmpty, faceDetection = true;
 	private byte[] currentImageInBytes;
 
 	@Autowired
@@ -83,9 +83,15 @@ public class MainController {
 		return "face_recognition";
 	}
 
-	@RequestMapping(value = "/browse_image.html", method = RequestMethod.GET)
+	@RequestMapping(value = "/browse_images.html", method = RequestMethod.GET)
 	public String browseImage(Model model) {
-		return "browse_image";
+		faces = (ArrayList<Face>) facesRepository.findAll();
+		for (Face currentFace : faces) {
+			System.out.println("Face: " + currentFace.getFirstName());
+		}
+		model.addAttribute("imagesCount", faces.size());
+		faceDetection = false;
+		return "browse_images";
 	}
 
 	@RequestMapping(value = "/about_us.html", method = RequestMethod.GET)
@@ -128,6 +134,7 @@ public class MainController {
 
 		}
 		model.addAttribute("isFaceDetected", "false");
+		faceDetection = true;
 		return "face_detection";
 		// return test.replace(".jpg", "_face.jpg")
 	}
@@ -168,27 +175,36 @@ public class MainController {
 			model.addAttribute("isFaceDetected", "false");
 		}
 
+		faceDetection = true;
+
 		return "face_detection";
 	}
 
 	@RequestMapping(value = "get_current_image", produces = MediaType.IMAGE_PNG_VALUE, method = RequestMethod.GET)
 	@ResponseBody
-	public ResponseEntity<byte[]> getCurrentImage() {
+	public synchronized ResponseEntity<byte[]> getCurrentImage() {
+		System.out.println("getCurrentImage... ");
 		if (faces != null && !faces.isEmpty()) {
+			System.out.println("getCurrentImage: " + faces.get(0).getFirstName());
 			byte[] imageContent = faces.get(0).getDbImage();
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
+			if (!faceDetection) {
+				faces.remove(0);
+			}
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-		} else if (currentImageInBytes != null) {
+		} else if (currentImageInBytes != null && faceDetection) {
 			byte[] imageContent = currentImageInBytes;
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-		} else {
+		} else if (faceDetection) {
 			byte[] imageContent = getImage("./static/pic/Detecting.png");
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+		} else {
+			return null;
 		}
 	}
 
