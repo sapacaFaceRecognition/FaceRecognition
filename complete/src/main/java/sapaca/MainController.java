@@ -155,11 +155,21 @@ public class MainController {
 		if (faces != null && !faces.isEmpty()) {
 			if (faceDetected != null) {
 				Face currentFace = faces.get(0);
-				currentFace.setFirstName(firstName);
-				currentFace.setLastName(lastName);
-				currentFace.setAge(age);
-				currentFace.setNationality(nationality);
-				currentFace.setLocation(location);
+				if (firstName != null) {
+					currentFace.setFirstName(firstName);
+				}
+				if (lastName != null) {
+					currentFace.setLastName(lastName);
+				}
+				if (age != null) {
+					currentFace.setAge(age);
+				}
+				if (nationality != null) {
+					currentFace.setNationality(nationality);
+				}
+				if (location != null) {
+					currentFace.setLocation(location);
+				}
 				facesRepository.save(faces.get(0));
 				faces.remove(0);
 			} else if (noFaceDetected != null) {
