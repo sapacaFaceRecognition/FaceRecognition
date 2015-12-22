@@ -1,41 +1,57 @@
 package sapaca;
 
-import static org.bytedeco.javacpp.opencv_core.CV_AA;
-import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
-import static org.bytedeco.javacpp.opencv_core.cvCopy;
-import static org.bytedeco.javacpp.opencv_core.cvPoint;
-import static org.bytedeco.javacpp.opencv_core.cvRectangle;
-import static org.bytedeco.javacpp.opencv_core.cvSetImageROI;
 import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
 import org.bytedeco.javacpp.opencv_core.CvRect;
-import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
-//@Entity
-//@Table(name="faces")
+@Entity
+@Table(name = "faces")
 public class Face {
 
-//	 @Id
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
 	private long id;
 
-	// @Column(name="first_name")
+	@Column(name = "first_name")
 	private String firstName;
 
-	// @Column(name="last_name")
+	@Column(name = "last_name")
 	private String lastName;
 
-	// @Column(name="age")
-	private String age;
+	@Column(name = "age")
+	private int age;
 
-	// @Column(name="nationality")
+	@Column(name = "nationality")
 	private String nationality;
+
+	@Column(name = "location")
+	private String location;
+
+	@Column(name = "image", columnDefinition = "longblob")
+	private byte[] dbImage;
+
+	@Transient
 	private IplImage temp;
 
-	// @Column(name="image")
+	@Transient
 	private IplImage croppedFace;
+
+	@Transient
 	private CvRect r;
+
+	@Transient
 	private boolean isFace;
+
+	@Transient
 	private boolean saveImage;
 
 	protected Face(IplImage croppedFace) {
@@ -48,7 +64,7 @@ public class Face {
 		if (isFace == true) {
 			firstName = "";
 			lastName = "";
-			age = "";
+			age = -1;
 			nationality = "";
 
 			saveImage();
@@ -65,8 +81,8 @@ public class Face {
 		return firstName;
 	}
 
-	public void setFirstName(String infoFirstname) {
-		this.firstName = infoFirstname;
+	public void setFirstName(String firstname) {
+		this.firstName = firstname;
 	}
 
 	public long getId() {
@@ -81,24 +97,8 @@ public class Face {
 		return lastName;
 	}
 
-	public void setLastName(String infoLastname) {
-		this.lastName = infoLastname;
-	}
-
-	public String getInfoAge() {
-		return age;
-	}
-
-	public void setInfoAge(String infoAge) {
-		this.age = infoAge;
-	}
-
-	public String getInfoNationality() {
-		return nationality;
-	}
-
-	public void setInfoNationality(String infoNationality) {
-		this.nationality = infoNationality;
+	public void setLastName(String lastname) {
+		this.lastName = lastname;
 	}
 
 	public boolean isFace() {
@@ -124,4 +124,37 @@ public class Face {
 	public void setCroppedFace(IplImage croppedFace) {
 		this.croppedFace = croppedFace;
 	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getNationality() {
+		return nationality;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public byte[] getDbImage() {
+		return dbImage;
+	}
+
+	public void setDbImage(byte[] dbImage) {
+		this.dbImage = dbImage;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 }

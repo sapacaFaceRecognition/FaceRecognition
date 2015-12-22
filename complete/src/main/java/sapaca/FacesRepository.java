@@ -2,9 +2,9 @@ package sapaca;
 
 import java.util.List;
 
-public interface FacesRepository
-// extends CrudRepository<Face, Double>
-{
+import org.springframework.data.repository.CrudRepository;
+
+public interface FacesRepository extends CrudRepository<Face, Double> {
 	List<Face> findById(long id);
 
 	List<Face> findByFirstName(String firstName);
