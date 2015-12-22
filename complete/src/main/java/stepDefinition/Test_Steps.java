@@ -1,5 +1,4 @@
 package stepDefinition;
-
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
@@ -33,6 +32,31 @@ public class Test_Steps {
 		selenium.login();
 	}
 	
+	@Given("^I am logged in as \"(.*?)\"$") 
+	public void i_am_logged_in_as_admin(String user) throws Throwable {
+		setUp();
+		if (user.equals("user")) {
+			selenium.loginUser();
+		}
+		else if (user.equals("admin")) {
+			selenium.loginAdmin();
+		}
+	}
+	
+	@Given("^I successfully uploaded an image and faces were detected$")
+	public void i_successfully_uploaded_an_image_and_faces_were_detected() throws Throwable {
+		selenium.setUp();
+		selenium.login();
+		selenium.navigateToPage("Face Detection");
+		selenium.clickButton("Upload Image");
+		selenium.clickButton("Submit");
+	}
+	
+	@Given("^I see \"([^\"]*)\" screen$")
+	public void i_see_screen(String arg1) throws Throwable {
+		selenium.seeScreen(arg1);
+	}
+	
 	@When("^I press the \"(.*?)\" Button$") 
 	public void i_press_the_button(String button) throws Throwable {
 		selenium.clickButton(button);
@@ -48,17 +72,68 @@ public class Test_Steps {
 		selenium.selectImage(size);
 	}
 	
-	@Then("^I see the uploaded Image with detected Faces$")
+	@When("^The database load is successful$")
+	public void the_database_load_is_successful() throws Throwable {
+		selenium.dbLoad();
+	}
+	
+	@When("^The database load is not successful$")
+	public void the_database_load_is_not_successful() throws Throwable {
+		selenium.dbLoad();
+	}
+	
+	@When("^I input valid information$")
+	public void i_input_valid_information() throws Throwable {
+		selenium.validInput();
+	}
+	
+	@When("^I input not valid information$")
+	public void i_input_not_valid_information() throws Throwable {
+	   selenium.invalidInput();
+	}
+	
+	@Then("^I see the uploaded Image$")
 	public void i_sse_uploaded_image() throws Throwable {
 		selenium.checkUploadedImage();
+		
 	}
 	
-	
-	@Then("^I see an error message$")
-	public void i_see_an_error_message() throws Throwable {
-	    selenium.errorMessage();
+	@Then("^I see the uploaded Image with detected Faces$")
+	public void i_sse_uploaded_image_faces() throws Throwable {
+		selenium.checkUploadedImage();	
 	}
 	
+	@Then("^I see the number of detected faces$")
+	public void i_see_the_number_of_detected_faces() throws Throwable {
+		selenium.number();
+	}
+	
+	@Then("^I see an error message \"([^\"]*)\"$")
+	public void i_see_an_error_message(String msg) throws Throwable {
+	    selenium.errorMessage(msg);
+	}
+	
+	@Then("^I see the saved images in the database$")
+	public void i_see_the_saved_images_in_the_database() throws Throwable {
+		selenium.browse();
+	}
+
+	@Then("^The image will disappear$")
+	public void the_image_will_disappear() throws Throwable {
+		selenium.refreshPage();
+	}
+	
+	@Then("^I can see \"([^\"]*)\"$")
+	public void i_can_see(String arg1) throws Throwable {
+		selenium.see(arg1);
+	}
+	
+	@Then("^I see a confirmation message \"([^\"]*)\"$")
+	public void i_see_a_conformation_message(String arg1) throws Throwable {
+		selenium.confirmation();
+	}
+	
+	// -------------------------------------------------------
 	
 	@Given("^User is logged in")
 	public void user_is_logged_in() throws Throwable {

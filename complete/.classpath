@@ -4,8 +4,6 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
-	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/selenium-java-2.48.2-srcs.jar"/>
-	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/selenium-java-2.48.2.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/libs/apache-mime4j-0.6.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/libs/bsh-2.0b4.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/libs/cglib-nodep-2.1_3.jar"/>
@@ -56,6 +54,8 @@
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/libs/xalan-2.7.2.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/libs/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/libs/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/selenium-java-2.48.2-srcs.jar"/>
+	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/selenium-2.48.2/selenium-java-2.48.2.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/Jars Cucumber/cobertura-2.1.1.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/Jars Cucumber/cucumber-core-1.2.4.jar"/>
 	<classpathentry kind="lib" path="/Users/caro/Documents/P/Studium/DH/3.Semester/Softwareengineering/Cucumber/Jars Cucumber/cucumber-java-1.2.4-2.jar"/>
