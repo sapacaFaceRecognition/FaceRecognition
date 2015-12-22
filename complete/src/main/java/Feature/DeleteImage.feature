@@ -1,4 +1,4 @@
-Feature: Upload Image
+Feature: Delete Image
 
 Background: User is logged in
 

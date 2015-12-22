@@ -20,3 +20,10 @@ hs_err_pid*
 .gradle/
 bin/.project
 bin/
+*.jpg
+
+complete/bin/uploaded_images/image_1449053625897.jpg
+
+complete/bin/uploaded_images/image_1449053805785.jpg
+
+complete/bin/uploaded_images/image_1449053838623.jpg

@@ -82,7 +82,6 @@ public class FaceDetection {
 
 	/**
 	 * Detect faces from an image and draw rectangles around the detected faces
-	 * <<<<<<< HEAD at the original ======= testat the original >>>>>>>
 	 * refs/remotes/origin/master
 	 * ima@SuppressWarnings("unchecked") @SuppressWarnings("unchecked")
 	 */
