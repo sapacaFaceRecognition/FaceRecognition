@@ -75,6 +75,9 @@ public class MainController {
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.GET)
 	public String faceDetection(@RequestParam(value = "name", required = false, defaultValue = "") String name,
 			Model model) {
+		// if (faces != null) {
+		// faces.clear();
+		// }
 		return "face_detection";
 	}
 
@@ -93,6 +96,7 @@ public class MainController {
 			ids.add(currentFace.getId());
 		}
 		model.addAttribute("ids", ids);
+		faces.clear();
 		return "browse_images";
 	}
 
@@ -109,7 +113,7 @@ public class MainController {
 		this.uploadedFile = uploadedFile;
 		System.out.println(uploadedFile.getOriginalFilename());
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
-//		model.addAttribute("faces_empty", "false");
+		// model.addAttribute("faces_empty", "false");
 		if (!isUploadedImageEmpty) {
 			currentImageInBytes = uploadedFile.getBytes();
 			String imageParam = saveFile();
