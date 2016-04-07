@@ -109,6 +109,7 @@ public class MainController {
 		this.uploadedFile = uploadedFile;
 		System.out.println(uploadedFile.getOriginalFilename());
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
+//		model.addAttribute("faces_empty", "false");
 		if (!isUploadedImageEmpty) {
 			currentImageInBytes = uploadedFile.getBytes();
 			String imageParam = saveFile();
