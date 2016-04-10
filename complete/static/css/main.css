@@ -36,3 +36,11 @@
     border-width: 1px;
     border-radius: 6px;
 }
+
+.bi-border{
+	margin: 50px;
+}
+
+.delete-button-border{
+	margin: 5px;
+}
