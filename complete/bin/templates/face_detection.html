@@ -78,9 +78,11 @@
                     </div>
                     <p th:if="${faces_empty}">Alle erkannten Gesichter wurden bereits angezeigt.</p>
                 </div>
+                <!-- 
                 <div class="row">
                     <p class=" col-lg-7 webcam-info">Webcam Information</p>
                 </div>
+                -->
                 <!--
                 <div class="row">
                     <form action="#" th:action="@{/uploadImage}" th:object="${uploadImage}" method="POST" class="class="btn btn-default col-lg-7">
@@ -91,10 +93,12 @@
                     </form>
                 </div>
                 -->
-                <form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       				<input type="file" name="uploadedFile" accept="image/*" ></input>
-      				<input type="submit" ></input>
-    			</form>
+                <div class="row col-lg-7">
+                	<form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
+       					<input type="file" name="uploadedFile" accept="image/*" ></input>
+      					<input type="submit" ></input>
+    				</form>
+    			</div>
             </div>
         </div>
 	 </div>
