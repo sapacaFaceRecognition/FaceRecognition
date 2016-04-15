@@ -94,9 +94,8 @@
                 </div>
                 -->
                 <div class="row col-lg-7">
-                	<form action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       					<input type="file" name="uploadedFile" accept="image/*" ></input>
-      					<input type="submit" ></input>
+                	<form class="upload_image_button" action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
+       					<input class="btn btn-default" onchange="this.form.submit()" type="file" name="uploadedFile" accept="image/*" ></input>
     				</form>
     			</div>
             </div>
