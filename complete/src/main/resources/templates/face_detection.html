@@ -64,12 +64,20 @@
                                 <p>Nachname:</p>    <input class="form-control" type="text" id="nachname" name="lastName"></input> <br></br>
                                 <p>Alter:</p>    <input class="form-control" type="number" id="alter" name="age"></input> <br></br>
                                 <p>Nationalität:</p><select class="form-control" id="nationalitaet" name="nationality">
+                                                    <option>-</option>
                                                     <option>Deutschland</option>
                                                     <option>England</option>
                                                     <option>USA</option>
                                                     <option>Frankreich</option>
                                                     <option>Sonstiges</option>
                                                 </select> <br></br>
+                        		<p>Geschlecht:</p><select class="form-control" id="gender" name="gender">
+                        							<option>-</option>
+                                                    <option>männlich</option>
+                                                    <option>weiblich</option>
+                                                    <option>unbekannt</option>
+                                                </select>
+                                                <input class="btn btn-default" type="submit" id="genderclassification" name="genderclassification" value="Geschlechtserkennung"></input> <br></br>
                                 <p>Location:</p>    <input class="form-control" type="text" id="location" name="location"></input> <br></br>
                                 <input class="btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Speichere Daten"></input>
                                 <input class="btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
