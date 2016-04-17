@@ -45,22 +45,22 @@
         </div>
 
 		<!-- Page Content -->
-		<div class="row" th:each="id : ${ids}">
-		 	<div id="page-content-wrapper">
-            	<div class="container-fluid">
-                	<div class="row">
-                    	<div class="center-home">
-                        	<div th:id="'Bild' + ${id}" class="col-lg">
+		<div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div>
+                    
+                    	<div th:each="id : ${ids}">
+                        	<div th:id="'Bild' + ${id}" class="col-md-2 bi-border">
                         	<form th:action="@{/delete_image.html/}" method="get">
                             	<a class="example-image-link" th:href="@{/get_current_image/(id=${id})}" data-lightbox="faces-set" th:data-title="'Bild ' + ${id}">
-                                	<img class="example-image" th:src="@{/get_current_image/(id=${id})}" width="200" height="133"/>
+                                	<img class="example-image" th:src="@{/get_current_image/(id=${id})}" width="350" height="283"/>
                             	</a><br></br>
                             	<input type="hidden" name="id" th:value="${id}"/>
-                            	<button type="submit" value="Löschen" class="btn btn-default">Löschen</button>
+                            	<button type="submit" value="Löschen" class="btn btn-default delete-button-border">Löschen</button>
                         	</form>
                         	</div>
                     	</div>
-                	</div>
+                	
             	</div>
         	</div>
     	</div>

@@ -24,3 +24,4 @@ bin/
 .metadata/
 Servers/
 .recommenders/
+*.classpath
