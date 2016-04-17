@@ -39,6 +39,9 @@ public class Face {
 	@Column(name = "image", columnDefinition = "longblob")
 	private byte[] dbImage;
 
+	@Column(name = "gender")
+	private Gender gender;
+
 	@Transient
 	private IplImage temp;
 
@@ -55,9 +58,9 @@ public class Face {
 	private boolean saveImage;
 
 	public Face() {
-		
+
 	}
-	
+
 	protected Face(IplImage croppedFace) {
 		this.croppedFace = croppedFace;
 
@@ -79,6 +82,14 @@ public class Face {
 		if (saveImage == true) {
 			cvSaveImage("PATH", croppedFace);
 		}
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public void setGender(Gender gender) {
+		this.gender = gender;
 	}
 
 	public String getFirstName() {
