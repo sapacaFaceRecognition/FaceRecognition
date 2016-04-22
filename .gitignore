@@ -12,17 +12,14 @@
 hs_err_pid*
 
 
-*.classpath
 *.prefs
 .settings/org.eclipse.jdt.core.prefs
 *.checkstyle
 *.bin
-.gradle/
 bin/.project
 bin/
 *.jpg
 .metadata/
 Servers/
 .recommenders/
-*.classpath
 complete/bin/
