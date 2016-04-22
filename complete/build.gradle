@@ -32,8 +32,8 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.37'
     compile 'org.springframework:spring-orm:4.2.3.RELEASE'
     
-    compile 'org.springframework:spring-test:4.2.2.RELEASE'
-    compile 'org.springframework:spring-webmvc:4.2.2.RELEASE'
+    compile 'org.springframework:spring-test:4.2.4.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
     
     testCompile("junit:junit")
 }

@@ -22,7 +22,7 @@ public class ControllerTest {
 	}
 
 	@Test
-	public void loginTest() {
+	public void testLogin() {
 		try {
 			mockMvc.perform(MockMvcRequestBuilders.get("/login.html")).andExpect(MockMvcResultMatchers.status().isOk());
 		} catch (Exception ex) {
@@ -31,20 +31,30 @@ public class ControllerTest {
 	}
 
 	@Test
-	public void homeTest() {
+	public void testHome() {
 		try {
 			mockMvc.perform(MockMvcRequestBuilders.get("/home.html")).andExpect(MockMvcResultMatchers.status().isOk());
-
-			mockMvc.perform(
-					MockMvcRequestBuilders.post("/home.html").param("username", "admin").param("password", "sapaca"))
-					.andExpect(MockMvcResultMatchers.status().isOk());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
 	@Test
-	public void NotFoundTest() {
+	public void testAuthentication() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.post("/home.html").param("inputUsername", "admin")
+					.param("inputPassword", "test")).andExpect(MockMvcResultMatchers.status().isOk())
+					.andExpect(MockMvcResultMatchers.forwardedUrl("login"));
+			mockMvc.perform(MockMvcRequestBuilders.post("/home.html").param("inputUsername", "admin")
+					.param("inputPassword", "sapaca")).andExpect(MockMvcResultMatchers.status().isOk())
+					.andExpect(MockMvcResultMatchers.forwardedUrl("home"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testNotFound() {
 		try {
 			mockMvc.perform(MockMvcRequestBuilders.get("/bla")).andExpect(MockMvcResultMatchers.status().isNotFound());
 		} catch (Exception ex) {

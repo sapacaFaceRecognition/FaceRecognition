@@ -2,98 +2,118 @@
 <classpath>
 	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="src" path="src/main/resources"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="con" path="org.springsource.ide.eclipse.gradle.classpathcontainer"/>
-<<<<<<< HEAD
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-android-arm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-android-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/artoolkitplus-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-android-arm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-android-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/ffmpeg-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/flycapture.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/flycapture-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/flycapture-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/flycapture-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/flycapture-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/javacpp.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/javacv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libdc1394.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libdc1394-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libdc1394-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libdc1394-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libfreenect.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libfreenect-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libfreenect-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libfreenect-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libfreenect-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/libfreenect-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-android-arm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-android-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/opencv-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/videoinput.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/videoinput-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SuddenH4X/Documents/javacv-bin/videoinput-windows-x86_64.jar"/>
-=======
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-android-arm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-android-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/artoolkitplus-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-android-arm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-android-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/ffmpeg-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/flycapture.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/flycapture-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/flycapture-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/flycapture-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/flycapture-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/javacpp.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/javacv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libdc1394.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libdc1394-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libdc1394-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libdc1394-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libfreenect.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libfreenect-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libfreenect-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libfreenect-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libfreenect-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/libfreenect-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-android-arm.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-android-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-linux-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-linux-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-macosx-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/opencv-windows-x86_64.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/videoinput.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/videoinput-windows-x86.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Ratnar/Documents/javacv-bin/videoinput-windows-x86_64.jar"/>
->>>>>>> origin/master
+	<classpathentry kind="src" path="src/main/test"/>
+	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-thymeleaf/1.2.7.RELEASE/4fd62a8085fb75b77120014e329db525d9d73f94/spring-boot-starter-thymeleaf-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-thymeleaf/1.2.7.RELEASE/6afb18cc48d2180e5e136fec373186eb964fecd5/spring-boot-starter-thymeleaf-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa/1.2.7.RELEASE/9b88497fe93ca81303353023e863e305832d04ff/spring-boot-starter-data-jpa-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-data-jpa/1.2.7.RELEASE/d438d326444b4371864a6fd646daa95d57da0983/spring-boot-starter-data-jpa-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc/1.2.7.RELEASE/8d6cdbc948a01739361500f3c7482523611505cc/spring-boot-starter-jdbc-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-jdbc/1.2.7.RELEASE/ecac932c16182c1678ad2c753545883e05df1886/spring-boot-starter-jdbc-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.37/2c378637f6faff77541244e8257b446f04324bd8/mysql-connector-java-5.1.37.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/mysql/mysql-connector-java/5.1.37/22f936ab4c7cec20a7d8fe044a249075894ba316/mysql-connector-java-5.1.37-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-orm/4.2.3.RELEASE/bd954843a54630fd8e45a2fc6f28140154d32188/spring-orm-4.2.3.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-orm/4.2.3.RELEASE/d3e87ec108c555d41df4e4140f28e5981c2c428/spring-orm-4.2.3.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.2.4.RELEASE/6efb87acf8050fc83334ffac305eb91371787283/spring-test-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-test/4.2.4.RELEASE/7ec3d627f54eb319fbb5110eec1e312f4c1ee46f/spring-test-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.4.RELEASE/cf4317be9c83b4c1c65ce2d3bb96673ac546030a/spring-webmvc-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-webmvc/4.2.4.RELEASE/77456f960e9d68ee33956955fb3a9af05b930602/spring-webmvc-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/2973d150c0dc1fefe998f834810d68f278ea58ec/junit-4.12.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/junit/junit/4.12/a6c32b40bf3d76eca54e3c601e5d1470c86fcdfa/junit-4.12-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter/1.2.7.RELEASE/58ecbf80587aeb883810a4be00cab15701209437/spring-boot-starter-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter/1.2.7.RELEASE/4c66c3cdc711b6cc3c30f567e24d28a3216983fb/spring-boot-starter-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.2.7.RELEASE/2ac141c925462c52186db8ef2caa0b3335f41a8/spring-boot-starter-web-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-web/1.2.7.RELEASE/796d5066c877165644c70d53869097a130e6b42e/spring-boot-starter-web-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring4/2.1.4.RELEASE/e5677e7daedfd05e001945abf4295305ac23826b/thymeleaf-spring4-2.1.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf-spring4/2.1.4.RELEASE/69f9fde587c69648bc1c2d59681ab38e77221a64/thymeleaf-spring4-2.1.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect/1.2.9/2de1729ef42f9571fcbc7c982b274f9029e57a65/thymeleaf-layout-dialect-1.2.9.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/nz.net.ultraq.thymeleaf/thymeleaf-layout-dialect/1.2.9/55b17d18a3dd1babd43205cf116d8ab76b4176e4/thymeleaf-layout-dialect-1.2.9-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-aop/1.2.7.RELEASE/aeaf809828518baca542c61ffff813276a078999/spring-boot-starter-aop-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-aop/1.2.7.RELEASE/f0073b1f12843f991e2be125e7b4788d67caa1de/spring-boot-starter-aop-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-entitymanager/4.3.11.Final/27a119fcc2b91c50e5285dd11158fac2c38c9d1b/hibernate-entitymanager-4.3.11.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-entitymanager/4.3.11.Final/31091c6eedbbb299aa1c22801404842a7bc28cf5/hibernate-entitymanager-4.3.11.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/javax.transaction/javax.transaction-api/1.2/d81aff979d603edd90dcd8db2abc1f4ce6479e3e/javax.transaction-api-1.2.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/javax.transaction/javax.transaction-api/1.2/5d1fb3fe056fe51e6f6ed9b4ef4898a774ed69c0/javax.transaction-api-1.2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/1.7.4.RELEASE/922145a12a700b73438b1139dff0e1760de7f712/spring-data-jpa-1.7.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-jpa/1.7.4.RELEASE/bd0422c7d845de1b731f3dd7e3df09a6fc32d3f4/spring-data-jpa-1.7.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.1.8.RELEASE/78f15ea237088b92b8ec184c2249544e70a4f7a8/spring-aspects-4.1.8.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aspects/4.1.8.RELEASE/9d1cda1c8d60a82bd5935ca5f2eef040bea574d0/spring-aspects-4.1.8.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-jdbc/8.0.28/3b322b35a7081d3aa2051d2d8317bdbf09d4853a/tomcat-jdbc-8.0.28.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-jdbc/8.0.28/8c63582794b3df95ca93f938905862219dc235e0/tomcat-jdbc-8.0.28-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.2.4.RELEASE/dc8e0874b53435f3e277d9da5aebd8b93cc7cf64/spring-beans-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/4.2.4.RELEASE/9e3b3823c8fd75c4c57afe9bb7c9d4f26c6d97e/spring-beans-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.2.4.RELEASE/23cd0109e4eafc5629547e3680b0c4031e82efdd/spring-context-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/4.2.4.RELEASE/6bb77fb5a402a814329db35e9678803d14ebf1bd/spring-context-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.2.4.RELEASE/15b6f6d61bc68fe2cc6cbd63e2329601afb8b39/spring-expression-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-expression/4.2.4.RELEASE/4331326a05efe7890fa82ac3cdde6d396f025752/spring-expression-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.4.RELEASE/d4bcc6f4d8b64d7af9b67bc17f0d5106dce97926/spring-web-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-web/4.2.4.RELEASE/bcc167b48ae8c9478eb4a8f0e99d095dbf38013f/spring-web-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/42a25dc3219429f0e5d060061f71acb49bf010a0/hamcrest-core-1.3.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hamcrest/hamcrest-core/1.3/1dc37250fbc78e23a65a67fbbaf71d2e9cbc3c0b/hamcrest-core-1.3-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.2.7.RELEASE/1ade672b8c993824fbf997eb193729fe27c0b022/spring-boot-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot/1.2.7.RELEASE/9276e0374e782a662677053951e51b5b4dd74793/spring-boot-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.2.7.RELEASE/5920116bb45bcb0f8006eb48d0f9279c94ed47d7/spring-boot-autoconfigure-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-autoconfigure/1.2.7.RELEASE/ce8f18b154137fd6b2a44ec6e0702a62fb63a3d8/spring-boot-autoconfigure-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/1.2.7.RELEASE/5da2dd7325c5b812cc11681279c9ab0bc766e9c7/spring-boot-starter-logging-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-logging/1.2.7.RELEASE/798ecb0ccbd91f15f56439823c09c811b994ff24/spring-boot-starter-logging-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.14/c2df91929ed06a25001939929bff5120e0ea3fd4/snakeyaml-1.14.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.yaml/snakeyaml/1.14/4c6bcedc3efa772a5ae1c2fd01efee8e4d15edac/snakeyaml-1.14-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.2.7.RELEASE/98229baad7ab207a98c2cce5987b0d34b44dabe7/spring-boot-starter-tomcat-1.2.7.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-starter-tomcat/1.2.7.RELEASE/c09965d3e662c69483b5de7398b0d785b32beba5/spring-boot-starter-tomcat-1.2.7.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.6/3e63a25de4065697b185f523ed5e020c0db3ff0/jackson-databind-2.4.6.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.4.6/634b33a958b73dd4bbac06e1de5204faacc5dfe1/jackson-databind-2.4.6-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.1.3.Final/334d46a93cf095160ce06d8382594b904933c808/hibernate-validator-5.1.3.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-validator/5.1.3.Final/2bb7969a7c05ddd8474873981321cce43c688eb9/hibernate-validator-5.1.3.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf/2.1.4.RELEASE/a730d892f3c57ba3d24af2ca657b42d81398a85a/thymeleaf-2.1.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.thymeleaf/thymeleaf/2.1.4.RELEASE/4aa7049660b4d1a6a34348c1fdd91cd5d8eee1cb/thymeleaf-2.1.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.7/c4b70e763194d274477da4da9b05ea913e877268/aspectjrt-1.8.7.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjrt/1.8.7/8a13905834c9fbaef243d7e841160729a88bf616/aspectjrt-1.8.7-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/f753e78bbe484e58b3b4e5ce3cc1751e50d11f6c/aspectjweaver-1.8.7.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.aspectj/aspectjweaver/1.8.7/2c276bb839d67f39766342cf77ea799da72ea323/aspectjweaver-1.8.7-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.3.GA/64499e907f19e5e1b3fdc02f81440c1832fe3545/jboss-logging-3.1.3.GA.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging/3.1.3.GA/4d2c4df2c1a1b2d2f9201f6d580d7d19ccf8cbdf/jboss-logging-3.1.3.GA-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging-annotations/1.2.0.Beta1/2f437f37bb265d9f8f1392823dbca12d2bec06d6/jboss-logging-annotations-1.2.0.Beta1.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.jboss.logging/jboss-logging-annotations/1.2.0.Beta1/360b782ab568672ea968726ddf209e753c860e1a/jboss-logging-annotations-1.2.0.Beta1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/4.3.11.Final/536ac0021240d97db99c7d2983067cef1a6f3af5/hibernate-core-4.3.11.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate/hibernate-core/4.3.11.Final/404c69aa1781893987d426f4eec08020ae1f41a0/hibernate-core-4.3.11.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/dom4j/dom4j/1.6.1/5d3ccc056b6f056dbf0dddfdf43894b9065a8f94/dom4j-1.6.1.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/dom4j/dom4j/1.6.1/a8e7149359255f43e0e5e3b1837948f9ed5861fb/dom4j-1.6.1-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/4.0.5.Final/2a581b9edb8168e45060d8bad8b7f46712d2c52c/hibernate-commons-annotations-4.0.5.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate.common/hibernate-commons-annotations/4.0.5.Final/98339e44338b43de01cb5ae0b169447d17ae00/hibernate-commons-annotations-4.0.5.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/5e731d961297e5a07290bfaf3db1fbc8bbbf405a/hibernate-jpa-2.1-api-1.0.0.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.hibernate.javax.persistence/hibernate-jpa-2.1-api/1.0.0.Final/33fbaa7276b774ef0925f541640f6ff23fbc62dc/hibernate-jpa-2.1-api-1.0.0.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.18.1-GA/d9a09f7732226af26bf99f19e2cffe0ae219db5b/javassist-3.18.1-GA.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.javassist/javassist/3.18.1-GA/d8d089f3a8845cce22d3006e02ab1403dd73b5b6/javassist-3.18.1-GA-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.9.4.RELEASE/7268755b2584c1c41a6da624e9b60c93b21abb95/spring-data-commons-1.9.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework.data/spring-data-commons/1.9.4.RELEASE/b906dfa890c377c6492f8a826903939b16ba1c01/spring-data-commons-1.9.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/adef7a9e1263298255fdb5cb107ff171d07c82f3/jcl-over-slf4j-1.7.12.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.7.12/1f2ab7827a222427f8b8f20ee703fd5c5cfc055e/jcl-over-slf4j-1.7.12-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-juli/8.0.28/924035c8550867c0ae1f16b3e036be8fd2e3424b/tomcat-juli-8.0.28.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat/tomcat-juli/8.0.28/b97f836310bac1b0cfd0af02f95f14a114e3cc9b/tomcat-juli-8.0.28-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/jul-to-slf4j/1.7.12/8811e2e9ab9055e557598dc9aedc64fd43e0ab20/jul-to-slf4j-1.7.12.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/jul-to-slf4j/1.7.12/9bc85314566e28525c79697d52a6bfb81d1b998a/jul-to-slf4j-1.7.12-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/log4j-over-slf4j/1.7.12/d2444c9c7c1923304c25f86c5ee83a79a8166205/log4j-over-slf4j-1.7.12.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/log4j-over-slf4j/1.7.12/89ed3e254ab429d35257f6bd48cd28cebc0b2a45/log4j-over-slf4j-1.7.12-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.3/d90276fff414f06cb375f2057f6778cd63c6082f/logback-classic-1.1.3.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.1.3/f4915df0360e7529c61f9e78ef3a06c19238e62e/logback-classic-1.1.3-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/8.0.28/dd5f6dea56f0227f1b4e7d85ae6ad8041886fcad/tomcat-embed-core-8.0.28.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-core/8.0.28/707d731231a254819e7f7fc81928cb6c15314945/tomcat-embed-core-8.0.28-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-el/8.0.28/12ff86316ae8835b410461401ce8a77d040b0c5f/tomcat-embed-el-8.0.28.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-el/8.0.28/a290f9a7dd1d4c534bc4d9832688b793797e25a7/tomcat-embed-el-8.0.28-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-logging-juli/8.0.28/315e9c3d6d93fcb482eea89ee23c9af9fd1cc4b5/tomcat-embed-logging-juli-8.0.28.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-logging-juli/8.0.28/65b17278559b70ae1d20cd68ffbf3b467ce8a87d/tomcat-embed-logging-juli-8.0.28-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-websocket/8.0.28/61dfc07af876f1fa9ee9f30112babf30c721a543/tomcat-embed-websocket-8.0.28.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.apache.tomcat.embed/tomcat-embed-websocket/8.0.28/db28b253ab480caa51629e221bf065858d253524/tomcat-embed-websocket-8.0.28-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/d6a66c7a5f01cf500377bd669507a08cfeba882a/jackson-annotations-2.4.0.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.4.0/7fcf3182660e0be49c7448e13f91e655b2cba9bf/jackson-annotations-2.4.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.6/2a1f6edb86b8c6d29f37f6a807295d4e5c279707/jackson-core-2.4.6.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.4.6/342322db5e2622e7098ad5061885c3e21ac013e2/jackson-core-2.4.6-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/8613ae82954779d518631e05daa73a6a954817d5/validation-api-1.1.0.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/javax.validation/validation-api/1.1.0.Final/7d49b53caed9bd81d172807c3e096d24f3c57090/validation-api-1.1.0.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.0.0/434efef28c81162b17c540e634cffa3bd9b09b4c/classmate-1.0.0.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/com.fasterxml/classmate/1.0.0/da0cec0cf5fa28fba22e44700d72259e0225f2e4/classmate-1.0.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/antlr/antlr/2.7.7/83cd2cd674a217ade95a4bb83a8a14f351f48bd0/antlr-2.7.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/1.1.0.Final/e84a2122e76f0b6503be78094ddf2108057ac15f/jandex-1.1.0.Final.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.jboss/jandex/1.1.0.Final/cd042b769b296fd1bc20ca5120824caa42b6c9ed/jandex-1.1.0.Final-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis/1.0.b2/3136ca936f64c9d68529f048c2618bd356bf85c9/xml-apis-1.0.b2.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/xml-apis/xml-apis/1.0.b2/d8525661c5a0a05702fa41873d250d135031ec25/xml-apis-1.0.b2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.3/e3c02049f2dbbc764681b40094ecf0dcbc99b157/logback-core-1.1.3.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.1.3/a69d9a62a693f391ad19d8ac19fa85a7a60cbc7c/logback-core-1.1.3-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.2.4.RELEASE/160ccd89230753d4f49477a967f5876b034d9745/spring-core-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/4.2.4.RELEASE/ac0a24fb3bced1f9c3274793525a74bd8e09e56b/spring-core-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/4bfc12adfe4842bf07b657f0369c4cb522955686/commons-logging-1.2.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/commons-logging/commons-logging/1.2/ecf26c7507d67782a3bbd148d170b31dfad001aa/commons-logging-1.2-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/ognl/ognl/3.0.8/37e1aebfde7eb7baebc9ad4f85116ef9009c5fc5/ognl-3.0.8.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/ognl/ognl/3.0.8/1b6bace3760cdf6dfb2c0fea0b266fa9d802c403/ognl-3.0.8-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.unbescape/unbescape/1.1.0.RELEASE/ab0db4fe0a6fa89fb8da2a40008a4e63a7f3f5b9/unbescape-1.1.0.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.unbescape/unbescape/1.1.0.RELEASE/ffc384b1f9fcd7d9a61d764b3cafccca187cb02f/unbescape-1.1.0.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.2.4.RELEASE/3329cf71b4bc49c9767ca4f0704ed7b773f29fba/spring-aop-4.2.4.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-aop/4.2.4.RELEASE/624e142c456bd8622e27e959dc3e1b192524ba84/spring-aop-4.2.4.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/4a4b6d692e17846a9f3da036438a7ac491d3c814/aopalliance-1.0-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.2.3.RELEASE/617420d7e0351c334aa4495d6f30ad21c4c643a7/spring-tx-4.2.3.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-tx/4.2.3.RELEASE/28364afe1f0643121d1f3688d6ac3eacc68d84dc/spring-tx-4.2.3.RELEASE-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.12/8e20852d05222dc286bf1c71d78d0531e177c317/slf4j-api-1.7.12.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.12/58697792617f38bf86d8e26bc004aac505e516a9/slf4j-api-1.7.12-sources.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.2.3.RELEASE/22f129baf3914b6bbaa842f9356c32d93ecf7bc1/spring-jdbc-4.2.3.RELEASE.jar" sourcepath="C:/Users/Sascha/.gradle/caches/modules-2/files-2.1/org.springframework/spring-jdbc/4.2.3.RELEASE/34f53e602bffc54e2d0e7b74fd19769ce73d37f/spring-jdbc-4.2.3.RELEASE-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-android-arm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-android-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-linux-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-macosx-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-windows-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/artoolkitplus-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-android-arm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-android-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-linux-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-macosx-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-windows-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/ffmpeg-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/flycapture.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/flycapture-linux-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/flycapture-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/flycapture-windows-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/flycapture-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/javacpp.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/javacv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libdc1394.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libdc1394-linux-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libdc1394-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libdc1394-macosx-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libfreenect.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libfreenect-linux-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libfreenect-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libfreenect-macosx-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libfreenect-windows-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/libfreenect-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-android-arm.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-android-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-linux-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-linux-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-macosx-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-windows-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/opencv-windows-x86_64.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/videoinput.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/videoinput-windows-x86.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Sascha/Downloads/javacv-0.9-bin/javacv-bin/videoinput-windows-x86_64.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
