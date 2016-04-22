@@ -1,5 +1,6 @@
 package sapaca;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+//@TestPropertySource("/test.properties")
 public class ControllerTest {
 
 	private MockMvc mockMvc;
@@ -33,7 +35,8 @@ public class ControllerTest {
 	@Test
 	public void testHome() {
 		try {
-			mockMvc.perform(MockMvcRequestBuilders.get("/home.html")).andExpect(MockMvcResultMatchers.status().isOk());
+			mockMvc.perform(MockMvcRequestBuilders.get("/home.html")).andExpect(MockMvcResultMatchers.status().isOk())
+					.andExpect(MockMvcResultMatchers.forwardedUrl("home"));
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -48,6 +51,49 @@ public class ControllerTest {
 			mockMvc.perform(MockMvcRequestBuilders.post("/home.html").param("inputUsername", "admin")
 					.param("inputPassword", "sapaca")).andExpect(MockMvcResultMatchers.status().isOk())
 					.andExpect(MockMvcResultMatchers.forwardedUrl("home"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testFaceDetection() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.get("/face_detection.html"))
+					.andExpect(MockMvcResultMatchers.status().isOk())
+					.andExpect(MockMvcResultMatchers.forwardedUrl("face_detection"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testBrowseImages() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.get("/browse_images.html"))
+					.andExpect(MockMvcResultMatchers.status().isOk())
+					.andExpect(MockMvcResultMatchers.forwardedUrl("browse_images"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testAboutUs() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.get("/about_us.html"))
+					.andExpect(MockMvcResultMatchers.status().isOk())
+					.andExpect(MockMvcResultMatchers.forwardedUrl("about_us"));
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	@Test
+	public void testGetCurrentImage() {
+		try {
+			mockMvc.perform(MockMvcRequestBuilders.get("/get_current_image.html").param("id", "1"))
+					.andExpect(MockMvcResultMatchers.status().isNotAcceptable());
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

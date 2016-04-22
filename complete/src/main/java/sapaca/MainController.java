@@ -203,7 +203,6 @@ public class MainController {
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-
 		} else if (faces != null && !faces.isEmpty()) {
 			byte[] imageContent = faces.get(0).getDbImage();
 			final HttpHeaders headers = new HttpHeaders();
