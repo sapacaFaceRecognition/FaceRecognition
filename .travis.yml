@@ -12,4 +12,4 @@ branches:
 sudo: false
 
 script:
- ./complete/gradlew check
+ ./complete/gradle check
