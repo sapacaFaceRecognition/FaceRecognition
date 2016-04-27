@@ -29,10 +29,10 @@
                     <a href="./face_detection.html">Face Detection</a>
                 </li>
                 <li>
-                    <a href="./face_recognition.html">Face Recognition</a>
+                    <a href="./browse_images.html">Browse Images</a>
                 </li>
                 <li>
-                    <a href="./browse_images.html">Browse Images</a>
+                    <a href="./statistics.html">Statistics</a>
                 </li>
                 <li>
                     <a href="./about_us.html">About Us</a>
@@ -59,48 +59,68 @@
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
                         Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
                         <div th:if="${is_face_detected}">
-                            <form action="labelImage();" th:action="@{/next_face.html}" method="POST">
-                                <p>Vorname:</p>     <input class="form-control" type="text" id="vorname" name="firstName"></input> <br></br>
-                                <p>Nachname:</p>    <input class="form-control" type="text" id="nachname" name="lastName"></input> <br></br>
-                                <p>Alter:</p>    <input class="form-control" type="number" id="alter" name="age"></input> <br></br>
-                                <p>Nationalität:</p><select class="form-control" id="nationalitaet" name="nationality">
-                                                    <option>-</option>
+                            <form class="form-horizontal" action="labelImage();" th:action="@{/next_face.html}" method="POST">
+                            	<div class="form-group">
+                                	<label for="vorname" class="col-sm-2 control-label">Vorname:</label>
+                                	<div class="col-sm-10">  
+                                		<input class="form-control" type="text" id="vorname" name="firstName"></input>
+                                	</div>
+                                </div>
+                                <div class="form-group">
+                                	<label for="nachname" class="col-sm-2 control-label">Nachname:</label>
+                                	<div class="col-sm-10">  
+                                		<input class="form-control" type="text" id="nachname" name="lastName"></input>
+                                	</div>
+                                </div>
+                                <div class="form-group">
+                                	<label for="alter" class="col-sm-2 control-label">Alter:    </label>
+                                	<div class="col-sm-10">  
+                                		<input class="form-control" type="number" id="alter" name="age"></input>
+                                	</div>
+                                </div>
+                                <div class="form-group">
+                                	<label for="nationalitaet" class="col-sm-2 control-label">Nationalität:</label>
+                                	<div class="col-sm-10">  
+                                		<select class="form-control" id="nationalitaet" name="nationality">
+                                					<option>-</option>
                                                     <option>Deutschland</option>
                                                     <option>England</option>
                                                     <option>USA</option>
                                                     <option>Frankreich</option>
                                                     <option>Sonstiges</option>
-                                                </select> <br></br>
-                        		<p>Geschlecht:</p><select class="form-control" id="gender" name="gender">
-                        							<option>-</option>
+                                		</select>
+                                	</div>
+                                </div>
+                                <div class="form-group">
+                                	<label for="gender" class="col-sm-2 control-label">Geschlecht:</label>
+                               		<div class="col-sm-5">
+                                		<select class="form-control" id="gender" name="gender">
+                                					<option>-</option>
                                                     <option>männlich</option>
                                                     <option>weiblich</option>
                                                     <option>unbekannt</option>
-                                                </select>
-                                                <input class="btn btn-default" type="submit" id="genderclassification" name="genderclassification" value="Geschlechtserkennung"></input> <br></br>
-                                <p>Location:</p>    <input class="form-control" type="text" id="location" name="location"></input> <br></br>
-                                <input class="btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Speichere Daten"></input>
-                                <input class="btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
-                                <input class="btn btn-default" type="submit" id="bindtogooglesearch" name="bindtogooglesearch" value="Suche in Google Search"></input>     
+                               	    	</select>
+                               		</div>
+                               		<input class="btn btn-default col-sm-4" type="submit" id="genderclassification" name="genderclassification" value="Geschlechtserkennung"></input>
+                               	</div>
+                               	<div class="form-group">
+                                	<label for="location" class="col-sm-2 control-label">Location</label>
+                                	<div class="col-sm-10">  
+                                		<input class="form-control" type="text" id="location" name="location"></input>
+                                	</div>
+                                </div>
+                                <div class="form-group">
+                                	<div class="col-sm-10">
+                                		<input class="btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Ist ein Gesicht!"></input>
+                                		<input class="btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
+                                		<input class="btn btn-default" type="submit" id="eye" name="eye" value="Eye Detection"></input>
+                                		<input class="btn btn-default" type="submit" id="bindtogooglesearch" name="bindtogooglesearch" value="Suche in Google Search"></input>
+                                	</div>
+                                </div>
                             </form>
                     </div>
                     <p th:if="${faces_empty}">Alle erkannten Gesichter wurden bereits angezeigt.</p>
                 </div>
-                <!-- 
-                <div class="row">
-                    <p class=" col-lg-7 webcam-info">Webcam Information</p>
-                </div>
-                -->
-                <!--
-                <div class="row">
-                    <form action="#" th:action="@{/uploadImage}" th:object="${uploadImage}" method="POST" class="class="btn btn-default col-lg-7">
-                       <input type="file"  accept="image/*" onclick="uploadImage();">Upload Image</input>
-                    </form>
-                    <form class="class="btn btn-default col-lg-7">
-                    	 <input type="button">Start Camera  <img src="./pic/camera_icon.png" alt="Camera Icon"/></input>
-                    </form>
-                </div>
-                -->
                 <div class="row col-lg-7">
                 	<form class="upload_image_button" action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
        					<input class="btn btn-default" onchange="this.form.submit()" type="file" name="uploadedFile" accept="image/*" ></input>
