@@ -105,6 +105,11 @@ public class MainController {
 		return "about_us";
 	}
 
+	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
+	public String statistics(Model model) {
+		return "statistics";
+	}
+
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.POST)
 	public String uploadImage(@RequestParam(value = "uploadedFile", required = false) MultipartFile uploadedFile,
 			Model model) throws IOException, ServletException {
