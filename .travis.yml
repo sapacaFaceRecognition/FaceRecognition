@@ -13,4 +13,4 @@ sudo: false
 
 before_script: cd complete
 
-script: gradlew check
+script: ./gradlew check
