@@ -11,6 +11,8 @@ branches:
 # container-based build:
 sudo: false
 
-before_script: cd complete
+before_script: 
+  - cd complete
+  - chmod +x gradlew
 
 script: ./gradlew check
