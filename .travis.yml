@@ -11,8 +11,6 @@ branches:
 # container-based build:
 sudo: false
 
-env:
-  global:
-    - REPO="complete/"
-    - CI_HOME="pwd"/$REPO
+before_script: cd complete
+
 script: gradlew check
