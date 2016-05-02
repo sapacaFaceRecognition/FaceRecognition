@@ -11,6 +11,17 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+    sonarProperties {
+        property 'sonar.host.url', 'http://193.196.7.25/'
+        property 'sonar.projectName', 'SapacaFaceReco'
+        property 'sonar.projectVersion', '1.1.0'
+        property 'sonar.sources', './src/main/java/sapaca'
+    }
+}
+
 
 jar {
     baseName = 'SAPACA FaceRecognition'
@@ -36,6 +47,9 @@ dependencies {
     compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
     
     testCompile("junit:junit")
+
+    compile files ('libs/opencv.jar')
+    compile files ('libs/javacpp.jar')
 }
 
 task wrapper(type: Wrapper) {
