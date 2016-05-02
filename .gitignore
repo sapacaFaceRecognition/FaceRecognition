@@ -24,3 +24,4 @@ Servers/
 .recommenders/
 complete/bin/
 complete/.classpath
+*.idea
