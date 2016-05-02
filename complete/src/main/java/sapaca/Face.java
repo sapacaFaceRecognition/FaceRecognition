@@ -68,7 +68,7 @@ public class Face {
 	}
 
 	private void addInfo() {
-		if (isFace == true) {
+		if (isFace) {
 			firstName = "";
 			lastName = "";
 			age = -1;
@@ -79,7 +79,7 @@ public class Face {
 	}
 
 	private void saveImage() {
-		if (saveImage == true) {
+		if (saveImage) {
 			cvSaveImage("PATH", croppedFace);
 		}
 	}
