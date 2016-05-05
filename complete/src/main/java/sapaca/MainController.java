@@ -31,12 +31,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
+
 @Controller
 public class MainController {
 
 	private MultipartFile uploadedFile;
 	private boolean isUploadedImageEmpty;
 	private byte[] currentImageInBytes;
+	private IplImage image;
+	String imagePath;
 
 	@Autowired
 	private FacesRepository facesRepository;
@@ -123,12 +127,15 @@ public class MainController {
 			currentImageInBytes = uploadedFile.getBytes();
 			String imageParam = saveFile();
 			String fileName = imageParam.split("/")[imageParam.split("/").length - 1];
-			String imagePath = getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName;
+			imagePath = new String(getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName);
 			if (System.getProperty("os.name").contains("indow")) {
 				imagePath = imagePath.substring(1, imagePath.length());
 			}
 			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
-			FaceDetection detection = new FaceDetection(imagePath, newImagePath);
+
+			//FaceDetection detection = new FaceDetection(imagePath, newImagePath);
+			image = cvLoadImage(getImagePath(), 1);
+			Detector detection = new Detector(PartToDetect.EYES, image);
 			if (faces != null) {
 				faces.clear();
 			}
@@ -289,6 +296,10 @@ public class MainController {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	private String getImagePath() {
+		return imagePath;
 	}
 
 }

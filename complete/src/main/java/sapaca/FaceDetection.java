@@ -42,16 +42,11 @@ public class FaceDetection {
 	public FaceDetection(String originalImagePath, String saveImagePath) {
 		this.setOriginalImagePath(originalImagePath);
 		this.setSaveImagePath(saveImagePath);
-		xmlFile = getClass().getClassLoader().getResource(".").getFile() + "haarcascade_frontalface_alt.xml";
-		if (System.getProperty("os.name").contains("indow")) {
-			xmlFile = xmlFile.substring(1, xmlFile.length());
-		}
+        xmlFile = "C:\\Users\\caro\\IdeaProjects\\FaceRecognition\\complete\\src\\main\\resources\\haarcascade_frontalface_alt.xml";
 		detect();
 	}
 
 	private void detect() {
-
-		System.console().writer().println(getOriginalImagePath());
 
 		originalImage = cvLoadImage(getOriginalImagePath(), 1);
 		grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
@@ -78,8 +73,6 @@ public class FaceDetection {
 
 		detectedFaces = faces.total();
 		cvSaveImage(getSaveImagePath(), originalImage);
-		System.console().writer().println(detectedFaces);
-
 	}
 
 	private IplImage cropFace() {

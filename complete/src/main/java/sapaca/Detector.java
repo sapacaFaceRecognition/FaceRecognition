@@ -5,6 +5,9 @@ import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.bytedeco.javacpp.opencv_objdetect;
 
+import java.io.File;
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static org.bytedeco.javacpp.helper.opencv_objdetect.cvHaarDetectObjects;
@@ -19,64 +22,66 @@ import org.bytedeco.javacpp.opencv_core.CvMemStorage;
 import org.bytedeco.javacpp.opencv_core.CvRect;
 
 public class Detector {
-    private String originalImagePath;
-    private String saveImagePath;
-    private IplImage originalImage;
     private IplImage grayImage;
     private ArrayList<IplImage> croppedFaces = new ArrayList<>();
     private ArrayList<Face> faceObjects = new ArrayList<>();
     private IplImage croppedImage;
     private PartToDetect part;
     private int detectedFaces;
+    private CvHaarClassifierCascade cascade;
 
     private static String xmlFile;
     private int counter;
 
-
-    //Face
-
-    public Detector(String originalImagePath, String saveImagePath) {
-        this.part = PartToDetect.FACE;
-        this.setOriginalImagePath(originalImagePath);
-        this.setSaveImagePath(saveImagePath);
-        System.console().writer().println(getOriginalImagePath());
-
-        setXmlFile("haarcascade_frontalface_alt.xml");
-
-        originalImage = cvLoadImage(getOriginalImagePath(), 1);
-        processImage(originalImage);
-        detectFaces();
-    }
-
     public Detector(PartToDetect part, IplImage image) {
+        if (part.equals(PartToDetect.FACE)) {
+            this.part = PartToDetect.FACE;
+            setXmlFile();
+            loadClassifier();
+            detectFaces(processImage(image));
+        }
         if (part.equals(PartToDetect.EYES)) {
             this.part = PartToDetect.EYES;
-            setXmlFile("frontalEyes.xml");
-
-            processImage(image);
+            setXmlFile();
+            loadClassifier();
+            detectEyes(processImage(image));
         }
 
         if (part.equals(PartToDetect.PEDESTRIAN)) {
+        }
+
+
+    }
+
+    private void setXmlFile() {
+        try {
+            if (part.equals(PartToDetect.FACE)) {
+                URL source = Detector.class.getClassLoader().getResource("haarcascade_frontalface_alt.xml");
+                xmlFile = new File(source.toURI()).getAbsolutePath();
+            }
+            if (part.equals(PartToDetect.EYES)) {
+                URL source = Detector.class.getClassLoader().getResource("frontalEyes.xml");
+                xmlFile = new File(source.toURI()).getAbsolutePath();
+            }
+        }
+        catch (Exception e) {
 
         }
     }
 
-    private void setXmlFile(String xmlPart) {
-        xmlFile = getClass().getClassLoader().getResource(".").getFile() + xmlPart;
-        if (System.getProperty("os.name").contains("indow")) {
-            xmlFile = xmlFile.substring(1, xmlFile.length());
-        }
-    }
-
-    private void processImage(IplImage image) {
-        originalImage = image;
+    public IplImage processImage(IplImage image) {
+        IplImage originalImage = image;
         grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
         cvCvtColor(originalImage, grayImage, CV_BGR2GRAY);
+        return originalImage;
     }
 
-    private void detectFaces() {
+    public CvHaarClassifierCascade loadClassifier() {
+        return cascade = new CvHaarClassifierCascade(cvLoad(xmlFile));
+    }
+
+    private void detectFaces(IplImage originalImage) {
         CvMemStorage storage = CvMemStorage.create();
-        CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(xmlFile));
         CvSeq faces = cvHaarDetectObjects(grayImage, cascade, storage, 1.2, 2, 0);
 
         for (int i = 0; i < faces.total(); i++) {
@@ -91,15 +96,22 @@ public class Detector {
         }
 
         detectedFaces = faces.total();
-        cvSaveImage(getSaveImagePath(), originalImage);
-        System.console().writer().println(detectedFaces);
     }
 
-    private void detectEyes() {
-
+    private void detectEyes(IplImage originalImage) {
+        CvMemStorage storage = CvMemStorage.create();
+        CvSeq eyes = cvHaarDetectObjects(grayImage, cascade, storage, 1.2, 2, 0);
+        for(int i = 0; i < eyes.total(); i++) {
+            CvRect r = new CvRect(cvGetSeqElem(eyes, 0));
+            cvRectangle(originalImage, cvPoint(r.x(), r.y()), cvPoint(r.x() + r.width(), r.y() + r.height()),
+                    CvScalar.GREEN, 1, CV_AA, 0);
+            CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
+            cvSetImageROI(originalImage, r2);
+            croppedFaces.add(0, cropImage(originalImage));
+        }
     }
 
-    private IplImage cropImage(IplImage image) {
+    private IplImage cropImage(IplImage originalImage) {
         croppedImage = new IplImage();
         croppedImage = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
         cvCopy(originalImage, croppedImage);
@@ -112,28 +124,11 @@ public class Detector {
         }
 
         if(part.equals((PartToDetect.EYES))) {
-
+            Face faceObject = new Face(croppedImage);
+            faceObjects.add(counter, faceObject);
         }
 
         return croppedImage;
-    }
-
-
-
-    public String getOriginalImagePath() {
-        return originalImagePath;
-    }
-
-    public void setOriginalImagePath(String originalImagePath) {
-        this.originalImagePath = originalImagePath;
-    }
-
-    public String getSaveImagePath() {
-        return saveImagePath;
-    }
-
-    public void setSaveImagePath(String saveImagePath) {
-        this.saveImagePath = saveImagePath;
     }
 
     protected ArrayList<Face> getFaces() {
