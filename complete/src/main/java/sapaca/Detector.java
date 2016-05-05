@@ -29,6 +29,7 @@ public class Detector {
     private PartToDetect part;
     private int detectedFaces;
     private CvHaarClassifierCascade cascade;
+    private IplImage processImage;
 
     private static String xmlFile;
     private int counter;
@@ -36,9 +37,10 @@ public class Detector {
     public Detector(PartToDetect part, IplImage image) {
         if (part.equals(PartToDetect.FACE)) {
             this.part = PartToDetect.FACE;
+            processImage = image;
             setXmlFile();
             loadClassifier();
-            detectFaces(processImage(image));
+            detectFaces(processImage(processImage));
         }
         if (part.equals(PartToDetect.EYES)) {
             this.part = PartToDetect.EYES;

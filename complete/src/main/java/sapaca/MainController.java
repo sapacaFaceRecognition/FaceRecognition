@@ -135,7 +135,7 @@ public class MainController {
 
 			//FaceDetection detection = new FaceDetection(imagePath, newImagePath);
 			image = cvLoadImage(getImagePath(), 1);
-			Detector detection = new Detector(PartToDetect.EYES, image);
+			Detector detection = new Detector(PartToDetect.FACE, image);
 			if (faces != null) {
 				faces.clear();
 			}
