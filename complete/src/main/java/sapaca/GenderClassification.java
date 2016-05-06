@@ -9,9 +9,6 @@ import static org.bytedeco.javacpp.opencv_stitching.Stitcher;
 
 public class GenderClassification {
 
-    private GenderClassification() {
-    }
-
 	 private static boolean tryUseGpu = false;
 	    private static MatVector imgs = new MatVector();
 	    private static String resultName = "result.jpg";

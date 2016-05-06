@@ -40,7 +40,8 @@ public class MainController {
 	private boolean isUploadedImageEmpty;
 	private byte[] currentImageInBytes;
 	private IplImage image;
-	String imagePath;
+	private String imagePath;
+	private PartFactory partFactory = new PartFactory();
 
 	@Autowired
 	private FacesRepository facesRepository;
@@ -117,10 +118,13 @@ public class MainController {
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.POST)
 	public String uploadImage(@RequestParam(value = "uploadedFile", required = false) MultipartFile uploadedFile,
 			Model model) throws IOException, ServletException {
+
+		Part part = partFactory.load(PartToDetect.FACE);
+
 		// ... do whatever you want with 'myFile'
 		// Redirect to a successful upload page
 		this.uploadedFile = uploadedFile;
-		System.out.println(uploadedFile.getOriginalFilename());
+
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
 		// model.addAttribute("faces_empty", "false");
 		if (!isUploadedImageEmpty) {
@@ -135,7 +139,8 @@ public class MainController {
 
 			//FaceDetection detection = new FaceDetection(imagePath, newImagePath);
 			image = cvLoadImage(getImagePath(), 1);
-			Detector detection = new Detector(PartToDetect.FACE, image);
+			Detector detection = new Detector(part, image);
+
 			if (faces != null) {
 				faces.clear();
 			}
@@ -214,22 +219,22 @@ public class MainController {
 			byte[] imageContent = facesRepository.findById(id).getDbImage();
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
-			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 		} else if (faces != null && !faces.isEmpty()) {
 			byte[] imageContent = faces.get(0).getDbImage();
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
-			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 		} else if (currentImageInBytes != null) {
 			byte[] imageContent = currentImageInBytes;
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
-			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 		} else {
 			byte[] imageContent = getImage("./static/pic/Detecting.png");
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
-			return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 		}
 	}
 
@@ -300,6 +305,10 @@ public class MainController {
 
 	private String getImagePath() {
 		return imagePath;
+	}
+
+	public static void main() {
+		GenderClassification gen = new GenderClassification();
 	}
 
 }
