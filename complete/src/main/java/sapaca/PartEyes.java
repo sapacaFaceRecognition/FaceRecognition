@@ -5,9 +5,10 @@ import org.bytedeco.javacpp.opencv_core.IplImage;
 
 import java.io.File;
 import java.net.URL;
-import static org.bytedeco.javacpp.opencv_core.cvLoad;
+
 import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 
+import static org.bytedeco.javacpp.opencv_core.*;
 
 
 /**
@@ -16,31 +17,32 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 public class PartEyes implements Part {
     private static String xmlPath;
     private CvHaarClassifierCascade cascade;
-    private IplImage grayImage;
-    @Override
-    public String setXmlFile() {
-        try {
-            URL source = Detector.class.getClassLoader().getResource("frontalEyes.xml");
-            xmlPath = new File(source.toURI()).getAbsolutePath();
-        }
-        catch (Exception e) {
-            System.out.println("Couldn't load xml File");
-        }
-        return xmlPath;
-    }
+    private String xmlName;
 
     @Override
     public CvHaarClassifierCascade loadClassifier() {
-        return cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
-    }
-
-    @Override
-    public IplImage getGrayImage() {
-        return grayImage;
+        IplImage greenChannelImage = cvCreateImage(cvSize(210, 210), IPL_DEPTH_8U, 1);
+        cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
+        byte color = 0;
+        byte borderThick = 10;
+        for (int i = 0; i < 10; i++) {
+            CvRect cvRect = cvRect(i * borderThick, i * borderThick, 210 - 2 * i * borderThick, 210 - 2 * i * borderThick);
+            cvSetImageROI(greenChannelImage, cvRect);
+            cvSet(greenChannelImage, cvScalar(color));
+            color += 20;
+            System.out.println(color + " " + greenChannelImage.toString());
+        }
+        return cascade;
     }
 
     @Override
     public String getXmlPath() {
         return xmlPath;
+    }
+
+    @Override
+    public String getXmlName() {
+        xmlName = "frontalEyes.xml";
+        return xmlName;
     }
 }

@@ -1,11 +1,13 @@
 package sapaca;
+import org.bytedeco.javacpp.opencv_core.MatVector;
+import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
 import java.io.File;
 import java.net.URL;
 import static org.bytedeco.javacpp.opencv_core.cvLoad;
 import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
-
+import org.bytedeco.javacpp.opencv_stitching.Stitcher;
 
 
 /**
@@ -13,33 +15,28 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
  */
 public class PartFace implements Part {
     private static String xmlPath;
-    private static IplImage grayImage;
     private CvHaarClassifierCascade cascade;
-
-    @Override
-    public String setXmlFile() {
-        try {
-        URL source = Detector.class.getClassLoader().getResource("haarcascade_frontalface_alt.xml");
-        xmlPath = new File(source.toURI()).getAbsolutePath();
-        }
-        catch (Exception e) {
-            System.out.println("Couldn't load xml File");
-        }
-        return xmlPath;
-    }
+    private String xmlName;
 
     @Override
     public CvHaarClassifierCascade loadClassifier() {
-        return cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
-    }
-
-    @Override
-    public IplImage getGrayImage() {
-        return grayImage;
+        cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
+        MatVector imgs = new MatVector();
+        Mat pano = new Mat();
+        Stitcher stitcher = Stitcher.createDefault(false);
+        int status = stitcher.stitch(imgs, pano);
+        System.out.println(status);
+        return cascade;
     }
 
     @Override
     public String getXmlPath() {
         return xmlPath;
+    }
+
+    @Override
+    public String getXmlName() {
+        xmlName = "haarcascade_frontalface_alt.xml";
+        return xmlName;
     }
 }

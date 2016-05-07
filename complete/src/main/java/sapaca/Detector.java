@@ -1,5 +1,9 @@
 package sapaca;
 import org.bytedeco.javacpp.opencv_core.IplImage;
+
+import java.io.File;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import static org.bytedeco.javacpp.helper.opencv_objdetect.cvHaarDetectObjects;
 import static org.bytedeco.javacpp.opencv_core.*;
@@ -14,18 +18,19 @@ public class Detector {
     private ArrayList<IplImage> croppedFaces = new ArrayList<>();
     private ArrayList<Face> faceObjects = new ArrayList<>();
     private IplImage croppedImage;
-    private int detectedFaces;
     private int counter;
     private Part part;
     IplImage grayImage;
+    private String xmlPath;
 
     public Detector(Part part, IplImage image) {
         this.part = part;
+        setXmlFile();
         detectFaces(image);
     }
 
     private void detectFaces(IplImage originalImage) {
-        CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(part.getXmlPath()));
+        CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
         grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
         cvCvtColor(originalImage,grayImage,CV_BGR2GRAY);
 
@@ -42,22 +47,20 @@ public class Detector {
             cvSetImageROI(originalImage, r2);
             croppedFaces.add(i, cropImage(originalImage));
         }
-
-        detectedFaces = faces.total();
     }
 
-    private void detectEyes(IplImage originalImage) {
-        CvMemStorage storage = CvMemStorage.create();
-        CvSeq eyes = cvHaarDetectObjects(part.getGrayImage(), part.loadClassifier(), storage, 1.2, 2, 0);
-        for(int i = 0; i < eyes.total(); i++) {
-            CvRect r = new CvRect(cvGetSeqElem(eyes, 0));
-            cvRectangle(originalImage, cvPoint(r.x(), r.y()), cvPoint(r.x() + r.width(), r.y() + r.height()),
-                    CvScalar.GREEN, 1, CV_AA, 0);
-            CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
-            cvSetImageROI(originalImage, r2);
-            croppedFaces.add(0, cropImage(originalImage));
-        }
-    }
+//    private void detectEyes(IplImage originalImage) {
+//        CvMemStorage storage = CvMemStorage.create();
+//        CvSeq eyes = cvHaarDetectObjects(grayImage, part.loadClassifier(), storage, 1.2, 2, 0);
+//        for(int i = 0; i < eyes.total(); i++) {
+//            CvRect r = new CvRect(cvGetSeqElem(eyes, 0));
+//            cvRectangle(originalImage, cvPoint(r.x(), r.y()), cvPoint(r.x() + r.width(), r.y() + r.height()),
+//                    CvScalar.GREEN, 1, CV_AA, 0);
+//            CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
+//            cvSetImageROI(originalImage, r2);
+//            croppedFaces.add(0, cropImage(originalImage));
+//        }
+//    }
 
     private IplImage cropImage(IplImage originalImage) {
         croppedImage = new IplImage();
@@ -73,5 +76,21 @@ public class Detector {
 
     protected ArrayList<Face> getFaces() {
         return faceObjects;
+    }
+
+    private void setXmlFile() {
+        try {
+            URL source = Detector.class.getClassLoader().getResource(part.getXmlName());
+            xmlPath = new File(source.toURI()).getAbsolutePath();
+        }
+        catch (URISyntaxException e) {
+            xmlPath = "";
+            System.out.println("Source not found.");
+        }
+        catch (Exception e) {
+            System.out.println("Something went horribly wrong...");
+            part = null;
+            xmlPath = "";
+        }
     }
 }
