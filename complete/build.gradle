@@ -17,8 +17,9 @@ apply plugin: 'jacoco'
 sonarRunner {
     sonarProperties {
         property 'sonar.host.url', 'http://193.196.7.25/'
-        property 'sonar.projectName', 'SapacaFaceReco'
-        property 'sonar.projectVersion', '1.1.0'
+        property 'sonar.projectKey', 'sapaca'
+        property 'sonar.projectName', 'sapacaFaceReco'
+        property 'sonar.projectVersion', '0.2.1'
         property 'sonar.sources', './src/main/java/sapaca'
         property "sonar.jacoco.reportPath", "${project.buildDir}/jacoco/test.exec"
     }
