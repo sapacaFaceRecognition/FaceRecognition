@@ -29,6 +29,6 @@ public class PartTest {
     @Test
     public void testSetXmlNamePerson() {
         Part partPerson = partFactory.load(PartToDetect.PERSON);
-        assertEquals(partPerson.getXmlName(), "NOT_DEFINED_YET.xml");
+        assertEquals(partPerson.getXmlName(), "person.xml");
     }
 }

@@ -35,11 +35,12 @@ public class Detector {
         cvCvtColor(originalImage,grayImage,CV_BGR2GRAY);
 
         CvMemStorage storage = CvMemStorage.create();
-        CvSeq faces = cvHaarDetectObjects(grayImage, cascade, storage, 1.2, 2, 0);
+        CvSeq foundAreas = cvHaarDetectObjects(grayImage, cascade, storage, 1.2, 2, 0);
+        System.out.println(foundAreas.total()+ "AREAS");
 
-        for (int i = 0; i < faces.total(); i++) {
+        for (int i = 0; i < foundAreas.total(); i++) {
             counter = i;
-            CvRect r = new CvRect(cvGetSeqElem(faces, i));
+            CvRect r = new CvRect(cvGetSeqElem(foundAreas, i));
             cvRectangle(originalImage, cvPoint(r.x(), r.y()), cvPoint(r.x() + r.width(), r.y() + r.height()),
                     CvScalar.GREEN, 1, CV_AA, 0);
 
@@ -47,20 +48,9 @@ public class Detector {
             cvSetImageROI(originalImage, r2);
             croppedFaces.add(i, cropImage(originalImage));
         }
-    }
 
-//    private void detectEyes(IplImage originalImage) {
-//        CvMemStorage storage = CvMemStorage.create();
-//        CvSeq eyes = cvHaarDetectObjects(grayImage, part.loadClassifier(), storage, 1.2, 2, 0);
-//        for(int i = 0; i < eyes.total(); i++) {
-//            CvRect r = new CvRect(cvGetSeqElem(eyes, 0));
-//            cvRectangle(originalImage, cvPoint(r.x(), r.y()), cvPoint(r.x() + r.width(), r.y() + r.height()),
-//                    CvScalar.GREEN, 1, CV_AA, 0);
-//            CvRect r2 = cvRect(r.x() - 100, r.y() - 100, r.width() + 200, r.height() + 200);
-//            cvSetImageROI(originalImage, r2);
-//            croppedFaces.add(0, cropImage(originalImage));
-//        }
-//    }
+
+    }
 
     private IplImage cropImage(IplImage originalImage) {
         croppedImage = new IplImage();

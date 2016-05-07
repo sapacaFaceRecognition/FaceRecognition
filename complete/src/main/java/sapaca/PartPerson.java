@@ -34,7 +34,7 @@ public class PartPerson implements Part {
 
     @Override
     public String getXmlName() {
-        xmlName = "NOT_DEFINED_YET.xml";
+        xmlName = "person.xml";
         return xmlName;
     }
 }
