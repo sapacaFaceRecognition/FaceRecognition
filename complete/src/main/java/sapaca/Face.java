@@ -57,10 +57,6 @@ public class Face {
 	@Transient
 	private boolean saveImage;
 
-	public Face() {
-
-	}
-
 	protected Face(IplImage croppedFace) {
 		this.croppedFace = croppedFace;
 

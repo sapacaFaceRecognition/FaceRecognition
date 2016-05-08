@@ -48,23 +48,15 @@ public class MainController {
 
 	private ArrayList<Face> faces;
 
-	// @RequestMapping("/test")
-	// public String test(@RequestParam(value = "name", required = false,
-	// defaultValue = "World") String name,
-	// Model model) {
-	// model.addAttribute("name", name);
-	// return "test";
-	// }
-
 	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
-	public String login(Model model) {
+	public String login() {
 		return "login";
 	}
 
 	@RequestMapping(value = "/home.html", method = RequestMethod.POST)
 	public String home(@RequestParam(value = "inputUsername", required = true, defaultValue = "-1") String username,
 			@RequestParam(value = "inputPassword", required = true, defaultValue = "-1") String password, Model model) {
-		if (username.equals("admin") && password.equals("sapaca")) {
+		if (("admin").equals(username) && ("sapaca").equals(password)) {
 			return "home";
 		} else {
 			model.addAttribute("username", username);
@@ -78,24 +70,19 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.GET)
-	public String faceDetection(@RequestParam(value = "name", required = false, defaultValue = "") String name,
-			Model model) {
-		// if (faces != null) {
-		// faces.clear();
-		// }
+	public String faceDetection() {
 		return "face_detection";
 	}
 
 	@RequestMapping(value = "/face_recognition.html", method = RequestMethod.GET)
-	public String faceRecognition(@RequestParam(value = "name", required = false, defaultValue = "") String name,
-			Model model) {
+	public String faceRecognition() {
 		return "face_recognition";
 	}
 
 	@RequestMapping(value = "/browse_images.html", method = RequestMethod.GET)
 	public String browseImage(Model model) {
 		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
-		ArrayList<Long> ids = new ArrayList<Long>();
+		ArrayList<Long> ids = new ArrayList<>();
 		for (Face currentFace : faces) {
 			System.out.println("Face (" + currentFace.getId() + ") : " + currentFace.getFirstName());
 			ids.add(currentFace.getId());
@@ -106,12 +93,12 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/about_us.html", method = RequestMethod.GET)
-	public String aboutUs(Model model) {
+	public String aboutUs() {
 		return "about_us";
 	}
 
 	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
-	public String statistics(Model model) {
+	public String statistics() {
 		return "statistics";
 	}
 
@@ -126,18 +113,16 @@ public class MainController {
 		this.uploadedFile = uploadedFile;
 
 		isUploadedImageEmpty = uploadedFile.isEmpty() ? true : false;
-		// model.addAttribute("faces_empty", "false");
 		if (!isUploadedImageEmpty) {
 			currentImageInBytes = uploadedFile.getBytes();
 			String imageParam = saveFile();
 			String fileName = imageParam.split("/")[imageParam.split("/").length - 1];
-			imagePath = new String(getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName);
+			imagePath = new String(
+					getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName);
 			if (System.getProperty("os.name").contains("indow")) {
 				imagePath = imagePath.substring(1, imagePath.length());
 			}
-			String newImagePath = imagePath.replace(".jpg", "_face.jpg");
 
-			//FaceDetection detection = new FaceDetection(imagePath, newImagePath);
 			image = cvLoadImage(getImagePath(), 1);
 			Detector detection = new Detector(part, image);
 
@@ -159,7 +144,6 @@ public class MainController {
 		}
 		model.addAttribute("isFaceDetected", "false");
 		return "face_detection";
-		// return test.replace(".jpg", "_face.jpg")
 	}
 
 	@RequestMapping(value = "/next_face.html", method = RequestMethod.POST)
@@ -240,7 +224,7 @@ public class MainController {
 
 	// Should be DELETE (not supported by html)
 	@RequestMapping(value = "/delete_image.html", method = RequestMethod.GET)
-	public String deleteImage(Model model, @RequestParam(value = "id", required = true) long id) {
+	public String deleteImage(@RequestParam(value = "id", required = true) long id) {
 		facesRepository.delete(facesRepository.findById(id));
 		return "redirect:/browse_images.html";
 	}
@@ -248,13 +232,8 @@ public class MainController {
 	public byte[] getImage(String filePath) {
 		byte[] data = {};
 		try {
-			String imagePath = filePath;
-			Path path = Paths.get(imagePath);
-			// if (System.getProperty("os.name").contains("indow")) {
-			// path = Paths.get(imagePath.substring(1, imagePath.length()));
-			// } else {
-			// path = Paths.get(imagePath);
-			// }
+			String currentImagePath = filePath;
+			Path path = Paths.get(currentImagePath);
 			data = Files.readAllBytes(path);
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -263,20 +242,20 @@ public class MainController {
 	}
 
 	private String saveFile() {
-		File imagePath = new File(getClass().getClassLoader().getResource(".").getFile() + "/uploaded_images/image_"
+		File imagePathFile = new File(getClass().getClassLoader().getResource(".").getFile() + "/uploaded_images/image_"
 				+ System.currentTimeMillis() + ".jpg");
-		System.out.println("ImagePath: " + imagePath.toString());
-		if (!imagePath.getParentFile().exists()) {
-			imagePath.getParentFile().mkdir();
+		System.out.println("ImagePath: " + imagePathFile.toString());
+		if (!imagePathFile.getParentFile().exists()) {
+			imagePathFile.getParentFile().mkdir();
 		}
 		try {
-			BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(imagePath));
+			BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(imagePathFile));
 			outputStream.write(uploadedFile.getBytes());
 			outputStream.close();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return "getImage/" + imagePath.getName();
+		return "getImage/" + imagePathFile.getName();
 	}
 
 	private byte[] convertIplImageToByteArray(Face face) {
@@ -284,31 +263,15 @@ public class MainController {
 			BufferedImage bufferedImage = face.getCroppedFace().getBufferedImage();
 			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 			ImageIO.write(bufferedImage, "jpg", byteArrayOutputStream);
-			byte[] imageAsByteArray = byteArrayOutputStream.toByteArray();
-			return imageAsByteArray;
+			return byteArrayOutputStream.toByteArray();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return null;
-	}
-
-	private void convertByteArrayToIplImage(Face face) {
-		try {
-			InputStream in = new ByteArrayInputStream(face.getDbImage());
-			BufferedImage bufferedImage = ImageIO.read(in);
-			IplImage iplImage = new IplImage().createFrom(bufferedImage);
-			face.setCroppedFace(iplImage);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		return new byte[0];
 	}
 
 	private String getImagePath() {
 		return imagePath;
-	}
-
-	public static void main() {
-		GenderClassification gen = new GenderClassification();
 	}
 
 }
