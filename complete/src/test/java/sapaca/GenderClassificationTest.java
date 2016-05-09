@@ -21,7 +21,7 @@ public class GenderClassificationTest {
 
     @Before
     public void setUp() {
-        URL url = Application.class.getClassLoader().getResource("TestImages/obama.jpg");
+        URL url = GenderClassification.class.getClassLoader().getResource("TestImages/obama.jpg");
         try {
             image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
         } catch (URISyntaxException e) {
