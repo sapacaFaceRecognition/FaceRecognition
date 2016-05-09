@@ -1,7 +1,5 @@
 package sapaca;
 
-import static org.bytedeco.javacpp.opencv_highgui.cvSaveImage;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -51,38 +49,14 @@ public class Face {
 	@Transient
 	private CvRect r;
 
-	@Transient
-	private boolean isFace;
-
-	@Transient
-	private boolean saveImage;
-
 	protected Face() {
 		super();
 	}
 	
 	protected Face(IplImage croppedFace) {
 		this.croppedFace = croppedFace;
-
-		addInfo();
 	}
 
-	private void addInfo() {
-		if (isFace) {
-			firstName = "";
-			lastName = "";
-			age = -1;
-			nationality = "";
-
-			saveImage();
-		}
-	}
-
-	private void saveImage() {
-		if (saveImage) {
-			cvSaveImage("PATH", croppedFace);
-		}
-	}
 
 	public Gender getGender() {
 		return gender;
@@ -114,22 +88,6 @@ public class Face {
 
 	public void setLastName(String lastname) {
 		this.lastName = lastname;
-	}
-
-	public boolean isFace() {
-		return isFace;
-	}
-
-	public void setFace(boolean isFace) {
-		this.isFace = isFace;
-	}
-
-	public boolean isSaveImage() {
-		return saveImage;
-	}
-
-	public void setSaveImage(boolean saveImage) {
-		this.saveImage = saveImage;
 	}
 
 	public IplImage getCroppedFace() {
