@@ -1,13 +1,13 @@
 package sapaca;
 
+import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,8 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
 
 @Controller
 public class MainController {
@@ -156,7 +154,7 @@ public class MainController {
 			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected, RedirectAttributes model) {
 
 		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
-				+ faceDetected + ", " + noFaceDetected);
+				+ faceDetected + ", " + noFaceDetected + ", " + faces);
 
 		if (faces != null && !faces.isEmpty()) {
 			if (faceDetected != null) {
@@ -272,6 +270,12 @@ public class MainController {
 
 	private String getImagePath() {
 		return imagePath;
+	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test() {
+		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
+		return "home";
 	}
 
 }
