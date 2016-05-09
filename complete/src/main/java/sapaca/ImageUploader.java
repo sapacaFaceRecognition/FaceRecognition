@@ -81,4 +81,8 @@ public class ImageUploader {
     public Cloudinary getCloudinary() {
         return cloudinary;
     }
+
+    public IplImage getImage() {
+        return imageToBeUploaded;
+    }
 }
