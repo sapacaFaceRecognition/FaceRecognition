@@ -35,4 +35,12 @@ public class GenderClassificationTest {
         genderClassification = new GenderClassification(image);
         assertThat(image, is(genderClassification.getImage()));
     }
+
+    @Test
+    public void replaceSlashesInUrlTest() throws Exception {
+        genderClassification = new GenderClassification(image);
+        genderClassification.replaceSlashesInUrl("http://res.cloudinary.com/drrgdjljd/image/upload/v1462817365/ehozbefqtg1vywlp4fwq.jpg");
+        assertThat("http%3A%2F%2Fres.cloudinary.com%2Fdrrgdjljd%2Fimage%2Fupload%2Fv1462817365%2Fehozbefqtg1vywlp4fwq.jpg",
+                        is(genderClassification.getUrlWithoutSlashes()));
+    }
 }

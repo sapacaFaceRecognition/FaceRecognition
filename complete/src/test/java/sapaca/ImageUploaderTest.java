@@ -25,11 +25,11 @@ public class ImageUploaderTest {
             e.printStackTrace();
         }
 
-        imageUploader = new ImageUploader(imageToBeUploaded);
     }
 
     @Test
     public void imageTest() throws Exception {
+        imageUploader = new ImageUploader(imageToBeUploaded);
         assertThat(imageToBeUploaded, is(imageUploader.getImage()));
     }
 }

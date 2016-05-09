@@ -1,4 +1,13 @@
 package sapaca;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.cloudinary.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.bytedeco.javacpp.opencv_core.IplImage;
 
 import static org.bytedeco.javacpp.opencv_core.Mat;
@@ -16,9 +25,16 @@ public class GenderClassification {
 	private static Gender gender;
 	private static int stitcherVar;
 	private IplImage image;
+	private String urlWithoutSlashes;
+	private String urlWithSlashes;
+	private ImageUploader imageUploader;
+	private HttpResponse<JsonNode> response;
+
 	public GenderClassification(IplImage image) {
 		this.image = image;
-		classifyGender(image, 0);
+		imageUploader = new ImageUploader(image);
+		httpRequest(imageUploader.getUploadedUrl());
+		//classifyGender(image, 0);
 	}
 
 	public static Gender classifyGender(IplImage image, int retval) {
@@ -92,7 +108,32 @@ public class GenderClassification {
 		return Gender.FEMALE;
 	}
 
+	public String replaceSlashesInUrl(String url) {
+		String temp = new String(url.replace(":", "%3A"));
+		urlWithoutSlashes = new String(temp.replace("/", "%2F"));
+		return urlWithoutSlashes;
+	}
+	public void httpRequest(String uploadedImageUrl) {
+		try {
+			response = Unirest.get("https://faceplusplus-faceplusplus.p.mashape.com" +
+					"/detection/detect?attribute=gender%2Cage%2Crace%2Csmiling&url=" +
+					replaceSlashesInUrl(uploadedImageUrl))
+					.header("X-Mashape-Key", "irY8JsoGe8msh97R53VBAlqi8FzRp10mJcrjsnvsM6bHNNcIVX")
+					.header("Accept", "application/json")
+					.asJson();
+		} catch (UnirestException e) {
+			e.printStackTrace();
+		}
+	}
 	public IplImage getImage() {
 		return image;
+	}
+
+	public String getUrlWithoutSlashes() {
+		return urlWithoutSlashes;
+	}
+
+	public HttpResponse<JsonNode> getResponse() {
+		return response;
 	}
 }

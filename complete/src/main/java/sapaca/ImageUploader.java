@@ -19,6 +19,7 @@ public class ImageUploader {
     private IplImage imageToBeUploaded;
     private BufferedImage buffImage;
     private File outputFile;
+    private String uploadedUrl;
 
     public ImageUploader(IplImage imageToBeUploaded) {
         this.imageToBeUploaded = imageToBeUploaded;
@@ -49,8 +50,6 @@ public class ImageUploader {
         if (file == null) {
             return "";
         }
-
-        String uploadedUrl;
         try {
             Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.asMap("public_id", "url"));
             uploadedUrl = (String) uploadResult.get("url");
@@ -62,7 +61,7 @@ public class ImageUploader {
         return uploadedUrl;
     }
 
-    private String getURL(String nameOfFile) {
+    public String getURL(String nameOfFile) {
         try {
             URL url = ImageUploader.class.getClassLoader().getResource(nameOfFile);
             System.out.println(new File(url.toURI()).getAbsolutePath());
@@ -84,5 +83,9 @@ public class ImageUploader {
 
     public IplImage getImage() {
         return imageToBeUploaded;
+    }
+
+    public String getUploadedUrl() {
+        return uploadedUrl;
     }
 }
