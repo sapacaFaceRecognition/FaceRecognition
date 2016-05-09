@@ -1,1 +1,0 @@
-DELETE FROM faces WHERE id > 0;
