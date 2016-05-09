@@ -11,8 +11,14 @@ branches:
 # container-based build:
 sudo: false
 
+env:
+    - DB=sqlite
+    - DB=mysql
+    - DB=postgresql
+
 before_script: 
   - cd complete
   - chmod +x gradlew
+  - mysql -e "create database sapaca_test"
 
 script: ./gradlew check
