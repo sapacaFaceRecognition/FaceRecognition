@@ -18,8 +18,8 @@ public class ImageUploaderTest {
     private IplImage imageToBeUploaded;
     @Before
     public void setUp() {
-        URL url = ImageUploaderTest.class.getClassLoader().getResource("TestImages/obama.jpg");
         try {
+            URL url = ImageUploaderTest.class.getClassLoader().getResource("TestImages/kurtcobain.jpg");
             imageToBeUploaded = cvLoadImage(new File(url.toURI()).getAbsolutePath());
         } catch (URISyntaxException e) {
             e.printStackTrace();
