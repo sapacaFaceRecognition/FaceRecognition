@@ -48,7 +48,9 @@ dependencies {
     
     compile 'org.springframework:spring-test:4.2.4.RELEASE'
     compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
-    
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'com.cloudinary:cloudinary-http44:1.4.1'
+
     testCompile("junit:junit")
 
     compile files ('libs/opencv.jar')

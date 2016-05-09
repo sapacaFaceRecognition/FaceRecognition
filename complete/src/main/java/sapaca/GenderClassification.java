@@ -1,4 +1,6 @@
 package sapaca;
+import static org.bytedeco.javacpp.opencv_core.IplImage;
+
 import static org.bytedeco.javacpp.opencv_core.Mat;
 import static org.bytedeco.javacpp.opencv_core.MatVector;
 import static org.bytedeco.javacpp.opencv_highgui.imread;
@@ -13,11 +15,15 @@ public class GenderClassification {
 	private static String resultName = "result.jpg";
 	private static Gender gender;
 	private static int stitcherVar;
+	private IplImage image;
+	public GenderClassification(IplImage image) {
+		this.image = image;
+		classifyGender(image, 0);
+	}
 
-	public static Gender classifyGender() {
-		int retval = 0;
+	public static Gender classifyGender(IplImage image, int retval) {
 		if (retval != 0) {
-			System.exit(-1);
+			System.out.println("Something went wrong...");
 		}
 
 		Mat pano = new Mat();
@@ -26,7 +32,7 @@ public class GenderClassification {
 		int status = stitcher.stitch(imgs, pano);
 
 		if (status != Stitcher.OK) {
-			System.exit(-1);
+			System.out.println("Something went wrong...");
 		}
 		imwrite(resultName, pano);
 		gender = stitcherArgs();
@@ -84,5 +90,9 @@ public class GenderClassification {
 			}
 		}
 		return Gender.FEMALE;
+	}
+
+	public IplImage getImage() {
+		return image;
 	}
 }
