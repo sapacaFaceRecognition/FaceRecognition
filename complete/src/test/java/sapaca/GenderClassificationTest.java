@@ -35,18 +35,18 @@ public class GenderClassificationTest {
 
     @Test
     public void loadImageTest() {
-        URL resourceURL = FileHandler.class.getClassLoader().getResource("TestImages/cwurst.jpg");
-        try {
-            image = cvLoadImage(new File(resourceURL.toURI()).getAbsolutePath());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        if(resourceURL == null)
-            try {
-                throw new FileNotFoundException("\"TestImages/cwurst.jpg\" not found");
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//        URL resourceURL = FileHandler.class.getClassLoader().getResource("TestImages/cwurst.jpg");
+//        try {
+//            image = cvLoadImage(new File(resourceURL.toURI()).getAbsolutePath());
+//        } catch (URISyntaxException e) {
+//            e.printStackTrace();
+//        }
+//        if(resourceURL == null)
+//            try {
+//                throw new FileNotFoundException("\"TestImages/cwurst.jpg\" not found");
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
 //        genderClassification = new GenderClassification(image);
 //        assertThat(image, is(genderClassification.getImage()));
     }
