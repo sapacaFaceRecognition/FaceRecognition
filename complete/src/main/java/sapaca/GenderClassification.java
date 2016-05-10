@@ -3,13 +3,9 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.cloudinary.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import static org.bytedeco.javacpp.opencv_core.IplImage;
-
 import static org.bytedeco.javacpp.opencv_core.Mat;
 import static org.bytedeco.javacpp.opencv_core.MatVector;
 import static org.bytedeco.javacpp.opencv_highgui.imread;
@@ -29,6 +25,11 @@ public class GenderClassification {
 	private String urlWithSlashes;
 	private ImageUploader imageUploader;
 	private HttpResponse<JsonNode> response;
+	private double genderConfidence;
+	private double raceConfidence;
+	private String race;
+	private int age;
+	private int ageRange;
 
 	public GenderClassification(IplImage image) {
 		this.image = image;
@@ -113,7 +114,7 @@ public class GenderClassification {
 		urlWithoutSlashes = new String(temp.replace("/", "%2F"));
 		return urlWithoutSlashes;
 	}
-	public void httpRequest(String uploadedImageUrl) {
+	private void httpRequest(String uploadedImageUrl) {
 		try {
 			response = Unirest.get("https://faceplusplus-faceplusplus.p.mashape.com" +
 					"/detection/detect?attribute=gender%2Cage%2Crace%2Csmiling&url=" +
@@ -121,10 +122,68 @@ public class GenderClassification {
 					.header("X-Mashape-Key", "irY8JsoGe8msh97R53VBAlqi8FzRp10mJcrjsnvsM6bHNNcIVX")
 					.header("Accept", "application/json")
 					.asJson();
+			jsonGetGender();
+			jsonGetRace();
+			jsonGetAge();
 		} catch (UnirestException e) {
 			e.printStackTrace();
 		}
 	}
+
+	private void jsonGetGender() {
+		String json = response.getBody().toString();
+		String matcher = "";
+		Pattern p = Pattern.compile("\"gender\":\\{\"confidence\"(.*?),");
+		Matcher m = p.matcher(json);
+		while (m.find()) {
+			matcher = m.group(0);
+		}
+		String confidenceGender = matcher.substring(23, matcher.indexOf(","));
+		genderConfidence = Double.parseDouble(confidenceGender);
+
+		gender = Gender.FEMALE;
+		if (json.contains("Male")) {
+			gender = Gender.MALE;
+		}
+	}
+
+	private void jsonGetRace() {
+		String json = response.getBody().toString();
+		String matcher = "";
+		String matcher2 = "";
+		Pattern p = Pattern.compile("\"race\":\\{\"confidence\"(.*?),");
+		Matcher m = p.matcher(json);
+		while (m.find()) {
+			matcher = m.group(0);
+		}
+		String confidenceRaceString = matcher.substring(21,matcher.indexOf(","));
+
+		raceConfidence = Double.parseDouble(confidenceRaceString);
+
+		Pattern p1 = Pattern.compile("\"race\":\\{\"confidence\"(.*?),\"value\":\"(.*?)\"");
+		Matcher m1 = p1.matcher(json);
+		while (m1.find()) {
+			matcher2 = m1.group(0);
+		}
+		int valueIndex = matcher2.indexOf("\"value\"");
+		String temp = matcher2.substring(valueIndex + 9, matcher2.length() - 1);
+		race = temp;
+	}
+
+	private void jsonGetAge() {
+		String json = response.getBody().toString();
+		String matcher = "";
+		Pattern p = Pattern.compile("\"age\":(.*?)\\}");
+		Matcher m = p.matcher(json);
+		while (m.find()) {
+			matcher = m.group(0);
+		}
+		String temp = matcher.substring(15, matcher.indexOf(","));
+		ageRange = Integer.parseInt(temp);
+		String temp2 = matcher.substring(matcher.indexOf(",") + + 9, matcher.length()-1);
+		age = Integer.parseInt(temp2);
+	}
+
 	public IplImage getImage() {
 		return image;
 	}
@@ -136,4 +195,20 @@ public class GenderClassification {
 	public HttpResponse<JsonNode> getResponse() {
 		return response;
 	}
+
+	public double getGenderConfidence() {
+		return genderConfidence;
+	}
+
+	public Gender getGender() {
+		return gender;
+	}
+
+	public double getRaceConfidence() { return raceConfidence; }
+
+	public String getRace() { return race; }
+
+	public int getAge() { return age; }
+
+	public int getAgeRange() { return ageRange; }
 }

@@ -19,7 +19,7 @@ public class ImageUploaderTest {
     @Before
     public void setUp() {
         try {
-            URL url = ImageUploaderTest.class.getClassLoader().getResource("TestImages/kurtcobain.jpg");
+            URL url = ImageUploaderTest.class.getClassLoader().getResource("TestImages/cwurst.jpg");
             imageToBeUploaded = cvLoadImage(new File(url.toURI()).getAbsolutePath());
         } catch (URISyntaxException e) {
             e.printStackTrace();
