@@ -119,12 +119,12 @@ public class GenderClassification {
 		return "";
 	}
 	private void httpRequest(String uploadedImageUrl) {
-		String url = replaceSlashesInUrl(uploadedImageUrl);
-		if(url.length() > 1) {
+		urlWithoutSlashes = replaceSlashesInUrl(uploadedImageUrl);
+		if(urlWithoutSlashes.length() > 1) {
 			try {
 				response = Unirest.get("https://faceplusplus-faceplusplus.p.mashape.com" +
 						"/detection/detect?attribute=gender%2Cage%2Crace%2Csmiling&url=" +
-						url)
+						urlWithoutSlashes)
 						.header("X-Mashape-Key", "irY8JsoGe8msh97R53VBAlqi8FzRp10mJcrjsnvsM6bHNNcIVX")
 						.header("Accept", "application/json")
 						.asJson();
