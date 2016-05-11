@@ -196,6 +196,8 @@ public class GenderClassification {
 		return response;
 	}
 
+
+
 	public double getGenderConfidence() {
 		return genderConfidence;
 	}

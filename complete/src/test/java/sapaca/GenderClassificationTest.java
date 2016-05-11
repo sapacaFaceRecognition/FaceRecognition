@@ -23,13 +23,13 @@ public class GenderClassificationTest {
 
     @Before
     public void setUp() {
-//        try {
-//            URL url = GenderClassificationTest.class.getClassLoader().getResource("TestImages/cwurst.jpg");
-//            image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
-//
-//        } catch (URISyntaxException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            URL url = GenderClassificationTest.class.getClassLoader().getResource("TestImages/cwurst.jpg");
+            image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
+
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -31,6 +31,13 @@ jar {
     version =  '0.1.0'
 }
 
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
+}
+
 repositories {
     mavenCentral()
 }
