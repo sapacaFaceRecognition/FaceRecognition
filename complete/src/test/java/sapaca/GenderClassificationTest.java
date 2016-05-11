@@ -25,11 +25,11 @@ public class GenderClassificationTest {
     @Before
     public void setUp() {
         try {
-            URL url = this.getClass().getClassLoader().getResource("/main/java/sapaca/resources/TestImages/obama.jpg");
+            URL url = this.getClass().getClassLoader().getResource("TestImages/obama.jpg");
             //InputStream in = getClass().getResourceAsStream("/TestImages/obama.jpg");
             if (url.toString().length() > 1) {
                 image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
-                System.out.println("success");
+                ImageUploader imageUploader = new ImageUploader(image);
             }
 
         } catch (URISyntaxException e) {
@@ -54,13 +54,5 @@ public class GenderClassificationTest {
 //            }
 //        genderClassification = new GenderClassification(image);
 //        assertThat(image, is(genderClassification.getImage()));
-    }
-
-    @Test
-    public void replaceSlashesInUrlTest() throws Exception {
-//        genderClassification = new GenderClassification(image);
-//        genderClassification.replaceSlashesInUrl("http://res.cloudinary.com/drrgdjljd/image/upload/v1462817365/ehozbefqtg1vywlp4fwq.jpg");
-//        assertThat("http%3A%2F%2Fres.cloudinary.com%2Fdrrgdjljd%2Fimage%2Fupload%2Fv1462817365%2Fehozbefqtg1vywlp4fwq.jpg",
-//                        is(genderClassification.getUrlWithoutSlashes()));
     }
 }
