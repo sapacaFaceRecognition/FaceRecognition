@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -24,7 +25,8 @@ public class GenderClassificationTest {
     @Before
     public void setUp() {
         try {
-            URL url = GenderClassificationTest.class.getClassLoader().getResource("TestImages/obama.jpg");
+            URL url = this.getClass().getClassLoader().getResource("TestImages/obama.jpg");
+            //InputStream in = getClass().getResourceAsStream("/TestImages/obama.jpg");
             if (url.toString().length() > 1) {
                 image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
                 System.out.println("success");
