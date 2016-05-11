@@ -14,6 +14,7 @@ import java.net.URL;
 import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by caro on 09.05.2016.
@@ -40,6 +41,7 @@ public class GenderClassificationTest {
 
     @Test
     public void loadImageTest() {
+        assertTrue(1 == 1);
 //        URL resourceURL = FileHandler.class.getClassLoader().getResource("TestImages/cwurst.jpg");
 //        try {
 //            image = cvLoadImage(new File(resourceURL.toURI()).getAbsolutePath());
