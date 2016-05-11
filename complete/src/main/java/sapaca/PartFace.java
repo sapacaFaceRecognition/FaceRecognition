@@ -14,7 +14,7 @@ import org.bytedeco.javacpp.opencv_stitching.Stitcher;
  * Created by caro on 05.05.2016.
  */
 public class PartFace implements Part {
-    private static String xmlPath;
+    private static String xmlPath = "";
     private CvHaarClassifierCascade cascade;
     private String xmlName;
 

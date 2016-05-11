@@ -39,4 +39,35 @@ public class PartTest {
         Part partPerson = partFactory.load(PartToDetect.FACE);
         assertThat(partPerson.getPartToDetect(), is(PartToDetect.FACE));
     }
+
+    @Test
+    public void getPartToDetectEyesTest() {
+        Part partPerson = partFactory.load(PartToDetect.EYES);
+        assertThat(partPerson.getPartToDetect(), is(PartToDetect.EYES));
+    }
+
+    @Test
+    public void getPartToDetectPersonTest() {
+        Part partPerson = partFactory.load(PartToDetect.PERSON);
+        assertThat(partPerson.getPartToDetect(), is(PartToDetect.PERSON));
+    }
+
+    @Test
+    public void getXmlPathFaceTest() {
+        Part partFace = partFactory.load(PartToDetect.FACE);
+        assertThat(partFace.getXmlPath(), is(""));
+    }
+
+    @Test
+    public void getXmlPathEyesTest() {
+        Part partEyes = partFactory.load(PartToDetect.EYES);
+        assertThat(partEyes.getXmlPath(), is(""));
+    }
+
+    @Test
+    public void getXmlPathPersonTest() {
+        Part partPerson = partFactory.load(PartToDetect.PERSON);
+        assertThat(partPerson.getXmlPath(), is(""));
+    }
+
 }

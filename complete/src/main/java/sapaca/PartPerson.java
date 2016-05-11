@@ -10,7 +10,7 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 import static org.bytedeco.javacpp.opencv_core.*;
 
 public class PartPerson implements Part {
-    private static String xmlPath;
+    private static String xmlPath = "";
     private CvHaarClassifierCascade cascade;
     private String xmlName;
 
