@@ -24,11 +24,10 @@ public class GenderClassificationTest {
     @Before
     public void setUp() {
         try {
-            URL url = GenderClassificationTest.class.getClassLoader().getResource("obama.jpg");
-            System.out.println(url.toString());
-            System.out.println(new File(url.toURI()).getAbsolutePath());
-            if (url != null) {
+            URL url = GenderClassificationTest.class.getClassLoader().getResource("TestImages/obama.jpg");
+            if (url.toString().length() > 1) {
                 image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
+                System.out.println("success");
             }
 
         } catch (URISyntaxException e) {
