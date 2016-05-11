@@ -27,7 +27,9 @@ public class GenderClassificationTest {
             URL url = GenderClassificationTest.class.getClassLoader().getResource("obama.jpg");
             System.out.println(url.toString());
             System.out.println(new File(url.toURI()).getAbsolutePath());
-            image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
+            if (url != null) {
+                image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
+            }
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
