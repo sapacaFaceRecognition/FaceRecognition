@@ -17,4 +17,4 @@ before_script:
   - cd complete
   - chmod +x gradlew
 
-script: ./gradlew check --info
+script: ./gradlew check --debug
