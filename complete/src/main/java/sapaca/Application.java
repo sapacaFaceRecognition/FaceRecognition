@@ -20,17 +20,5 @@ public class Application {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
-
-
-		try {
-			// Beispiel wie es aussehen koennte...
-			URL url = Application.class.getClassLoader().getResource("TestImages/obama.jpg");
-			IplImage imageToBeUploaded = cvLoadImage(new File(url.toURI()).getAbsolutePath());
-
-			ImageUploader imageUploader = new ImageUploader(imageToBeUploaded);
-		}
-		catch (Exception e) {
-			System.out.println("Fuck u.");
-		}
 	}
 }

@@ -37,4 +37,9 @@ public class PartPerson implements Part {
         xmlName = "person.xml";
         return xmlName;
     }
+
+    @Override
+    public PartToDetect getPartToDetect() {
+        return PartToDetect.PERSON;
+    }
 }

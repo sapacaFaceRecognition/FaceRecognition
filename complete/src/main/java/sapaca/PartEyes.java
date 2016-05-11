@@ -45,4 +45,9 @@ public class PartEyes implements Part {
         xmlName = "frontalEyes.xml";
         return xmlName;
     }
+
+    @Override
+    public PartToDetect getPartToDetect() {
+        return PartToDetect.EYES;
+    }
 }

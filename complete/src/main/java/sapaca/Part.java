@@ -11,4 +11,5 @@ public interface Part {
     CvHaarClassifierCascade loadClassifier();
     String getXmlPath();
     String getXmlName();
+    PartToDetect getPartToDetect();
 }

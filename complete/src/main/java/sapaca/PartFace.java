@@ -39,4 +39,9 @@ public class PartFace implements Part {
         xmlName = "haarcascade_frontalface_alt.xml";
         return xmlName;
     }
+
+    @Override
+    public PartToDetect getPartToDetect() {
+        return PartToDetect.FACE;
+    }
 }
