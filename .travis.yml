@@ -8,6 +8,7 @@ branches:
   only:
     - master
     - test-db
+    - travisFix
 
 # container-based build:
 sudo: false
@@ -16,4 +17,4 @@ before_script:
   - cd complete
   - chmod +x gradlew
 
-script: ./gradlew check
+script: ./gradlew check --debug
