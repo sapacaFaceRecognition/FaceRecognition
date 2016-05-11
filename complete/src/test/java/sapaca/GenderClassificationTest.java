@@ -24,7 +24,9 @@ public class GenderClassificationTest {
     @Before
     public void setUp() {
         try {
-            URL url = GenderClassificationTest.class.getClassLoader().getResource("TestImages/cwurst.jpg");
+            URL url = GenderClassificationTest.class.getClassLoader().getResource("TestImages/obama.jpg");
+            System.out.println(url.toString());
+            System.out.println(new File(url.toURI()).getAbsolutePath());
             image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
 
         } catch (URISyntaxException e) {
