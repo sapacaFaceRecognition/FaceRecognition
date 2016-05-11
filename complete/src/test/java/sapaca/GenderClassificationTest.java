@@ -28,10 +28,8 @@ public class GenderClassificationTest {
         try {
             URL url = this.getClass().getClassLoader().getResource("obama.jpg");
             //InputStream in = getClass().getResourceAsStream("/TestImages/obama.jpg");
-            if (url.toString().length() > 1) {
                 image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
                 ImageUploader imageUploader = new ImageUploader(image);
-            }
 
         } catch (URISyntaxException e) {
             e.printStackTrace();
