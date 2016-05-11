@@ -8,6 +8,7 @@ branches:
   only:
     - master
     - test-db
+    - travisFix
 
 # container-based build:
 sudo: false
