@@ -111,9 +111,12 @@ public class GenderClassification {
 	}
 
 	public String replaceSlashesInUrl(String url) {
-		String temp = new String(url.replace(":", "%3A"));
-		urlWithoutSlashes = new String(temp.replace("/", "%2F"));
-		return urlWithoutSlashes;
+		if(url.length() > 1) {
+			String temp = new String(url.replace(":", "%3A"));
+			urlWithoutSlashes = new String(temp.replace("/", "%2F"));
+			return urlWithoutSlashes;
+		}
+		return "";
 	}
 	private void httpRequest(String uploadedImageUrl) {
 		String url = replaceSlashesInUrl(uploadedImageUrl);
