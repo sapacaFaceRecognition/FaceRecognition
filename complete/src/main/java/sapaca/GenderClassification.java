@@ -34,7 +34,8 @@ public class GenderClassification {
 	public GenderClassification(IplImage image) {
 		this.image = image;
 		imageUploader = new ImageUploader(image);
-		httpRequest(imageUploader.getUploadedUrl());
+		String url = imageUploader.getUploadedUrl();
+		httpRequest(url);
 		//classifyGender(image, 0);
 	}
 
@@ -110,23 +111,29 @@ public class GenderClassification {
 	}
 
 	public String replaceSlashesInUrl(String url) {
-		String temp = new String(url.replace(":", "%3A"));
-		urlWithoutSlashes = new String(temp.replace("/", "%2F"));
-		return urlWithoutSlashes;
+		if(url.length() > 1) {
+			String temp = url.replace(":", "%3A");
+			urlWithoutSlashes = temp.replace("/", "%2F");
+			return urlWithoutSlashes;
+		}
+		return "";
 	}
 	private void httpRequest(String uploadedImageUrl) {
-		try {
-			response = Unirest.get("https://faceplusplus-faceplusplus.p.mashape.com" +
-					"/detection/detect?attribute=gender%2Cage%2Crace%2Csmiling&url=" +
-					replaceSlashesInUrl(uploadedImageUrl))
-					.header("X-Mashape-Key", "irY8JsoGe8msh97R53VBAlqi8FzRp10mJcrjsnvsM6bHNNcIVX")
-					.header("Accept", "application/json")
-					.asJson();
-			jsonGetGender();
-			jsonGetRace();
-			jsonGetAge();
-		} catch (UnirestException e) {
-			e.printStackTrace();
+		urlWithoutSlashes = replaceSlashesInUrl(uploadedImageUrl);
+		if(urlWithoutSlashes.length() > 1) {
+			try {
+				response = Unirest.get("https://faceplusplus-faceplusplus.p.mashape.com" +
+						"/detection/detect?attribute=gender%2Cage%2Crace%2Csmiling&url=" +
+						urlWithoutSlashes)
+						.header("X-Mashape-Key", "irY8JsoGe8msh97R53VBAlqi8FzRp10mJcrjsnvsM6bHNNcIVX")
+						.header("Accept", "application/json")
+						.asJson();
+				jsonGetGender();
+				jsonGetRace();
+				jsonGetAge();
+			} catch (UnirestException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -195,6 +202,8 @@ public class GenderClassification {
 	public HttpResponse<JsonNode> getResponse() {
 		return response;
 	}
+
+
 
 	public double getGenderConfidence() {
 		return genderConfidence;

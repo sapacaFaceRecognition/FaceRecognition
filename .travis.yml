@@ -17,4 +17,8 @@ before_script:
   - cd complete
   - chmod +x gradlew
 
+
 script: ./gradlew check
+
+after_success:
+  - ./gradlew jacocoTestReport coveralls

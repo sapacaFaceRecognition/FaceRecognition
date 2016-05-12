@@ -1,0 +1,5 @@
+projectKey=sapaca
+serverUrl=http://sonarqube.it.dh-karlsruhe.de
+dashboardUrl=http://sonarqube.it.dh-karlsruhe.de/dashboard/index/sapaca
+ceTaskId=AVShQXRH4cMWs-4js1Sb
+ceTaskUrl=http://sonarqube.it.dh-karlsruhe.de/api/ce/task?id=AVShQXRH4cMWs-4js1Sb

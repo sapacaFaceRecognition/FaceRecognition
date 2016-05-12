@@ -81,11 +81,11 @@ public class ImageUploader {
         return cloudinary;
     }
 
-    public IplImage getImage() {
-        return imageToBeUploaded;
-    }
+    public IplImage getImage() { return imageToBeUploaded; }
 
     public String getUploadedUrl() {
         return uploadedUrl;
     }
+
+    public File getFile() { return outputFile; }
 }

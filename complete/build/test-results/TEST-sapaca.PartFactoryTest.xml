@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="sapaca.PartFactoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2016-05-11T19:13:36" hostname="WIN-43CSU51H3R4" time="0.002">
+  <properties/>
+  <testcase name="loadEyesTest" classname="sapaca.PartFactoryTest" time="0.001"/>
+  <testcase name="loadPersonTest" classname="sapaca.PartFactoryTest" time="0.001"/>
+  <testcase name="loadFaceTest" classname="sapaca.PartFactoryTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
