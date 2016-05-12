@@ -7,12 +7,17 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
+
 
 sonarRunner {
     sonarProperties {
@@ -62,6 +67,13 @@ dependencies {
 
     compile files ('libs/opencv.jar')
     compile files ('libs/javacpp.jar')
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 task wrapper(type: Wrapper) {
