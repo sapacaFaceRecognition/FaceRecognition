@@ -20,26 +20,26 @@ import static org.junit.Assert.assertTrue;
  * Created by caro on 09.05.2016.
  */
 public class GenderClassificationTest {
-    private IplImage image;
-    private GenderClassification genderClassification;
-
-    @Before
-    public void setUp() {
-        try {
-            URL url = this.getClass().getClassLoader().getResource("obama.jpg");
-            //InputStream in = getClass().getResourceAsStream("/TestImages/obama.jpg");
-                image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
-                ImageUploader imageUploader = new ImageUploader(image);
-
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    public void loadImageTest() {
-        assertTrue(1 == 1);
+//    private IplImage image;
+//    private GenderClassification genderClassification;
+//
+//    @Before
+//    public void setUp() {
+//        try {
+//            URL url = this.getClass().getClassLoader().getResource("obama.jpg");
+//            //InputStream in = getClass().getResourceAsStream("/TestImages/obama.jpg");
+//                image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
+//                ImageUploader imageUploader = new ImageUploader(image);
+//
+//        } catch (        e.printStackTrace();
+//    }URISyntaxException e) {
+//
+//
+//    }
+//
+//    @Test
+//    public void loadImageTest() {
+//        assertTrue(1 == 1);
 //        URL resourceURL = FileHandler.class.getClassLoader().getResource("TestImages/cwurst.jpg");
 //        try {
 //            image = cvLoadImage(new File(resourceURL.toURI()).getAbsolutePath());
@@ -54,5 +54,5 @@ public class GenderClassificationTest {
 //            }
 //        genderClassification = new GenderClassification(image);
 //        assertThat(image, is(genderClassification.getImage()));
-    }
+//    }
 }
