@@ -33,6 +33,7 @@ public class ImageUploaderTest {
     @Test
     public void getFileNameTest() throws Exception {
         assertThat(imageUploader.getFile().getName(), is("image.jpg"));
+
     }
 
 }
