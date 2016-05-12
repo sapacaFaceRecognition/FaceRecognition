@@ -18,3 +18,6 @@ before_script:
   - chmod +x gradlew
 
 script: ./gradlew check --info
+
+after_success:
+  - ./gradlew jacocoTestReport coveralls
