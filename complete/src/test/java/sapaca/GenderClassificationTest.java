@@ -11,6 +11,9 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import static org.bytedeco.javacpp.opencv_core.IPL_DEPTH_8U;
+import static org.bytedeco.javacpp.opencv_core.cvCreateImage;
+import static org.bytedeco.javacpp.opencv_core.cvSize;
 import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -25,15 +28,8 @@ public class GenderClassificationTest {
 //
 //    @Before
 //    public void setUp() {
-//        try {
-//            URL url = this.getClass().getClassLoader().getResource("obama.jpg");
-//            //InputStream in = getClass().getResourceAsStream("/TestImages/obama.jpg");
-//                image = cvLoadImage(new File(url.toURI()).getAbsolutePath());
-//                ImageUploader imageUploader = new ImageUploader(image);
-//
-//        } catch (        e.printStackTrace();
-//    }URISyntaxException e) {
-//
+//        image = cvCreateImage(cvSize(210, 210), IPL_DEPTH_8U, 1);
+//        ImageUploader imageUploader = new ImageUploader(image);
 //
 //    }
 //

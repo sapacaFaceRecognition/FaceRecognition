@@ -24,7 +24,7 @@ public class ImageUploader {
     public ImageUploader(IplImage imageToBeUploaded) {
         this.imageToBeUploaded = imageToBeUploaded;
         setCloudinary();
-        //uploadImage(IplImageToFile());
+        uploadImage(IplImageToFile());
     }
 
     private void setCloudinary() {
@@ -81,11 +81,11 @@ public class ImageUploader {
         return cloudinary;
     }
 
-    public IplImage getImage() {
-        return imageToBeUploaded;
-    }
+    public IplImage getImage() { return imageToBeUploaded; }
 
     public String getUploadedUrl() {
         return uploadedUrl;
     }
+
+    public File getFile() { return outputFile; }
 }

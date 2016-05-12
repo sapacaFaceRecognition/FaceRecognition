@@ -22,12 +22,17 @@ public class ImageUploaderTest {
     @Before
     public void setUp() {
         imageToBeUploaded = cvCreateImage(cvSize(210, 210), IPL_DEPTH_8U, 1);
+        imageUploader = new ImageUploader(imageToBeUploaded);
     }
 
     @Test
     public void imageTest() throws Exception {
-        imageUploader = new ImageUploader(imageToBeUploaded);
         assertThat(imageToBeUploaded, is(imageUploader.getImage()));
+    }
+
+    @Test
+    public void getFileNameTest() throws Exception {
+        assertThat(imageUploader.getFile().getName(), is("image.jpg"));
     }
 
 }
