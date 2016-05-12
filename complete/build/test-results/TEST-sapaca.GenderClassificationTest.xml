@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="sapaca.GenderClassificationTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2016-05-11T19:13:36" hostname="WIN-43CSU51H3R4" time="0.001">
+  <properties/>
+  <testcase name="replaceSlashesInUrlTest" classname="sapaca.GenderClassificationTest" time="0.001"/>
+  <testcase name="loadImageTest" classname="sapaca.GenderClassificationTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

@@ -24,7 +24,7 @@ public class ImageUploader {
     public ImageUploader(IplImage imageToBeUploaded) {
         this.imageToBeUploaded = imageToBeUploaded;
         setCloudinary();
-        uploadImage(IplImageToFile());
+        //uploadImage(IplImageToFile());
     }
 
     private void setCloudinary() {

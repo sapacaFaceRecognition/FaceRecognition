@@ -22,7 +22,6 @@ public class ImageUploaderTest {
     @Before
     public void setUp() {
         imageToBeUploaded = cvCreateImage(cvSize(210, 210), IPL_DEPTH_8U, 1);
-
     }
 
     @Test
@@ -30,4 +29,5 @@ public class ImageUploaderTest {
         imageUploader = new ImageUploader(imageToBeUploaded);
         assertThat(imageToBeUploaded, is(imageUploader.getImage()));
     }
+
 }
