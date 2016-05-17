@@ -22,7 +22,6 @@ public class GenderClassification {
 	private static int stitcherVar;
 	private IplImage image;
 	private String urlWithoutSlashes;
-	private String urlWithSlashes;
 	private ImageUploader imageUploader;
 	private HttpResponse<JsonNode> response;
 	private double genderConfidence;
@@ -36,10 +35,9 @@ public class GenderClassification {
 		imageUploader = new ImageUploader(image);
 		String url = imageUploader.getUploadedUrl();
 		httpRequest(url);
-		//classifyGender(image, 0);
 	}
 
-	public static Gender classifyGender(IplImage image, int retval) {
+	private static Gender classifyGender(IplImage image, int retval) {
 		if (retval != 0) {
 			System.out.println("Something went wrong...");
 		}
@@ -110,7 +108,7 @@ public class GenderClassification {
 		return Gender.FEMALE;
 	}
 
-	public String replaceSlashesInUrl(String url) {
+	private String replaceSlashesInUrl(String url) {
 		if(url.length() > 1) {
 			String temp = url.replace(":", "%3A");
 			urlWithoutSlashes = temp.replace("/", "%2F");
@@ -202,8 +200,6 @@ public class GenderClassification {
 	public HttpResponse<JsonNode> getResponse() {
 		return response;
 	}
-
-
 
 	public double getGenderConfidence() {
 		return genderConfidence;

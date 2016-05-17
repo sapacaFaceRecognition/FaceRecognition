@@ -105,4 +105,6 @@ public class Detector {
     public IplImage getEyeImage() {
         return eyeImage;
     }
+
+    public String getXmlPath() { return xmlPath; }
 }
