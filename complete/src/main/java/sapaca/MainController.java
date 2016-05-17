@@ -1,13 +1,13 @@
 package sapaca;
 
+import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
+
 import java.awt.image.BufferedImage;
 import java.io.BufferedOutputStream;
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -30,8 +30,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import static org.bytedeco.javacpp.opencv_highgui.cvLoadImage;
 
 @Controller
 public class MainController {
@@ -154,14 +152,21 @@ public class MainController {
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "faceDetected", required = false) String faceDetected,
 			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected,
-			@RequestParam(value = "genderclassification", required = false) String genderclassification,
-			RedirectAttributes model) {
+			@RequestParam(value = "genderClassification", required = false) String genderClassification,
+			@RequestParam(value = "eyeDetection", required = false) String eyeDetection, RedirectAttributes model) {
 
-		if (genderclassification != null) {
+		if (genderClassification != null) {
 			Gender gender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
 			model.addFlashAttribute("is_face_detected", "true");
 			model.addFlashAttribute("classified_gender", gender.toString());
-			System.out.println("Gender: " + gender + "; " + faces.get(0).getCroppedFace());
+		}
+		if (eyeDetection != null) {
+			Part eyePart = new PartFactory().load(PartToDetect.EYES);
+			Detector detector = new Detector(eyePart, faces.get(0).getCroppedFace());
+			model.addFlashAttribute("is_face_detected", "true");
+			Face detectedEye = new Face(detector.getEyeImage());
+			detectedEye.setDbImage(convertIplImageToByteArray(detectedEye));
+			faces.add(0, detectedEye);
 		}
 
 		if (faces != null && !faces.isEmpty()) {
