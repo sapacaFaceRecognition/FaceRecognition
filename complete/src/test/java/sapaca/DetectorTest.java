@@ -23,10 +23,10 @@ public class DetectorTest {
         partFactory = new PartFactory();
         partFace = partFactory.load(PartToDetect.FACE);
         image = cvCreateImage(cvSize(10, 10), IPL_DEPTH_1U,3);
-        detection = new Detector(partFace, image);
     }
     @Test
     public void getFalseTest() throws Exception {
+        detection = new Detector(partFace, image);
         assertThat(detection.getFaces().size(), is(0));
     }
 
