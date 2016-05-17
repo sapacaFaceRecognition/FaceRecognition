@@ -62,6 +62,8 @@ dependencies {
     compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
     compile 'com.mashape.unirest:unirest-java:1.4.9'
     compile 'com.cloudinary:cloudinary-http44:1.4.1'
+    
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
 
     testCompile("junit:junit")
 

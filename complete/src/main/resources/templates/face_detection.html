@@ -96,9 +96,9 @@
                                		<div class="col-sm-5">
                                 		<select class="form-control" id="gender" name="gender">
                                 					<option>-</option>
-                                                    <option>männlich</option>
-                                                    <option>weiblich</option>
-                                                    <option>unbekannt</option>
+                                                    <option th:selected="${classified_gender == 'MALE'}">männlich</option>
+                                                    <option th:selected="${classified_gender == 'FEMALE'}">weiblich</option>
+                                                    <option th:selected="${classified_gender == 'UNKNOWN'}">unbekannt</option>
                                	    	</select>
                                		</div>
                                		<input class="btn btn-default col-sm-4" type="submit" id="genderclassification" name="genderclassification" value="Geschlechtserkennung"></input>

@@ -153,10 +153,16 @@ public class MainController {
 			@RequestParam(value = "nationality", required = false) String nationality,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "faceDetected", required = false) String faceDetected,
-			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected, RedirectAttributes model) {
+			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected,
+			@RequestParam(value = "genderclassification", required = false) String genderclassification,
+			RedirectAttributes model) {
 
-		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
-				+ faceDetected + ", " + noFaceDetected);
+		if (genderclassification != null) {
+			Gender gender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
+			model.addFlashAttribute("is_face_detected", "true");
+			model.addFlashAttribute("classified_gender", gender.toString());
+			System.out.println("Gender: " + gender + "; " + faces.get(0).getCroppedFace());
+		}
 
 		if (faces != null && !faces.isEmpty()) {
 			if (faceDetected != null) {
