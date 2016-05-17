@@ -144,6 +144,13 @@ public class MainController {
 		return "face_detection";
 	}
 
+	@RequestMapping(value = "/test.html", method = RequestMethod.POST)
+	public String test(RedirectAttributes model) {
+		System.out.println("test");
+		model.addFlashAttribute("test", "test");
+		return "test123";
+	}
+
 	@RequestMapping(value = "/next_face.html", method = RequestMethod.POST)
 	public String nextFace(@RequestParam(value = "firstName", required = false) String firstName,
 			@RequestParam(value = "lastName", required = false) String lastName,
@@ -153,7 +160,8 @@ public class MainController {
 			@RequestParam(value = "faceDetected", required = false) String faceDetected,
 			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected,
 			@RequestParam(value = "genderClassification", required = false) String genderClassification,
-			@RequestParam(value = "eyeDetection", required = false) String eyeDetection, RedirectAttributes model) {
+			@RequestParam(value = "eyeDetection", required = false) String eyeDetection,
+			@RequestParam(value = "attributes", required = false) String attributes, RedirectAttributes model) {
 
 		if (genderClassification != null) {
 			Gender gender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
@@ -167,6 +175,17 @@ public class MainController {
 			Face detectedEye = new Face(detector.getEyeImage());
 			detectedEye.setDbImage(convertIplImageToByteArray(detectedEye));
 			faces.add(0, detectedEye);
+		}
+
+		if (attributes != null) {
+			model.addFlashAttribute("attributes_expanded", "true");
+			GenderClassification genderClass = new GenderClassification(faces.get(0).getCroppedFace());
+			model.addFlashAttribute("classified_gender", genderClass.getGender().toString());
+			model.addFlashAttribute("gender_confidence", genderClass.getGenderConfidence());
+			model.addFlashAttribute("age", genderClass.getAge());
+			model.addFlashAttribute("age_range", genderClass.getAgeRange());
+			model.addFlashAttribute("race", genderClass.getRace());
+			model.addFlashAttribute("race_confidence", genderClass.getRaceConfidence());
 		}
 
 		if (faces != null && !faces.isEmpty()) {

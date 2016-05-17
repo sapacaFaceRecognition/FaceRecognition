@@ -115,17 +115,18 @@
                                 		<input class="fd-btn btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
                                 		<input class="fd-btn btn btn-default" type="submit" id="eyedetection" name="eyeDetection" value="Eye Detection"></input>
                                 		<input class="fd-btn btn btn-default" type="submit" id="bindtogooglesearch" name="bindtogooglesearch" value="Suche in Google Search"></input>
-										<button class="fd-btn btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+										<button class="fd-btn btn btn-default" type="submit" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" 
+										aria-controls="collapseExample" value="attributes" name="attributes">
 											Attributes
 										</button>
-										<div class="collapse" id="collapseExample">
+										<div th:if="${attributes_expanded}" class="collapse in" id="collapseExample">
 											<div class="well">
-												Gender: <p id="att_gender"></p>
-												Confidence: <p id="att_gender_conf"></p>
-                                                Age: <p id="att_age"></p>
-                                                Range: <p id="att_age_range"></p>
-                                                Race: <p id="att_race"></p>
-                                                Confidence: <p id="att_race_conf"></p>
+												Gender: <p id="att_gender_conf" style="display:inline" th:text="${classified_gender}"></p>
+												<br></br>Gender Confidence: <p id="att_gender_conf" style="display:inline" th:text="${gender_confidence}"></p>
+                                                <br></br>Age: <p id="att_age" style="display:inline" th:text="${age}"></p>
+                                                <br></br>Range: <p id="att_age_range" style="display:inline" th:text="${age_range}"></p>
+                                                <br></br>Race: <p id="att_race" style="display:inline" th:text="${race}"></p>
+                                                <br></br>Confidence: <p id="att_race_conf" style="display:inline" th:text="${race_confidence}"></p>
 											</div>
 										</div>
                                 	</div>
