@@ -3,6 +3,9 @@ language: java
 jdk:
 - oraclejdk8
 
+services:
+  - mysql
+
 # only build these branches (RegEx is also valid, eg. /^deploy.*$/):
 branches:
   only:
@@ -11,14 +14,15 @@ branches:
     - travisFix
 
 # container-based build:
-sudo: false
+sudo: true
 
 before_script: 
   - cd complete
   - chmod +x gradlew
+  - mysql -e 'create database sapaca_test'
+  - mysql -e 'use sapaca_test; create table faces (id bigint(20), age int(11), image longblob, first_name varchar(255), gender int(11), last_name varchar(255), location varchar(255), nationality varchar(255));'
 
-
-script: ./gradlew check
+script: ./gradlew check --debug
 
 after_success:
   - ./gradlew jacocoTestReport coveralls

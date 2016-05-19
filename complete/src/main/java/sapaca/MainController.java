@@ -177,6 +177,8 @@ public class MainController {
 			faces.add(0, detectedEye);
 		}
 
+		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
+				+ faceDetected + ", " + noFaceDetected + ", " + faces);
 		if (attributes != null) {
 			model.addFlashAttribute("attributes_expanded", "true");
 			GenderClassification genderClass = new GenderClassification(faces.get(0).getCroppedFace());
@@ -302,6 +304,12 @@ public class MainController {
 
 	private String getImagePath() {
 		return imagePath;
+	}
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test() {
+		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
+		return "home";
 	}
 
 }
