@@ -19,5 +19,6 @@ before_script:
   - cd complete
   - chmod +x gradlew
   - mysql -e 'create database sapaca_test'
+  - mysql -e 'create table faces'
 
 script: ./gradlew check --debug
