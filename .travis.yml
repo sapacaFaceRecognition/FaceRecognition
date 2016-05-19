@@ -3,6 +3,9 @@ language: java
 jdk:
 - oraclejdk8
 
+services:
+  - mysql
+
 # only build these branches (RegEx is also valid, eg. /^deploy.*$/):
 branches:
   only:
@@ -15,5 +18,6 @@ sudo: false
 before_script: 
   - cd complete
   - chmod +x gradlew
+  - mysql -e 'create database sapaca_test'
 
 script: ./gradlew check
