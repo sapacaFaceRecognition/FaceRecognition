@@ -19,6 +19,6 @@ before_script:
   - cd complete
   - chmod +x gradlew
   - mysql -e 'create database sapaca_test'
-  - mysql -e 'use sapaca_test; create table faces;'
+  - mysql -e 'use sapaca_test; create table faces (id bigint(20), age int(11), image longblob, first_name varchar(255), gender int(11), last_name varchar(255), location varchar(255), nationality varchar(255));'
 
 script: ./gradlew check --debug
