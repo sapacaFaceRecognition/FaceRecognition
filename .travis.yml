@@ -19,6 +19,5 @@ before_script:
   - cd complete
   - chmod +x gradlew
   - mysql -e 'create database sapaca_test'
-  - mysql -u root password password
 
 script: ./gradlew check --debug
