@@ -1,6 +1,0 @@
-test:
-  adapter: mysql5
-  database: sapaca_test
-  username: root
-  password: password
-  encoding: utf8
