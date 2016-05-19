@@ -20,4 +20,4 @@ before_script:
   - chmod +x gradlew
   - mysql -e 'create database sapaca_test'
 
-script: ./gradlew check
+script: ./gradlew check --debug
