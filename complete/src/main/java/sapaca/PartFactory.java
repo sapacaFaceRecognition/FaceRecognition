@@ -20,7 +20,6 @@ public class PartFactory {
             PartPerson partPerson = new PartPerson();
             return new PartPerson();
         }
-
         return null;
     }
 }

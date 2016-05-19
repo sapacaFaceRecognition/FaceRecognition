@@ -6,6 +6,44 @@
 		<link href="./css/bootstrap.min.css" rel="stylesheet"/>
 		<link href="css/simple-sidebar.css" rel="stylesheet"/>
 		<title>SAPACA</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script type="text/javascript">
+            google.charts.load('current', {'packages':['corechart', 'geochart']});
+            google.charts.setOnLoadCallback(drawStuff);
+            function drawStuff() {
+
+                /* Draw PieChart */
+                var data = google.visualization.arrayToDataTable([
+                    ['Amount', 'Gender'],
+                    ['Man',         6],
+                    ['Woman',       4],
+                    ['Unkown',      2]
+                ]);
+
+                var options = {
+                    title: 'Gender'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                chart.draw(data, options);
+
+                /* Draw Bar */
+                var data = google.visualization.arrayToDataTable([
+                    ['Länder', 'Anzahl Personen aus dem Land'],
+                    ['Germany', 2],
+                    ['United States', 3],
+                    ['England', 2],
+                    ['France', 6]
+                ]);
+
+                var options = {
+                    title: 'Personen aus verschiedenen Ländern'
+                };
+                var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+                chart.draw(data, options);
+            }
+        </script>
 	</head>
 	<body>
 		<div class="navbar-fixed-top navbar-default navbar">
@@ -49,7 +87,25 @@
                 <div class="row">
                     <div class="center-home">
                         <h1 class="text-center">Statistics</h1>
-                        <p>In kürze werde hier Statistiken angezeigt!</p>
+                        <div class="statistics">
+                            <table class="table">
+                                <tr>
+                                    <th>Anzahl Images:</th>
+                                    <th>Durchschnittliches Alter:</th>
+                                    <th>Genauigkeit der Gesichtserkennung:</th>
+                                    <th>Durchschnittliche Berechnungszeit der Gesichtserkennung:</th>
+                                </tr>
+                                <tr>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                    <td>X</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="piechart" class="chart"></div>
+                        <div style="border-bottom: 1px solid #C5C5C5"></div>
+                        <div id="regions_div" class="chart"></div>
                     </div>
                 </div>
             </div>

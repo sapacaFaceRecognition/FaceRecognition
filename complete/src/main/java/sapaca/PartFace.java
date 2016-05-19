@@ -14,8 +14,9 @@ import org.bytedeco.javacpp.opencv_stitching.Stitcher;
  * Created by caro on 05.05.2016.
  */
 public class PartFace implements Part {
-    private static String xmlPath;
+    private static String xmlPath = "";
     private CvHaarClassifierCascade cascade;
+    private Stitcher stitcher;
     private String xmlName;
 
     @Override
@@ -23,7 +24,7 @@ public class PartFace implements Part {
         cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
         MatVector imgs = new MatVector();
         Mat pano = new Mat();
-        Stitcher stitcher = Stitcher.createDefault(false);
+        stitcher = Stitcher.createDefault(false);
         int status = stitcher.stitch(imgs, pano);
         System.out.println(status);
         return cascade;
@@ -39,4 +40,10 @@ public class PartFace implements Part {
         xmlName = "haarcascade_frontalface_alt.xml";
         return xmlName;
     }
+
+    @Override
+    public PartToDetect getPartToDetect() {
+        return PartToDetect.FACE;
+    }
+
 }

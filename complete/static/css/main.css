@@ -49,3 +49,18 @@
 	margin-top: 10px;
 	margin-left: 15px;
 }
+
+.statistics{
+    margin: 15px;
+    border-bottom: 1px solid #C5C5C5;
+}
+
+.chart{
+    width: 900px;
+    height: 500px;
+    margin: 15px;
+}
+
+.fd-btn{
+    margin 5px;
+}

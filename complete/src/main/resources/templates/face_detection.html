@@ -96,12 +96,12 @@
                                		<div class="col-sm-5">
                                 		<select class="form-control" id="gender" name="gender">
                                 					<option>-</option>
-                                                    <option>männlich</option>
-                                                    <option>weiblich</option>
-                                                    <option>unbekannt</option>
+                                                    <option th:selected="${classified_gender == 'MALE'}">männlich</option>
+                                                    <option th:selected="${classified_gender == 'FEMALE'}">weiblich</option>
+                                                    <option th:selected="${classified_gender == 'UNKNOWN'}">unbekannt</option>
                                	    	</select>
                                		</div>
-                               		<input class="btn btn-default col-sm-4" type="submit" id="genderclassification" name="genderclassification" value="Geschlechtserkennung"></input>
+                               		<input class="btn btn-default col-sm-4" type="submit" id="genderclassification" name="genderClassification" value="Geschlechtserkennung"></input>
                                	</div>
                                	<div class="form-group">
                                 	<label for="location" class="col-sm-2 control-label">Location</label>
@@ -111,10 +111,24 @@
                                 </div>
                                 <div class="form-group">
                                 	<div class="col-sm-10">
-                                		<input class="btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Ist ein Gesicht!"></input>
-                                		<input class="btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
-                                		<input class="btn btn-default" type="submit" id="eye" name="eye" value="Eye Detection"></input>
-                                		<input class="btn btn-default" type="submit" id="bindtogooglesearch" name="bindtogooglesearch" value="Suche in Google Search"></input>
+                                		<input class="fd-btn btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Ist ein Gesicht!"></input>
+                                		<input class="fd-btn btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
+                                		<input class="fd-btn btn btn-default" type="submit" id="eyedetection" name="eyeDetection" value="Eye Detection"></input>
+                                		<input class="fd-btn btn btn-default" type="submit" id="bindtogooglesearch" name="bindtogooglesearch" value="Suche in Google Search"></input>
+										<button class="fd-btn btn btn-default" type="submit" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" 
+										aria-controls="collapseExample" value="attributes" name="attributes">
+											Attributes
+										</button>
+										<div th:if="${attributes_expanded}" class="collapse in" id="collapseExample">
+											<div class="well">
+												Gender: <p id="att_gender_conf" style="display:inline" th:text="${classified_gender}"></p>
+												<br></br>Gender Confidence: <p id="att_gender_conf" style="display:inline" th:text="${gender_confidence}"></p>
+                                                <br></br>Age: <p id="att_age" style="display:inline" th:text="${age}"></p>
+                                                <br></br>Range: <p id="att_age_range" style="display:inline" th:text="${age_range}"></p>
+                                                <br></br>Race: <p id="att_race" style="display:inline" th:text="${race}"></p>
+                                                <br></br>Confidence: <p id="att_race_conf" style="display:inline" th:text="${race_confidence}"></p>
+											</div>
+										</div>
                                 	</div>
                                 </div>
                             </form>

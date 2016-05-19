@@ -15,7 +15,7 @@ import static org.bytedeco.javacpp.opencv_core.*;
  * Created by caro on 05.05.2016.
  */
 public class PartEyes implements Part {
-    private static String xmlPath;
+    private static String xmlPath = "";
     private CvHaarClassifierCascade cascade;
     private String xmlName;
 
@@ -44,5 +44,10 @@ public class PartEyes implements Part {
     public String getXmlName() {
         xmlName = "frontalEyes.xml";
         return xmlName;
+    }
+
+    @Override
+    public PartToDetect getPartToDetect() {
+        return PartToDetect.EYES;
     }
 }

@@ -7,12 +7,17 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.github.kt3k.coveralls' version '2.6.3'
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'sonar-runner'
 apply plugin: 'jacoco'
+
 
 sonarRunner {
     sonarProperties {
@@ -29,6 +34,13 @@ sonarRunner {
 jar {
     baseName = 'SAPACA FaceRecognition'
     version =  '0.1.0'
+}
+
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "short"
+    }
 }
 
 repositories {
@@ -48,11 +60,22 @@ dependencies {
     
     compile 'org.springframework:spring-test:4.2.4.RELEASE'
     compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'com.cloudinary:cloudinary-http44:1.4.1'
     
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+
     testCompile("junit:junit")
 
     compile files ('libs/opencv.jar')
     compile files ('libs/javacpp.jar')
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
 }
 
 task wrapper(type: Wrapper) {

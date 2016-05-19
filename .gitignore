@@ -18,10 +18,10 @@ hs_err_pid*
 *.bin
 bin/.project
 bin/
-*.jpg
 .metadata/
 Servers/
 .recommenders/
 complete/bin/
 complete/.classpath
 *.idea
+*.jpg
