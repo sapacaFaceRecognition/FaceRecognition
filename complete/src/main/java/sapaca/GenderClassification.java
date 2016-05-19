@@ -37,7 +37,11 @@ public class GenderClassification {
 		httpRequest(url);
 	}
 
-	private static Gender classifyGender(IplImage image, int retval) {
+	public GenderClassification() {
+
+	}
+
+	private static Gender classifyGender(int retval) {
 		if (retval != 0) {
 			System.out.println("Something went wrong...");
 		}

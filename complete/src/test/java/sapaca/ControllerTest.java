@@ -10,6 +10,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.lang.reflect.Method;
+
 //@TestPropertySource("/test.properties")
 public class ControllerTest {
 
@@ -107,5 +109,4 @@ public class ControllerTest {
 			ex.printStackTrace();
 		}
 	}
-
 }
