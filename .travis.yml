@@ -13,12 +13,12 @@ branches:
     - test-db
 
 # container-based build:
-sudo: false
+sudo: true
 
 before_script: 
   - cd complete
   - chmod +x gradlew
   - mysql -e 'create database sapaca_test'
-  - mysql --user=root --password=password
+  - mysql -u root password password
 
 script: ./gradlew check --debug
