@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -43,6 +44,9 @@ public class MainController {
 
 	@Autowired
 	private FacesRepository facesRepository;
+
+	@Autowired
+	private StatisticsRepository statisticsRepository;
 
 	private ArrayList<Face> faces;
 
@@ -96,7 +100,15 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
-	public String statistics() {
+	public String statistics(Model model) {
+		model.addAttribute("counted_images", facesRepository.count());
+		Statistics statistics = statisticsRepository.findById(0);
+		double averageAge = 0;
+		for (int age : statistics.getAges()) {
+			averageAge += age;
+		}
+		averageAge = (averageAge / statistics.getAges().size());
+		model.addAttribute("average_age", averageAge);
 		return "statistics";
 	}
 
@@ -122,7 +134,14 @@ public class MainController {
 			}
 
 			image = cvLoadImage(getImagePath(), 1);
+			long timeInMillis = System.currentTimeMillis();
 			Detector detection = new Detector(part, image);
+			long calculationTime = System.currentTimeMillis() - timeInMillis;
+
+			Statistics statistics = statisticsRepository.findById(0);
+			ArrayList<Long> calculationTimeArrayList = statistics.getCalculationTime();
+			calculationTimeArrayList.add(calculationTime);
+			statisticsRepository.save(statistics);
 
 			if (faces != null) {
 				faces.clear();
@@ -188,6 +207,10 @@ public class MainController {
 			model.addFlashAttribute("age_range", genderClass.getAgeRange());
 			model.addFlashAttribute("race", genderClass.getRace());
 			model.addFlashAttribute("race_confidence", genderClass.getRaceConfidence());
+			Statistics statistics = statisticsRepository.findById(0);
+			ArrayList<Integer> ages = statistics.getAges();
+			ages.add(genderClass.getAge());
+			statisticsRepository.save(statistics);
 		}
 
 		if (faces != null && !faces.isEmpty()) {
@@ -210,8 +233,20 @@ public class MainController {
 				}
 				facesRepository.save(faces.get(0));
 				faces.remove(0);
+
+				Statistics statistics = statisticsRepository.findById(0);
+				int isFace = statistics.getIsFace();
+				isFace += 1;
+				statistics.setIsFace(isFace);
+				statisticsRepository.save(statistics);
+
 			} else if (noFaceDetected != null) {
 				faces.remove(0);
+				Statistics statistics = statisticsRepository.findById(0);
+				int isNoFace = statistics.getIsNoFace();
+				isNoFace += 1;
+				statistics.setIsNoFace(isNoFace);
+				statisticsRepository.save(statistics);
 			}
 
 			if (faces.isEmpty()) {
