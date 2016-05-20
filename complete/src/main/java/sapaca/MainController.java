@@ -73,6 +73,7 @@ public class MainController {
 
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.GET)
 	public String faceDetection() {
+		checkStatistics();
 		return "face_detection";
 	}
 
@@ -86,7 +87,6 @@ public class MainController {
 		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
 		ArrayList<Long> ids = new ArrayList<>();
 		for (Face currentFace : faces) {
-			System.out.println("Face (" + currentFace.getId() + ") : " + currentFace.getFirstName());
 			ids.add(currentFace.getId());
 		}
 		model.addAttribute("ids", ids);
@@ -102,13 +102,41 @@ public class MainController {
 	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
 	public String statistics(Model model) {
 		model.addAttribute("counted_images", facesRepository.count());
+
+		String noDataAvailable = "No Data available";
+		checkStatistics();
 		Statistics statistics = statisticsRepository.findById(0);
+
 		double averageAge = 0;
 		for (int age : statistics.getAges()) {
 			averageAge += age;
 		}
-		averageAge = (averageAge / statistics.getAges().size());
-		model.addAttribute("average_age", averageAge);
+		if (!statistics.getAges().isEmpty()) {
+			averageAge = (averageAge / statistics.getAges().size());
+			model.addAttribute("average_age", averageAge);
+		} else {
+			model.addAttribute("average_age", noDataAvailable);
+		}
+
+		double isFace = statistics.getIsFace();
+		double isNoFace = statistics.getIsNoFace();
+		if (isFace > 0 || isNoFace > 0) {
+			double accuracyOfCalculation = isFace / (isFace + isNoFace);
+			model.addAttribute("accuracy_of_calculation", accuracyOfCalculation);
+		} else {
+			model.addAttribute("accuracy_of_calculation", noDataAvailable);
+		}
+
+		long averageCalculationTime = 0;
+		for (long calculationTime : statistics.getCalculationTime()) {
+			averageCalculationTime += calculationTime;
+		}
+		if (!statistics.getCalculationTime().isEmpty()) {
+			averageCalculationTime = (averageCalculationTime / statistics.getCalculationTime().size());
+			model.addAttribute("average_calculation_time", averageCalculationTime + "ms");
+		} else {
+			model.addAttribute("average_calculation_time", noDataAvailable);
+		}
 		return "statistics";
 	}
 
@@ -142,6 +170,7 @@ public class MainController {
 			ArrayList<Long> calculationTimeArrayList = statistics.getCalculationTime();
 			calculationTimeArrayList.add(calculationTime);
 			statisticsRepository.save(statistics);
+			System.out.println("ct: " + calculationTime);
 
 			if (faces != null) {
 				faces.clear();
@@ -345,6 +374,14 @@ public class MainController {
 	public String test() {
 		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
 		return "home";
+	}
+
+	private void checkStatistics() {
+		if (statisticsRepository.findById(0) == null) {
+			Statistics statistics = new Statistics();
+			statistics.initialize();
+			statisticsRepository.save(statistics);
+		}
 	}
 
 }

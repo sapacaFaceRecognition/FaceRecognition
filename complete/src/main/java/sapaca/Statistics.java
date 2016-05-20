@@ -13,7 +13,6 @@ import javax.persistence.Table;
 public class Statistics {
 
 	@Id
-	@GeneratedValue
 	@Column(name = "id")
 	private long id;
 
@@ -28,6 +27,14 @@ public class Statistics {
 
 	@Column(name = "is_no_face")
 	private int isNoFace;
+
+	public void initialize() {
+		setId(0);
+		setAges(new ArrayList<Integer>());
+		setCalculationTime(new ArrayList<Long>());
+		setIsFace(0);
+		setIsNoFace(0);
+	}
 
 	public long getId() {
 		return id;

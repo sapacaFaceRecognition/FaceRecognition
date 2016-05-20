@@ -18,4 +18,5 @@ public interface FacesRepository extends CrudRepository<Face, Double> {
 	List<Face> findByFirstNameAndLastName(String firstName, String lastName);
 	
 	List<Face> findAllByOrderByIdAsc();
+	
 }
