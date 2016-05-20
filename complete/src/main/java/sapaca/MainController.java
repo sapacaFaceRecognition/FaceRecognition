@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -137,6 +136,36 @@ public class MainController {
 		} else {
 			model.addAttribute("average_calculation_time", noDataAvailable);
 		}
+
+		model.addAttribute("gender_male", facesRepository.findByGender(Gender.MALE).size());
+		model.addAttribute("gender_female", facesRepository.findByGender(Gender.FEMALE).size());
+		model.addAttribute("gender_unknown", facesRepository.findByGender(Gender.UNKNOWN).size());
+
+		int germany = 0, england = 0, usa = 0, france = 0;
+		for (Face face : facesRepository.findAll()) {
+			String nationality = face.getNationality();
+
+			switch (nationality) {
+			case "Deutschland":
+				germany += 1;
+				break;
+			case "England":
+				england += 1;
+				break;
+			case "USA":
+				usa += 1;
+				break;
+			case "Frankreich":
+				france += 1;
+				break;
+			default:
+				break;
+			}
+		}
+		model.addAttribute("location_germany", germany);
+		model.addAttribute("location_england", england);
+		model.addAttribute("location_usa", usa);
+		model.addAttribute("location_france", france);
 		return "statistics";
 	}
 
@@ -170,7 +199,6 @@ public class MainController {
 			ArrayList<Long> calculationTimeArrayList = statistics.getCalculationTime();
 			calculationTimeArrayList.add(calculationTime);
 			statisticsRepository.save(statistics);
-			System.out.println("ct: " + calculationTime);
 
 			if (faces != null) {
 				faces.clear();
@@ -204,6 +232,7 @@ public class MainController {
 			@RequestParam(value = "lastName", required = false) String lastName,
 			@RequestParam(value = "age", required = false) Integer age,
 			@RequestParam(value = "nationality", required = false) String nationality,
+			@RequestParam(value = "gender", required = false) String gender,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "faceDetected", required = false) String faceDetected,
 			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected,
@@ -212,9 +241,9 @@ public class MainController {
 			@RequestParam(value = "attributes", required = false) String attributes, RedirectAttributes model) {
 
 		if (genderClassification != null) {
-			Gender gender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
+			Gender classifiedGender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
 			model.addFlashAttribute("is_face_detected", "true");
-			model.addFlashAttribute("classified_gender", gender.toString());
+			model.addFlashAttribute("classified_gender", classifiedGender.toString());
 		}
 		if (eyeDetection != null) {
 			Part eyePart = new PartFactory().load(PartToDetect.EYES);
@@ -225,8 +254,6 @@ public class MainController {
 			faces.add(0, detectedEye);
 		}
 
-		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
-				+ faceDetected + ", " + noFaceDetected + ", " + faces);
 		if (attributes != null) {
 			model.addFlashAttribute("attributes_expanded", "true");
 			GenderClassification genderClass = new GenderClassification(faces.get(0).getCroppedFace());
@@ -256,6 +283,21 @@ public class MainController {
 				}
 				if (nationality != null) {
 					currentFace.setNationality(nationality);
+				}
+				if (gender != null) {
+					switch (gender) {
+					case "männlich":
+						currentFace.setGender(Gender.MALE);
+						break;
+					case "weiblich":
+						currentFace.setGender(Gender.FEMALE);
+						break;
+					case "unbekannt":
+						currentFace.setGender(Gender.UNKNOWN);
+						break;
+					default:
+						break;
+					}
 				}
 				if (location != null) {
 					currentFace.setLocation(location);

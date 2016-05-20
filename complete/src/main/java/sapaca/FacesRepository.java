@@ -16,7 +16,11 @@ public interface FacesRepository extends CrudRepository<Face, Double> {
 	List<Face> findByAge(int age);
 
 	List<Face> findByFirstNameAndLastName(String firstName, String lastName);
-	
+
+	List<Face> findByGender(Gender gender);
+
+	List<Face> findByLocation(String location);
+
 	List<Face> findAllByOrderByIdAsc();
-	
+
 }
