@@ -8,7 +8,7 @@
 		<title>SAPACA</title>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript">
+        <script type="text/javascript" th:inline="javascript">
             google.charts.load('current', {'packages':['corechart', 'geochart']});
             google.charts.setOnLoadCallback(drawStuff);
             function drawStuff() {
@@ -16,9 +16,9 @@
                 /* Draw PieChart */
                 var data = google.visualization.arrayToDataTable([
                     ['Amount', 'Gender'],
-                    ['Man',         6],
-                    ['Woman',       4],
-                    ['Unkown',      2]
+                    ['Man',         [[${gender_male}]]],
+                    ['Woman',       [[${gender_female}]]],
+                    ['Unkown',      [[${gender_unknown}]]]
                 ]);
 
                 var options = {
@@ -31,10 +31,10 @@
                 /* Draw Bar */
                 var data = google.visualization.arrayToDataTable([
                     ['Länder', 'Anzahl Personen aus dem Land'],
-                    ['Germany', 2],
-                    ['United States', 3],
-                    ['England', 2],
-                    ['France', 6]
+                    ['Germany', [[${location_germany}]]],
+                    ['England', [[${location_england}]]],
+                    ['United States', [[${location_usa}]]],
+                    ['France', [[${location_france}]]]
                 ]);
 
                 var options = {
@@ -96,10 +96,10 @@
                                     <th>Durchschnittliche Berechnungszeit der Gesichtserkennung:</th>
                                 </tr>
                                 <tr>
-                                    <td>X</td>
-                                    <td>X</td>
-                                    <td>X</td>
-                                    <td>X</td>
+                                    <td th:text="${counted_images}">No data available</td>
+                                    <td th:text="${average_age}">No data available</td>
+                                    <td th:text="${accuracy_of_calculation}">No data available</td>
+                                    <td th:text="${average_calculation_time}">No data available</td>
                                 </tr>
                             </table>
                         </div>

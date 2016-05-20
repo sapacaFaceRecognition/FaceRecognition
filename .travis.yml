@@ -20,6 +20,7 @@ before_script:
   - chmod +x gradlew
   - mysql -e 'create database sapaca_test'
   - mysql -e 'use sapaca_test; create table faces (id bigint(20), age int(11), image longblob, first_name varchar(255), gender int(11), last_name varchar(255), location varchar(255), nationality varchar(255));'
+  - mysql -e 'use sapaca_test; create table statistics (id bigint(20), ages tinyblob, calculation_time tinyblob, is_face int(11), is_no_face int(11));'
 
 script: ./gradlew check
 

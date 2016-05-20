@@ -44,6 +44,9 @@ public class MainController {
 	@Autowired
 	private FacesRepository facesRepository;
 
+	@Autowired
+	private StatisticsRepository statisticsRepository;
+
 	private ArrayList<Face> faces;
 
 	@RequestMapping(value = "/login.html", method = RequestMethod.GET)
@@ -69,6 +72,7 @@ public class MainController {
 
 	@RequestMapping(value = "/face_detection.html", method = RequestMethod.GET)
 	public String faceDetection() {
+		checkStatistics();
 		return "face_detection";
 	}
 
@@ -82,7 +86,6 @@ public class MainController {
 		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
 		ArrayList<Long> ids = new ArrayList<>();
 		for (Face currentFace : faces) {
-			System.out.println("Face (" + currentFace.getId() + ") : " + currentFace.getFirstName());
 			ids.add(currentFace.getId());
 		}
 		model.addAttribute("ids", ids);
@@ -96,7 +99,74 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
-	public String statistics() {
+	public String statistics(Model model) {
+		model.addAttribute("counted_images", facesRepository.count());
+		
+		String noDataAvailable = "No Data available";
+		checkStatistics();
+		Statistics statistics = statisticsRepository.findById(0);
+		
+		double averageAge = 0;
+		for (int age : statistics.getAges()) {
+			averageAge += age;
+		}
+		if (!statistics.getAges().isEmpty()) {
+			averageAge = (averageAge / statistics.getAges().size());
+			model.addAttribute("average_age", averageAge);
+		} else {
+			model.addAttribute("average_age", noDataAvailable);
+		}
+
+		double isFace = statistics.getIsFace();
+		double isNoFace = statistics.getIsNoFace();
+		if (isFace > 0 || isNoFace > 0) {
+			double accuracyOfCalculation = isFace / (isFace + isNoFace);
+			model.addAttribute("accuracy_of_calculation", accuracyOfCalculation);
+		} else {
+			model.addAttribute("accuracy_of_calculation", noDataAvailable);
+		}
+
+		long averageCalculationTime = 0;
+		for (long calculationTime : statistics.getCalculationTime()) {
+			averageCalculationTime += calculationTime;
+		}
+		if (!statistics.getCalculationTime().isEmpty()) {
+			averageCalculationTime = (averageCalculationTime / statistics.getCalculationTime().size());
+			model.addAttribute("average_calculation_time", averageCalculationTime + "ms");
+		} else {
+			model.addAttribute("average_calculation_time", noDataAvailable);
+		}
+
+		model.addAttribute("gender_male", facesRepository.findByGender(Gender.MALE).size());
+		model.addAttribute("gender_female", facesRepository.findByGender(Gender.FEMALE).size());
+		model.addAttribute("gender_unknown", facesRepository.findByGender(Gender.UNKNOWN).size());
+
+		int germany = 0, england = 0, usa = 0, france = 0;
+		for (Face face : facesRepository.findAll()) {
+			String nationality = face.getNationality();
+			if (nationality != null) {
+				switch (nationality) {
+				case "Deutschland":
+					germany += 1;
+					break;
+				case "England":
+					england += 1;
+					break;
+				case "USA":
+					usa += 1;
+					break;
+				case "Frankreich":
+					france += 1;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		model.addAttribute("location_germany", germany);
+		model.addAttribute("location_england", england);
+		model.addAttribute("location_usa", usa);
+		model.addAttribute("location_france", france);
 		return "statistics";
 	}
 
@@ -122,7 +192,14 @@ public class MainController {
 			}
 
 			image = cvLoadImage(getImagePath(), 1);
+			long timeInMillis = System.currentTimeMillis();
 			Detector detection = new Detector(part, image);
+			long calculationTime = System.currentTimeMillis() - timeInMillis;
+
+			Statistics statistics = statisticsRepository.findById(0);
+			ArrayList<Long> calculationTimeArrayList = statistics.getCalculationTime();
+			calculationTimeArrayList.add(calculationTime);
+			statisticsRepository.save(statistics);
 
 			if (faces != null) {
 				faces.clear();
@@ -156,6 +233,7 @@ public class MainController {
 			@RequestParam(value = "lastName", required = false) String lastName,
 			@RequestParam(value = "age", required = false) Integer age,
 			@RequestParam(value = "nationality", required = false) String nationality,
+			@RequestParam(value = "gender", required = false) String gender,
 			@RequestParam(value = "location", required = false) String location,
 			@RequestParam(value = "faceDetected", required = false) String faceDetected,
 			@RequestParam(value = "noFaceDetected", required = false) String noFaceDetected,
@@ -164,9 +242,9 @@ public class MainController {
 			@RequestParam(value = "attributes", required = false) String attributes, RedirectAttributes model) {
 
 		if (genderClassification != null) {
-			Gender gender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
+			Gender classifiedGender = new GenderClassification(faces.get(0).getCroppedFace()).getGender();
 			model.addFlashAttribute("is_face_detected", "true");
-			model.addFlashAttribute("classified_gender", gender.toString());
+			model.addFlashAttribute("classified_gender", classifiedGender.toString());
 		}
 		if (eyeDetection != null) {
 			Part eyePart = new PartFactory().load(PartToDetect.EYES);
@@ -177,8 +255,6 @@ public class MainController {
 			faces.add(0, detectedEye);
 		}
 
-		System.out.println(firstName + ", " + lastName + ", " + age + ", " + nationality + ", " + location + ", "
-				+ faceDetected + ", " + noFaceDetected + ", " + faces);
 		if (attributes != null) {
 			model.addFlashAttribute("attributes_expanded", "true");
 			GenderClassification genderClass = new GenderClassification(faces.get(0).getCroppedFace());
@@ -188,6 +264,10 @@ public class MainController {
 			model.addFlashAttribute("age_range", genderClass.getAgeRange());
 			model.addFlashAttribute("race", genderClass.getRace());
 			model.addFlashAttribute("race_confidence", genderClass.getRaceConfidence());
+			Statistics statistics = statisticsRepository.findById(0);
+			ArrayList<Integer> ages = statistics.getAges();
+			ages.add(genderClass.getAge());
+			statisticsRepository.save(statistics);
 		}
 
 		if (faces != null && !faces.isEmpty()) {
@@ -205,13 +285,40 @@ public class MainController {
 				if (nationality != null) {
 					currentFace.setNationality(nationality);
 				}
+				if (gender != null) {
+					switch (gender) {
+					case "männlich":
+						currentFace.setGender(Gender.MALE);
+						break;
+					case "weiblich":
+						currentFace.setGender(Gender.FEMALE);
+						break;
+					case "unbekannt":
+						currentFace.setGender(Gender.UNKNOWN);
+						break;
+					default:
+						break;
+					}
+				}
 				if (location != null) {
 					currentFace.setLocation(location);
 				}
 				facesRepository.save(faces.get(0));
 				faces.remove(0);
+
+				Statistics statistics = statisticsRepository.findById(0);
+				int isFace = statistics.getIsFace();
+				isFace += 1;
+				statistics.setIsFace(isFace);
+				statisticsRepository.save(statistics);
+
 			} else if (noFaceDetected != null) {
 				faces.remove(0);
+				Statistics statistics = statisticsRepository.findById(0);
+				int isNoFace = statistics.getIsNoFace();
+				isNoFace += 1;
+				statistics.setIsNoFace(isNoFace);
+				statisticsRepository.save(statistics);
 			}
 
 			if (faces.isEmpty()) {
@@ -310,6 +417,14 @@ public class MainController {
 	public String test() {
 		faces = (ArrayList<Face>) facesRepository.findAllByOrderByIdAsc();
 		return "home";
+	}
+
+	private void checkStatistics() {
+		if (statisticsRepository.findById(0) == null) {
+			Statistics statistics = new Statistics();
+			statistics.initialize();
+			statisticsRepository.save(statistics);
+		}
 	}
 
 }
