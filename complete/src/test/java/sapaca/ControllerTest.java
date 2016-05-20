@@ -30,9 +30,6 @@ public class ControllerTest {
 	@Autowired
 	WebApplicationContext webApplicationContext;
 
-	@Autowired
-	FacesRepository facesRepository;
-
 	private MockMvc mockMvc;
 
 	@Before

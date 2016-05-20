@@ -101,11 +101,11 @@ public class MainController {
 	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
 	public String statistics(Model model) {
 		model.addAttribute("counted_images", facesRepository.count());
-
+		
 		String noDataAvailable = "No Data available";
 		checkStatistics();
 		Statistics statistics = statisticsRepository.findById(0);
-
+		
 		double averageAge = 0;
 		for (int age : statistics.getAges()) {
 			averageAge += age;
@@ -144,22 +144,23 @@ public class MainController {
 		int germany = 0, england = 0, usa = 0, france = 0;
 		for (Face face : facesRepository.findAll()) {
 			String nationality = face.getNationality();
-
-			switch (nationality) {
-			case "Deutschland":
-				germany += 1;
-				break;
-			case "England":
-				england += 1;
-				break;
-			case "USA":
-				usa += 1;
-				break;
-			case "Frankreich":
-				france += 1;
-				break;
-			default:
-				break;
+			if (nationality != null) {
+				switch (nationality) {
+				case "Deutschland":
+					germany += 1;
+					break;
+				case "England":
+					england += 1;
+					break;
+				case "USA":
+					usa += 1;
+					break;
+				case "Frankreich":
+					france += 1;
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		model.addAttribute("location_germany", germany);
