@@ -55,15 +55,19 @@ dependencies {
     
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'org.springframework.boot:spring-boot-starter-jdbc'
-    compile 'mysql:mysql-connector-java:5.1.37'
     compile 'org.springframework:spring-orm:4.2.3.RELEASE'
-    
     compile 'org.springframework:spring-test:4.2.4.RELEASE'
     compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
     compile 'com.mashape.unirest:unirest-java:1.4.9'
     compile 'com.cloudinary:cloudinary-http44:1.4.1'
     
     compile 'com.mashape.unirest:unirest-java:1.4.9'
+
+    compile "com.heroku.sdk:heroku-jdbc:0.1.1"
+    compile "org.postgresql:postgresql:9.4-1201-jdbc4"
+    compile "org.jscience:jscience:4.3.1"
+    //compile "org.postgresql:postgresql:9.4-1201-jdbc4"
+    //runtime 'postgresql:postgresql:9.4-1201-jdbc41'
 
     testCompile("junit:junit")
 
@@ -79,5 +83,6 @@ jacocoTestReport {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.13'
+    //gradleVersion = '2.13'
+    gradleVersion = '1.12'
 }
