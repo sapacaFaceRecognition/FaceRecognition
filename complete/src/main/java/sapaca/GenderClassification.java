@@ -22,7 +22,6 @@ public class GenderClassification {
 	private static int stitcherVar;
 	private IplImage image;
 	private String urlWithoutSlashes;
-	private ImageUploader imageUploader;
 	private HttpResponse<JsonNode> response;
 	private double genderConfidence;
 	private double raceConfidence;
@@ -32,7 +31,7 @@ public class GenderClassification {
 
 	public GenderClassification(IplImage image) {
 		this.image = image;
-		imageUploader = new ImageUploader(image);
+		ImageUploader imageUploader = new ImageUploader(image);
 		String url = imageUploader.getUploadedUrl();
 		httpRequest(url);
 	}

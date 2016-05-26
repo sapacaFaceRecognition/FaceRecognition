@@ -17,10 +17,8 @@ import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
 public class Detector {
     private ArrayList<IplImage> croppedFaces = new ArrayList<>();
     private ArrayList<Face> faceObjects = new ArrayList<>();
-    private IplImage croppedImage;
     private int counter;
     private Part part;
-    private IplImage grayImage;
     private String xmlPath;
     private IplImage eyeImage;
 
@@ -32,7 +30,7 @@ public class Detector {
 
     private void detectFace(IplImage originalImage) {
         CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(xmlPath));
-        grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
+        IplImage grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
         cvCvtColor(originalImage, grayImage,CV_BGR2GRAY);
 
         CvMemStorage storage = CvMemStorage.create();
@@ -65,8 +63,7 @@ public class Detector {
     }
 
     private IplImage cropImage(IplImage originalImage) {
-        croppedImage = new IplImage();
-        croppedImage = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
+        IplImage croppedImage = IplImage.create(cvGetSize(originalImage), originalImage.depth(), originalImage.nChannels());
         cvCopy(originalImage, croppedImage);
 
         if (part.getPartToDetect().equals(PartToDetect.FACE)) {
@@ -105,6 +102,4 @@ public class Detector {
     public IplImage getEyeImage() {
         return eyeImage;
     }
-
-    public String getXmlPath() { return xmlPath; }
 }

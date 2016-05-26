@@ -6,13 +6,14 @@ import java.io.File;
 import java.net.URL;
 
 import org.bytedeco.javacpp.opencv_objdetect.CvHaarClassifierCascade;
+import org.json.XML;
 
 import static org.bytedeco.javacpp.opencv_core.*;
 
 public class PartPerson implements Part {
     private static String xmlPath = "";
     private CvHaarClassifierCascade cascade;
-    private String xmlName;
+    private final String XML_NAME = "person.xml";
 
     @Override
     public CvHaarClassifierCascade loadClassifier() {
@@ -34,8 +35,7 @@ public class PartPerson implements Part {
 
     @Override
     public String getXmlName() {
-        xmlName = "person.xml";
-        return xmlName;
+        return XML_NAME;
     }
 
     @Override

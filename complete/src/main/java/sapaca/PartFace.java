@@ -17,7 +17,7 @@ public class PartFace implements Part {
     private static String xmlPath = "";
     private CvHaarClassifierCascade cascade;
     private Stitcher stitcher;
-    private String xmlName;
+    private final String XML_NAME = "haarcascade_frontalface_alt.xml";
 
     @Override
     public CvHaarClassifierCascade loadClassifier() {
@@ -37,8 +37,7 @@ public class PartFace implements Part {
 
     @Override
     public String getXmlName() {
-        xmlName = "haarcascade_frontalface_alt.xml";
-        return xmlName;
+        return XML_NAME;
     }
 
     @Override
