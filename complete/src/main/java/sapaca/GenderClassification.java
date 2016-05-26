@@ -130,15 +130,34 @@ public class GenderClassification {
 						.header("X-Mashape-Key", "irY8JsoGe8msh97R53VBAlqi8FzRp10mJcrjsnvsM6bHNNcIVX")
 						.header("Accept", "application/json")
 						.asJson();
-				jsonGetGender();
-				jsonGetRace();
-				jsonGetAge();
+				if(verifyResults()) {
+					jsonGetGender();
+					jsonGetRace();
+					jsonGetAge();
+				} else{
+					setAttributesForFalseClassification();
+				}
 			} catch (UnirestException e) {
 				e.printStackTrace();
 			}
 		}
 	}
+	private boolean verifyResults() {
+		String json = response.getBody().toString();
+		if (json.contains("Male") || json.contains("Female")) {
+			return true;
+		}
+		return false;
+	}
 
+	private void setAttributesForFalseClassification() {
+		genderConfidence = 0.0;
+		gender = Gender.UNKNOWN;
+		raceConfidence = 0.0;
+		race = "";
+		age = 0;
+		ageRange = 0;
+	}
 	private void jsonGetGender() {
 		String json = response.getBody().toString();
 		String matcher = "";
