@@ -34,19 +34,6 @@ before_deploy:
   - git push -q https://$TAGPERM@github.com/sapacaFaceRecognition/FaceRecognition --tags
   - ls -R
 
-
-deploy:
-  skip_cleanup: true
-  provider: releases
-  api_key:
-    secure: [GH_TOKEN]
-  file:
-    - "README.md"
-    - "build\libs\SAPACA FaceRecognition-0.1.0.jar"
-  on:
-    tags: false
-    all_branches: true
-
 branches:
   except:
     - /^*-v[0-9]/
