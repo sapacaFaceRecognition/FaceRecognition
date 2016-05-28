@@ -22,7 +22,34 @@ before_script:
   - mysql -e 'use sapaca_test; create table faces (id bigint(20), age int(11), image longblob, first_name varchar(255), gender int(11), last_name varchar(255), location varchar(255), nationality varchar(255));'
   - mysql -e 'use sapaca_test; create table statistics (id bigint(20), ages tinyblob, calculation_time tinyblob, is_face int(11), is_no_face int(11));'
 
-script: ./gradlew check
+script: 
+  - ./gradlew check
+  - gradle clean build
+
+before_deploy:
+  - git config --global user.email "builds@travis-ci.com"
+  - git config --global user.name "Travis CI"
+  - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
+  - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
+  - git push -q https://$TAGPERM@github.com/sapacaFaceRecognition/FaceRecognition --tags
+  - ls -R
+
+
+deploy:
+  skip_cleanup: true
+  provider: releases
+  api_key:
+    secure: ed25fd56ffbeac483e907f9dd4344ddf23017fb4
+  file:
+    - "README.md"
+    - "build\libs\SAPACA FaceRecognition-0.1.0.jar"
+  on:
+    tags: false
+    all_branches: true
+
+branches:
+  except:
+    - /^*-v[0-9]/
 
 after_success:
   - ./gradlew jacocoTestReport coveralls
