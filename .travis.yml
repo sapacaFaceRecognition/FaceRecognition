@@ -39,7 +39,7 @@ deploy:
   skip_cleanup: true
   provider: releases
   api_key:
-    secure: ed25fd56ffbeac483e907f9dd4344ddf23017fb4
+    secure: [GH_TOKEN]
   file:
     - "README.md"
     - "build\libs\SAPACA FaceRecognition-0.1.0.jar"
