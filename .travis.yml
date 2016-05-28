@@ -23,7 +23,7 @@ deploy:
   provider: releases
   api_key:
     secure: m0ByntHo4jpvw8MmRsLJGSqUI1ZR/IXYdaL+hhN1cUt6uyNs3EwxEOKxTG5+2JNmLJgDG+gMuRKciJ5EwnMAHXN7YnzoJKePpJFninjPD1W7Y3kkvENPKlsmwn8BZhxHMhHzmSeYm/R7tUvpvefoFTlMs3uHZH2kxyfV7MksBztr7uoQ1H6ciCF0iYw1Gqk1ZsbRTIPQ0y36489z/9IqnTYfD1qZqA1XWDpbve71mmDvImF0OzBym5OcaeKbLjL70Kek9lV1dr6qjfpc+jbCkM7moWvn3XTGmW8jnJ5hGgy0/BfoiKMoVxZCoGTeuvvcpl5MnII5b9ESAUFIBNKPBBvo2hWpynvffaGgrY0YfrhyStusesPi1KvAbYr9MpfU9rwdjVskTLhgCROxTnkSSL7/IF56wNpQh8cknMEwCUzMdo+/rzLwhLaBjGNWER12fOQHVQ12db9PYfhSfYvLRuqya8h+YcZ7FHnVzqxHlu2quiFI82libUd7R2yYZyhAQrz6CGiGhiQSS19LhgjKLBbA2kE3bzG3tZ3KHPg4Eq7moGocx3cEqpHAkau2NhNsl5sa/Xkd5qwO39telxc76pIcbpE5ph/FiE+5FXbYLDFz5jSgdBv1YN8Y+fZu96yB8IwA9BJByxCox9cGqIqeSstwE9+AX4CFf8Xfyh+NomA=
-  file: sapaca-0.1.0.jar
+  file: build/libs/sapaca-0.1.0.jar
   skip_cleanup: true
   on:
     repo: sapacaFaceRecognition/FaceRecognition
