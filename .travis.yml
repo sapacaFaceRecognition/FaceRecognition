@@ -1,42 +1,33 @@
 language: java
-
 jdk:
 - oraclejdk8
 
 services:
-  - mysql
+- mysql
 
-# only build these branches (RegEx is also valid, eg. /^deploy.*$/):
-branches:
-  only:
-    - master
-    - travisFix
+before_script:
+- cd complete
+- chmod +x gradlew
+- mysql -e 'create database sapaca_test'
+- mysql -e 'use sapaca_test; create table faces (id bigint(20), age int(11), image
+  longblob, first_name varchar(255), gender int(11), last_name varchar(255), location
+  varchar(255), nationality varchar(255));'
+- mysql -e 'use sapaca_test; create table statistics (id bigint(20), ages tinyblob,
+  calculation_time tinyblob, is_face int(11), is_no_face int(11));'
 
-# container-based build:
-sudo: true
+script:
+- ./gradlew check
+- gradle clean build
 
-before_script: 
-  - cd complete
-  - chmod +x gradlew
-  - mysql -e 'create database sapaca_test'
-  - mysql -e 'use sapaca_test; create table faces (id bigint(20), age int(11), image longblob, first_name varchar(255), gender int(11), last_name varchar(255), location varchar(255), nationality varchar(255));'
-  - mysql -e 'use sapaca_test; create table statistics (id bigint(20), ages tinyblob, calculation_time tinyblob, is_face int(11), is_no_face int(11));'
+deploy:
+  provider: releases
+  api_key:
+    secure: m0ByntHo4jpvw8MmRsLJGSqUI1ZR/IXYdaL+hhN1cUt6uyNs3EwxEOKxTG5+2JNmLJgDG+gMuRKciJ5EwnMAHXN7YnzoJKePpJFninjPD1W7Y3kkvENPKlsmwn8BZhxHMhHzmSeYm/R7tUvpvefoFTlMs3uHZH2kxyfV7MksBztr7uoQ1H6ciCF0iYw1Gqk1ZsbRTIPQ0y36489z/9IqnTYfD1qZqA1XWDpbve71mmDvImF0OzBym5OcaeKbLjL70Kek9lV1dr6qjfpc+jbCkM7moWvn3XTGmW8jnJ5hGgy0/BfoiKMoVxZCoGTeuvvcpl5MnII5b9ESAUFIBNKPBBvo2hWpynvffaGgrY0YfrhyStusesPi1KvAbYr9MpfU9rwdjVskTLhgCROxTnkSSL7/IF56wNpQh8cknMEwCUzMdo+/rzLwhLaBjGNWER12fOQHVQ12db9PYfhSfYvLRuqya8h+YcZ7FHnVzqxHlu2quiFI82libUd7R2yYZyhAQrz6CGiGhiQSS19LhgjKLBbA2kE3bzG3tZ3KHPg4Eq7moGocx3cEqpHAkau2NhNsl5sa/Xkd5qwO39telxc76pIcbpE5ph/FiE+5FXbYLDFz5jSgdBv1YN8Y+fZu96yB8IwA9BJByxCox9cGqIqeSstwE9+AX4CFf8Xfyh+NomA=
+  file: build/SAPACA FaceRecognition-0.1.0.jar
+  skip_cleanup: true
+  on:
+    repo: sapacaFaceRecognition/FaceRecognition
 
-script: 
-  - ./gradlew check
-  - gradle clean build
-
-before_deploy:
-  - git config --global user.email "builds@travis-ci.com"
-  - git config --global user.name "Travis CI"
-  - export GIT_TAG=$TRAVIS_BRANCH-0.1.$TRAVIS_BUILD_NUMBER
-  - git tag $GIT_TAG -a -m "Generated tag from TravisCI for build $TRAVIS_BUILD_NUMBER"
-  - git push -q https://$TAGPERM@github.com/sapacaFaceRecognition/FaceRecognition --tags
-  - ls -R
-
-branches:
-  except:
-    - /^*-v[0-9]/
 
 after_success:
-  - ./gradlew jacocoTestReport coveralls
+- ./gradlew jacocoTestReport coveralls
