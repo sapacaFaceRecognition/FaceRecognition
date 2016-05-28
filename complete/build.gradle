@@ -23,14 +23,6 @@ version = '1.0'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
-jar {
-    baseName = 'sapaca'
-    version =  '0.1.0'
-    manifest {
-        attributes MainClass: 'sapaca.MainController'
-    }
-}
-
 sonarRunner {
     sonarProperties {
         property 'sonar.host.url', 'http://193.196.7.25/'
@@ -44,8 +36,11 @@ sonarRunner {
 
 
 jar {
-    baseName = 'SAPACA FaceRecognition'
+    baseName = 'sapaca'
     version =  '0.1.0'
+    manifest {
+        attributes MainClass: 'sapaca.MainController'
+    }
 }
 
 test {
