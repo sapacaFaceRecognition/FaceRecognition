@@ -403,11 +403,12 @@ public class MainController {
 	}
 
 	private double calculateAverageAge(Statistics statistics) {
+
+		double averageAge = 0;
+		for (int age : statistics.getAges()) {
+			averageAge += age;
+		}
 		if (!statistics.getAges().isEmpty()) {
-			double averageAge = 0;
-			for (int age : statistics.getAges()) {
-				averageAge += age;
-			}
 			averageAge = (averageAge / statistics.getAges().size());
 			return averageAge;
 		} else {
@@ -416,11 +417,12 @@ public class MainController {
 	}
 
 	private long calculateAverageCalculationTime(Statistics statistics) {
+
+		long averageCalculationTime = 0;
+		for (long calculationTime : statistics.getCalculationTime()) {
+			averageCalculationTime += calculationTime;
+		}
 		if (!statistics.getCalculationTime().isEmpty()) {
-			long averageCalculationTime = 0;
-			for (long calculationTime : statistics.getCalculationTime()) {
-				averageCalculationTime += calculationTime;
-			}
 			averageCalculationTime = (averageCalculationTime / statistics.getCalculationTime().size());
 			return averageCalculationTime;
 		} else {
