@@ -403,7 +403,6 @@ public class MainController {
 	}
 
 	private double calculateAverageAge(Statistics statistics) {
-
 		double averageAge = 0;
 		for (int age : statistics.getAges()) {
 			averageAge += age;
@@ -417,7 +416,6 @@ public class MainController {
 	}
 
 	private long calculateAverageCalculationTime(Statistics statistics) {
-
 		long averageCalculationTime = 0;
 		for (long calculationTime : statistics.getCalculationTime()) {
 			averageCalculationTime += calculationTime;
@@ -435,23 +433,15 @@ public class MainController {
 		int germany = 0, england = 0, usa = 0, france = 0;
 		for (Face face : facesRepository.findAll()) {
 			String nationality = face.getNationality();
-			if (nationality != null) {
-				switch (nationality) {
-				case "Deutschland":
-					germany += 1;
-					break;
-				case "England":
-					england += 1;
-					break;
-				case "USA":
-					usa += 1;
-					break;
-				case "Frankreich":
-					france += 1;
-					break;
-				default:
-					break;
-				}
+			if (nationality == null) {
+			} else if (nationality.equals("Deutschland")) {
+				germany += 1;
+			} else if (nationality.equals("England")) {
+				england += 1;
+			} else if (nationality.equals("USA")) {
+				usa += 1;
+			} else if (nationality.equals("Frankreich")) {
+				france += 1;
 			}
 		}
 		nationalityDistribuion.put("germany", germany);
