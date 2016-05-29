@@ -12,6 +12,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -40,6 +41,7 @@ public class MainController {
 	private IplImage image;
 	private String imagePath;
 	private PartFactory partFactory = new PartFactory();
+	private final static int IS_ZERO = -42;
 
 	@Autowired
 	private FacesRepository facesRepository;
@@ -101,17 +103,14 @@ public class MainController {
 	@RequestMapping(value = "/statistics.html", method = RequestMethod.GET)
 	public String statistics(Model model) {
 		model.addAttribute("counted_images", facesRepository.count());
-		
+
 		String noDataAvailable = "No Data available";
 		checkStatistics();
 		Statistics statistics = statisticsRepository.findById(0);
-		
-		double averageAge = 0;
-		for (int age : statistics.getAges()) {
-			averageAge += age;
-		}
-		if (!statistics.getAges().isEmpty()) {
-			averageAge = (averageAge / statistics.getAges().size());
+
+		double averageAge = calculateAverageAge(statistics);
+
+		if (averageAge != IS_ZERO) {
 			model.addAttribute("average_age", averageAge);
 		} else {
 			model.addAttribute("average_age", noDataAvailable);
@@ -126,12 +125,8 @@ public class MainController {
 			model.addAttribute("accuracy_of_calculation", noDataAvailable);
 		}
 
-		long averageCalculationTime = 0;
-		for (long calculationTime : statistics.getCalculationTime()) {
-			averageCalculationTime += calculationTime;
-		}
-		if (!statistics.getCalculationTime().isEmpty()) {
-			averageCalculationTime = (averageCalculationTime / statistics.getCalculationTime().size());
+		long averageCalculationTime = calculateAverageCalculationTime(statistics);
+		if (averageCalculationTime != IS_ZERO) {
 			model.addAttribute("average_calculation_time", averageCalculationTime + "ms");
 		} else {
 			model.addAttribute("average_calculation_time", noDataAvailable);
@@ -141,32 +136,12 @@ public class MainController {
 		model.addAttribute("gender_female", facesRepository.findByGender(Gender.FEMALE).size());
 		model.addAttribute("gender_unknown", facesRepository.findByGender(Gender.UNKNOWN).size());
 
-		int germany = 0, england = 0, usa = 0, france = 0;
-		for (Face face : facesRepository.findAll()) {
-			String nationality = face.getNationality();
-			if (nationality != null) {
-				switch (nationality) {
-				case "Deutschland":
-					germany += 1;
-					break;
-				case "England":
-					england += 1;
-					break;
-				case "USA":
-					usa += 1;
-					break;
-				case "Frankreich":
-					france += 1;
-					break;
-				default:
-					break;
-				}
-			}
-		}
-		model.addAttribute("location_germany", germany);
-		model.addAttribute("location_england", england);
-		model.addAttribute("location_usa", usa);
-		model.addAttribute("location_france", france);
+		HashMap<String, Integer> nationalityDistribution = calculateNationalityDistribution();
+
+		model.addAttribute("location_germany", nationalityDistribution.get("germany"));
+		model.addAttribute("location_england", nationalityDistribution.get("england"));
+		model.addAttribute("location_usa", nationalityDistribution.get("usa"));
+		model.addAttribute("location_france", nationalityDistribution.get("france"));
 		return "statistics";
 	}
 
@@ -425,6 +400,63 @@ public class MainController {
 			statistics.initialize();
 			statisticsRepository.save(statistics);
 		}
+	}
+
+	private double calculateAverageAge(Statistics statistics) {
+		if (!statistics.getAges().isEmpty()) {
+			double averageAge = 0;
+			for (int age : statistics.getAges()) {
+				averageAge += age;
+			}
+			averageAge = (averageAge / statistics.getAges().size());
+			return averageAge;
+		} else {
+			return IS_ZERO;
+		}
+	}
+
+	private long calculateAverageCalculationTime(Statistics statistics) {
+		if (!statistics.getCalculationTime().isEmpty()) {
+			long averageCalculationTime = 0;
+			for (long calculationTime : statistics.getCalculationTime()) {
+				averageCalculationTime += calculationTime;
+			}
+			averageCalculationTime = (averageCalculationTime / statistics.getCalculationTime().size());
+			return averageCalculationTime;
+		} else {
+			return IS_ZERO;
+		}
+	}
+
+	private HashMap<String, Integer> calculateNationalityDistribution() {
+		HashMap<String, Integer> nationalityDistribuion = new HashMap<>();
+		int germany = 0, england = 0, usa = 0, france = 0;
+		for (Face face : facesRepository.findAll()) {
+			String nationality = face.getNationality();
+			if (nationality != null) {
+				switch (nationality) {
+				case "Deutschland":
+					germany += 1;
+					break;
+				case "England":
+					england += 1;
+					break;
+				case "USA":
+					usa += 1;
+					break;
+				case "Frankreich":
+					france += 1;
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		nationalityDistribuion.put("germany", germany);
+		nationalityDistribuion.put("england", england);
+		nationalityDistribuion.put("usa", usa);
+		nationalityDistribuion.put("france", france);
+		return nationalityDistribuion;
 	}
 
 }
