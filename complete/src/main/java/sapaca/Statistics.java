@@ -27,6 +27,8 @@ public class Statistics {
 	@Column(name = "is_no_face")
 	private int isNoFace;
 
+	private static final int IS_ZERO = -42;
+
 	public void initialize() {
 		setId(0);
 		setAges(new ArrayList<Integer>());
@@ -51,12 +53,38 @@ public class Statistics {
 		this.ages = ages;
 	}
 
+	public double calculateAverageAge() {
+		double averageAge = 0;
+		for (int age : ages) {
+			averageAge += age;
+		}
+		if (ages.isEmpty()) {
+			averageAge = (averageAge / ages.size());
+			return averageAge;
+		} else {
+			return IS_ZERO;
+		}
+	}
+
 	public ArrayList<Long> getCalculationTime() {
 		return calculationTime;
 	}
 
 	public void setCalculationTime(ArrayList<Long> calculationTime) {
 		this.calculationTime = calculationTime;
+	}
+
+	public long calculateAverageCalculationTime() {
+		long averageCalculationTime = 0;
+		for (long calculationTime : calculationTime) {
+			averageCalculationTime += calculationTime;
+		}
+		if (!calculationTime.isEmpty()) {
+			averageCalculationTime = (averageCalculationTime / calculationTime.size());
+			return averageCalculationTime;
+		} else {
+			return IS_ZERO;
+		}
 	}
 
 	public int getIsFace() {
@@ -73,6 +101,14 @@ public class Statistics {
 
 	public void setIsNoFace(int isNoFace) {
 		this.isNoFace = isNoFace;
+	}
+
+	public double calculateAccuracyOfCalculation() {
+		if (isFace > 0 || isNoFace > 0) {
+			return (isFace / (isFace + isNoFace));
+		} else {
+			return IS_ZERO;
+		}
 	}
 
 }

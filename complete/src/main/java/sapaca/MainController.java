@@ -41,7 +41,7 @@ public class MainController {
 	private IplImage image;
 	private String imagePath;
 	private PartFactory partFactory = new PartFactory();
-	private final static int IS_ZERO = -42;
+	private static final int IS_ZERO = -42;
 
 	@Autowired
 	private FacesRepository facesRepository;
@@ -108,24 +108,21 @@ public class MainController {
 		checkStatistics();
 		Statistics statistics = statisticsRepository.findById(0);
 
-		double averageAge = calculateAverageAge(statistics);
-
+		double averageAge = statistics.calculateAverageAge();
 		if (averageAge != IS_ZERO) {
 			model.addAttribute("average_age", averageAge);
 		} else {
 			model.addAttribute("average_age", noDataAvailable);
 		}
 
-		double isFace = statistics.getIsFace();
-		double isNoFace = statistics.getIsNoFace();
-		if (isFace > 0 || isNoFace > 0) {
-			double accuracyOfCalculation = isFace / (isFace + isNoFace);
+		double accuracyOfCalculation = statistics.calculateAccuracyOfCalculation();
+		if (accuracyOfCalculation != IS_ZERO) {
 			model.addAttribute("accuracy_of_calculation", accuracyOfCalculation);
 		} else {
 			model.addAttribute("accuracy_of_calculation", noDataAvailable);
 		}
 
-		long averageCalculationTime = calculateAverageCalculationTime(statistics);
+		long averageCalculationTime = statistics.calculateAverageCalculationTime();
 		if (averageCalculationTime != IS_ZERO) {
 			model.addAttribute("average_calculation_time", averageCalculationTime + "ms");
 		} else {
@@ -399,32 +396,6 @@ public class MainController {
 			Statistics statistics = new Statistics();
 			statistics.initialize();
 			statisticsRepository.save(statistics);
-		}
-	}
-
-	private double calculateAverageAge(Statistics statistics) {
-		double averageAge = 0;
-		for (int age : statistics.getAges()) {
-			averageAge += age;
-		}
-		if (!statistics.getAges().isEmpty()) {
-			averageAge = (averageAge / statistics.getAges().size());
-			return averageAge;
-		} else {
-			return IS_ZERO;
-		}
-	}
-
-	private long calculateAverageCalculationTime(Statistics statistics) {
-		long averageCalculationTime = 0;
-		for (long calculationTime : statistics.getCalculationTime()) {
-			averageCalculationTime += calculationTime;
-		}
-		if (!statistics.getCalculationTime().isEmpty()) {
-			averageCalculationTime = (averageCalculationTime / statistics.getCalculationTime().size());
-			return averageCalculationTime;
-		} else {
-			return IS_ZERO;
 		}
 	}
 
