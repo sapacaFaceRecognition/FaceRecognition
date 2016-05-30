@@ -54,7 +54,6 @@ public class GenderClassification {
 			System.out.println("Something went wrong...");
 		}
 		imwrite(resultName, pano);
-		gender = stitcherArgs();
 		stitcherVar++;
 		return gender;
 	}
@@ -68,47 +67,24 @@ public class GenderClassification {
 						+ "      The default is 'result.jpg'.");
 	}
 
-	private static Gender stitcherArgs() {
+	private static void stitcherArgs() {
 		String[] args = new String[2];
 		int usageLeft = 0;
 		if (args.length == 0) {
 			printUsage();
 			usageLeft =  -1;
 		}
-		if (stitcherVar == 1) {
-			return Gender.MALE;
-		}
-		if (stitcherVar == 2) {
-			return Gender.MALE;
-		}
 		for (int i = 2; i < args.length; i++) {
 			if ("--help".equals(args[i])) {
 				printUsage();
 				usageLeft = 1;
-			} else if ("--tryUseGpu".equals(args[i])) {
-				if ("no".equals(args[i + 1])) {
-					tryUseGpu = false;
-				} else if ("yes".equals(args[i + 1])) {
-					tryUseGpu = true;
-				} else {
-					System.console().writer().println("Bad --tryUseGpu flag value");
-					usageLeft = -1;
-				}
-				i++;
 			} else if ("--output".equals(args[i])) {
 				resultName = args[i + 1];
 				i++;
 			} else {
 				Mat img = imread(args[i]);
-				if (img.empty()) {
-					System.console().writer().println("Can't read image '" + args[i] + "'");
-					usageLeft = -1;
-				}
-				imgs.resize(imgs.size() + 1);
-				imgs.put(imgs.size() - 1, img);
 			}
 		}
-		return Gender.FEMALE;
 	}
 
 	private String replaceSlashesInUrl(String url) {
