@@ -34,3 +34,6 @@ deploy:
 
 after_success:
 - ./gradlew jacocoTestReport coveralls
+
+after_failure:
+  - ./.send_ticket.sh
