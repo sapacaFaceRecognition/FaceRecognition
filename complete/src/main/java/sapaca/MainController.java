@@ -343,17 +343,6 @@ public class MainController {
 		byte[] data = {};
 		try {
 			String currentImagePath = filePath;
-			// System.out.println("---------------- " +
-			// getClass().getResource("/") + "; "
-			// + getClass().getResource(currentImagePath) + ";");
-			// System.out.println(getClass().getResource(currentImagePath).toURI());
-			// for (File currentFile : new
-			// File(getClass().getResource("/").getFile()).listFiles()) {
-			// System.out.println("File: "+ currentFile);
-			// }
-			// Path path =
-			// Paths.get(getClass().getResource(currentImagePath).toURI());
-			// data = Files.readAllBytes(path);
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(currentImagePath);
 			System.out.println("is: " + inputStream);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
