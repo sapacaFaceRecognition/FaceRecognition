@@ -326,7 +326,7 @@ public class MainController {
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 		} else {
-			byte[] imageContent = getImage("./static/pic/Detecting.png");
+			byte[] imageContent = getImage("/pic/Detecting.png");
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
@@ -344,7 +344,7 @@ public class MainController {
 		byte[] data = {};
 		try {
 			String currentImagePath = filePath;
-			Path path = Paths.get(currentImagePath);
+			Path path = Paths.get(getClass().getResource(currentImagePath).toURI());
 			data = Files.readAllBytes(path);
 		} catch (Exception ex) {
 			ex.printStackTrace();
