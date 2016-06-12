@@ -8,15 +8,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.bytedeco.javacpp.opencv_core.IplImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -326,7 +325,7 @@ public class MainController {
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
 		} else {
-			byte[] imageContent = getImage("/static/pic/Detecting.png");
+			byte[] imageContent = getImage("static/pic/Detecting.png");
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.IMAGE_PNG);
 			return new ResponseEntity<>(imageContent, headers, HttpStatus.OK);
@@ -344,15 +343,24 @@ public class MainController {
 		byte[] data = {};
 		try {
 			String currentImagePath = filePath;
-			System.out.println("---------------- " + getClass().getResource("/") + "; "
-					+ getClass().getResource(currentImagePath) + ";");
-			System.out.println(getClass().getResource(currentImagePath).toURI());
+			// System.out.println("---------------- " +
+			// getClass().getResource("/") + "; "
+			// + getClass().getResource(currentImagePath) + ";");
+			// System.out.println(getClass().getResource(currentImagePath).toURI());
 			// for (File currentFile : new
 			// File(getClass().getResource("/").getFile()).listFiles()) {
 			// System.out.println("File: "+ currentFile);
 			// }
-			Path path = Paths.get(getClass().getResource(currentImagePath).toURI());
-			data = Files.readAllBytes(path);
+			// Path path =
+			// Paths.get(getClass().getResource(currentImagePath).toURI());
+			// data = Files.readAllBytes(path);
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(currentImagePath);
+			System.out.println("is: " + inputStream);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+			IOUtils.copy(inputStream, outputStream);
+			IOUtils.closeQuietly(inputStream);
+			IOUtils.closeQuietly(outputStream);
+			data = outputStream.toByteArray();
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
