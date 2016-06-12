@@ -155,13 +155,14 @@ public class MainController {
 		if (!isUploadedImageEmpty) {
 			currentImageInBytes = uploadedFile.getBytes();
 			String imageParam = saveFile();
-			String fileName = imageParam.split("/")[imageParam.split("/").length - 1];
-			imagePath = new String(
-					getClass().getClassLoader().getResource(".").getFile() + "uploaded_images/" + fileName);
-			if (System.getProperty("os.name").contains("indow")) {
-				imagePath = imagePath.substring(1, imagePath.length());
-			}
-
+			// String fileName =
+			// imageParam.split("/")[imageParam.split("/").length - 1];
+			// imagePath = fileName;
+			// if (System.getProperty("os.name").contains("indow")) {
+			// imagePath = imagePath.substring(1, imagePath.length());
+			// }
+			imagePath = imageParam;
+			System.out.println("ip: " + getImagePath());
 			image = cvLoadImage(getImagePath(), 1);
 			long timeInMillis = System.currentTimeMillis();
 			Detector detection = new Detector(part, image);
@@ -344,7 +345,6 @@ public class MainController {
 		try {
 			String currentImagePath = filePath;
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(currentImagePath);
-			System.out.println("is: " + inputStream);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			IOUtils.copy(inputStream, outputStream);
 			IOUtils.closeQuietly(inputStream);
@@ -357,8 +357,8 @@ public class MainController {
 	}
 
 	private String saveFile() {
-		File imagePathFile = new File(getClass().getClassLoader().getResource(".").getFile() + "/uploaded_images/image_"
-				+ System.currentTimeMillis() + ".jpg");
+		new File("uploaded_images/").mkdir();
+		File imagePathFile = new File("uploaded_images/image_" + System.currentTimeMillis() + ".jpg").getAbsoluteFile();
 		System.out.println("ImagePath: " + imagePathFile.toString());
 		if (!imagePathFile.getParentFile().exists()) {
 			imagePathFile.getParentFile().mkdir();
@@ -370,7 +370,7 @@ public class MainController {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		return "getImage/" + imagePathFile.getName();
+		return imagePathFile.getAbsolutePath();
 	}
 
 	private byte[] convertIplImageToByteArray(Face face) {
