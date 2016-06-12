@@ -344,6 +344,11 @@ public class MainController {
 		byte[] data = {};
 		try {
 			String currentImagePath = filePath;
+			System.out.println("---------------- " + getClass().getResource("/") + "; "
+					+ getClass().getResource(currentImagePath) + ";");
+			for (File currentFile : new File(getClass().getResource("/").getFile()).listFiles()) {
+				System.out.println("File: " + currentFile.toString());
+			}
 			Path path = Paths.get(getClass().getResource(currentImagePath).toURI());
 			data = Files.readAllBytes(path);
 		} catch (Exception ex) {
