@@ -67,7 +67,25 @@ dependencies {
     testCompile("junit:junit")
 
     compile files ('libs/opencv.jar')
+    compile files ('libs/opencv-android-arm.jar')
+    compile files ('libs/opencv-android-x86.jar')
+    compile files ('libs/opencv-linux.x86.jar')
+    compile files ('libs/opencv-linux-x86_64.jar')
+    compile files ('libs/opencv-windows-x86.jar')
+    compile files ('libs/opencv-windows-x86_64.jar')
+    compile files ('libs/opencv-macosx-x86_64.jar')
+    
     compile files ('libs/javacpp.jar')
+    compile files ('libs/javacv.jar')
+    
+    compile files ('libs/ffmpeg.jar')
+    compile files ('libs/ffmpeg-android-arm.jar')
+    compile files ('libs/ffmpeg-android-x86.jar')
+    compile files ('libs/ffmpeg-linux-x86.jar')
+    compile files ('libs/ffmpeg-linux-x86_64.jar')
+    compile files ('libs/ffmpeg-windows-x86.jar')
+    compile files ('libs/ffmpeg-windows-x86_64.jar')
+    compile files ('libs/ffmpeg-macosx-x86_64.jar')
 }
 
 jacocoTestReport {

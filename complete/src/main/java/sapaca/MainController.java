@@ -163,6 +163,7 @@ public class MainController {
 			// }
 			imagePath = imageParam;
 			System.out.println("ip: " + getImagePath());
+			
 			image = cvLoadImage(getImagePath(), 1);
 			long timeInMillis = System.currentTimeMillis();
 			Detector detection = new Detector(part, image);
