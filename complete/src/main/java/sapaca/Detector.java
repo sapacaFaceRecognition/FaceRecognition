@@ -39,19 +39,23 @@ public class Detector {
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(part.getXmlName());
 			System.out.println("is: " + inputStream + " (" + part.getXmlName() + ")");
-			System.out.println("is2: " + getClass().getClassLoader().getResourceAsStream("static/pic/Detecting.png"));
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			IOUtils.copy(inputStream, outputStream);
 			IOUtils.closeQuietly(inputStream);
 			IOUtils.closeQuietly(outputStream);
 			buffer = ByteBuffer.wrap(outputStream.toByteArray());
+			System.out.println("Buffer: " + buffer);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 		BytePointer pointer = new BytePointer(buffer);
+		System.out.println("Pointer: " + pointer);
 		CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(pointer);
+		System.out.println("Cascade: " + cascade);
 		IplImage grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
+		System.out.println("GrayImage: " + grayImage);
 		cvCvtColor(originalImage, grayImage, CV_BGR2GRAY);
+		System.out.println("GrayImage2: " + grayImage + ", OriginalImage: " + originalImage);
 
 		CvMemStorage storage = CvMemStorage.create();
 		CvSeq foundAreas = cvHaarDetectObjects(grayImage, cascade, storage, 1.2, 2, 0);
