@@ -2,9 +2,13 @@ package sapaca;
 
 import org.bytedeco.javacpp.opencv_core.IplImage;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
@@ -35,31 +39,31 @@ public class Detector {
 	}
 
 	private void detectFace(IplImage originalImage) {
-		ByteBuffer buffer = null;
+		File xmlFile = null;
 		try {
 			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(part.getXmlName());
-			System.out.println("is: " + inputStream + " (" + part.getXmlName() + ")");
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			IOUtils.copy(inputStream, outputStream);
 			IOUtils.closeQuietly(inputStream);
 			IOUtils.closeQuietly(outputStream);
-			buffer = ByteBuffer.wrap(outputStream.toByteArray());
-			System.out.println("Buffer: " + buffer);
+			byte data[] = outputStream.toByteArray();
+
+			xmlFile = new File("sapaca/" + part.getXmlName());
+			xmlFile.getParentFile().mkdirs();
+
+			BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(xmlFile));
+			bufferedOutputStream.write(data);
+			bufferedOutputStream.close();
+
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		BytePointer pointer = new BytePointer(buffer);
-		System.out.println("Pointer: " + pointer);
-		CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(pointer);
-		System.out.println("Cascade: " + cascade);
+		CvHaarClassifierCascade cascade = new CvHaarClassifierCascade(cvLoad(xmlFile.getAbsolutePath()));
 		IplImage grayImage = IplImage.create(originalImage.width(), originalImage.height(), IPL_DEPTH_8U, 1);
-		System.out.println("GrayImage: " + grayImage);
 		cvCvtColor(originalImage, grayImage, CV_BGR2GRAY);
-		System.out.println("GrayImage2: " + grayImage + ", OriginalImage: " + originalImage);
 
 		CvMemStorage storage = CvMemStorage.create();
 		CvSeq foundAreas = cvHaarDetectObjects(grayImage, cascade, storage, 1.2, 2, 0);
-
 		if (part.getPartToDetect().equals(PartToDetect.FACE)) {
 			for (int i = 0; i < foundAreas.total(); i++) {
 				counter = i;
@@ -73,7 +77,6 @@ public class Detector {
 			}
 
 		}
-
 		if (part.getPartToDetect().equals(PartToDetect.EYES)) {
 			for (int i = 0; i < foundAreas.total(); i++) {
 				counter = i;
@@ -108,20 +111,18 @@ public class Detector {
 		return faceObjects;
 	}
 
-	private void setXmlFile() {
-		try {
-			URL source = Detector.class.getClassLoader().getResource(part.getXmlName());
-			xmlPath = new File(source.toURI()).getAbsolutePath();
-			System.out.println(":: " + xmlPath);
-		} catch (URISyntaxException e) {
-			xmlPath = "";
-			System.out.println("Source not found.");
-		} catch (Exception e) {
-			System.out.println("Something went horribly wrong...");
-			part = null;
-			xmlPath = "";
-		}
-	}
+	// private void setXmlFile() {
+	// try {
+	// URL source =
+	// Detector.class.getClassLoader().getResource(part.getXmlName());
+	// xmlPath = new File(source.toURI()).getAbsolutePath();
+	// } catch (URISyntaxException e) {
+	// xmlPath = "";
+	// } catch (Exception e) {
+	// part = null;
+	// xmlPath = "";
+	// }
+	// }
 
 	public IplImage getEyeImage() {
 		return eyeImage;

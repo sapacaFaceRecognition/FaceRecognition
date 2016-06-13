@@ -358,8 +358,8 @@ public class MainController {
 	}
 
 	private String saveFile() {
-		new File("uploaded_images/").mkdir();
-		File imagePathFile = new File("uploaded_images/image_" + System.currentTimeMillis() + ".jpg").getAbsoluteFile();
+		new File("sapaca/uploaded_images/").mkdirs();
+		File imagePathFile = new File("sapaca/uploaded_images/image_" + System.currentTimeMillis() + ".jpg").getAbsoluteFile();
 		System.out.println("ImagePath: " + imagePathFile.toString());
 		if (!imagePathFile.getParentFile().exists()) {
 			imagePathFile.getParentFile().mkdir();
