@@ -30,7 +30,7 @@ public class Detector {
 
 	public Detector(Part part, IplImage image) {
 		this.part = part;
-		setXmlFile();
+		// setXmlFile();
 		detectFace(image);
 	}
 
