@@ -37,7 +37,8 @@ public class Detector {
 	private void detectFace(IplImage originalImage) {
 		ByteBuffer buffer = null;
 		try {
-			InputStream inputStream = getClass().getClassLoader().getResourceAsStream(part.getXmlName());
+			InputStream inputStream = getClass().getClassLoader().getResourceAsStream("/" + part.getXmlName());
+			System.out.println("is: " + inputStream);
 			ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 			IOUtils.copy(inputStream, outputStream);
 			IOUtils.closeQuietly(inputStream);
