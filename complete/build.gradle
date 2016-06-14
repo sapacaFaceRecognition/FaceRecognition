@@ -50,7 +50,42 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'mysql:mysql-connector-java:5.1.37'
+    compile 'org.springframework:spring-orm:4.2.3.RELEASE'
+
+    compile 'org.springframework:spring-test:4.2.4.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+    compile 'com.cloudinary:cloudinary-http44:1.4.1'
+
+    compile 'com.mashape.unirest:unirest-java:1.4.9'
+
+    testCompile("junit:junit")
+
+    compile files ('libs/opencv.jar')
+    compile files ('libs/opencv-android-arm.jar')
+    compile files ('libs/opencv-android-x86.jar')
+    compile files ('libs/opencv-linux.x86.jar')
+    compile files ('libs/opencv-linux-x86_64.jar')
+    compile files ('libs/opencv-windows-x86.jar')
+    compile files ('libs/opencv-windows-x86_64.jar')
+    compile files ('libs/opencv-macosx-x86_64.jar')
+
+    compile files ('libs/javacpp.jar')
+    compile files ('libs/javacv.jar')
+
+    compile files ('libs/ffmpeg.jar')
+    compile files ('libs/ffmpeg-android-arm.jar')
+    compile files ('libs/ffmpeg-android-x86.jar')
+    compile files ('libs/ffmpeg-linux-x86.jar')
+    compile files ('libs/ffmpeg-linux-x86_64.jar')
+    compile files ('libs/ffmpeg-windows-x86.jar')
+    compile files ('libs/ffmpeg-windows-x86_64.jar')
+    compile files ('libs/ffmpeg-macosx-x86_64.jar')
 }
 
 jacocoTestReport {
