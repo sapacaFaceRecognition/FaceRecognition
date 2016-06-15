@@ -58,7 +58,7 @@ public class Statistics {
 		for (int age : ages) {
 			averageAge += age;
 		}
-		if (ages.isEmpty()) {
+		if (!ages.isEmpty()) {
 			averageAge = (averageAge / ages.size());
 			return averageAge;
 		} else {
@@ -76,8 +76,8 @@ public class Statistics {
 
 	public long calculateAverageCalculationTime() {
 		long averageCalculationTime = 0;
-		for (long calculationTime : calculationTime) {
-			averageCalculationTime += calculationTime;
+		for (long calculationTimes : calculationTime) {
+			averageCalculationTime += calculationTimes;
 		}
 		if (!calculationTime.isEmpty()) {
 			averageCalculationTime = (averageCalculationTime / calculationTime.size());
@@ -105,7 +105,7 @@ public class Statistics {
 
 	public double calculateAccuracyOfCalculation() {
 		if (isFace > 0 || isNoFace > 0) {
-			return (isFace / (isFace + isNoFace));
+			return ((double) isFace / ((double) isFace + (double) isNoFace));
 		} else {
 			return IS_ZERO;
 		}

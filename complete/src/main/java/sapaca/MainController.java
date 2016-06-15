@@ -163,7 +163,7 @@ public class MainController {
 			// }
 			imagePath = imageParam;
 			System.out.println("ip: " + getImagePath());
-			
+
 			image = cvLoadImage(getImagePath(), 1);
 			long timeInMillis = System.currentTimeMillis();
 			Detector detection = new Detector(part, image);
@@ -359,7 +359,8 @@ public class MainController {
 
 	private String saveFile() {
 		new File("sapaca/uploaded_images/").mkdirs();
-		File imagePathFile = new File("sapaca/uploaded_images/image_" + System.currentTimeMillis() + ".jpg").getAbsoluteFile();
+		File imagePathFile = new File("sapaca/uploaded_images/image_" + System.currentTimeMillis() + ".jpg")
+				.getAbsoluteFile();
 		System.out.println("ImagePath: " + imagePathFile.toString());
 		if (!imagePathFile.getParentFile().exists()) {
 			imagePathFile.getParentFile().mkdir();

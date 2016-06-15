@@ -1,159 +1,159 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" href="./css/main.css"/>
-		<link href="./css/bootstrap.min.css" rel="stylesheet"/>
-		<link href="css/simple-sidebar.css" rel="stylesheet"/>
-		<title>SAPACA</title>
-	</head>
-	<body>
-		<div class="navbar-fixed-top navbar-default navbar">
-			<div class="container little-bit-top">
-				<a href="#menu-toggle" class="menuicon-left" id="menu-toggle">
-					<img src="./pic/menuicon.jpg" alt="Menuicon" style="width: 40px; height: 40px;"/>
-				</a>
-				<h1 class="text-center">SAPACA</h1>
-				<h4 class="text-center">FaceRecognition</h4>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" href="./css/main.css"/>
+	<link href="./css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="css/simple-sidebar.css" rel="stylesheet"/>
+	<title>SAPACA</title>
+</head>
+<body>
+<div class="navbar-fixed-top navbar-default navbar">
+	<div class="container little-bit-top">
+		<a href="#menu-toggle" class="menuicon-left" id="menu-toggle">
+			<img src="./pic/menuicon.jpg" alt="Menuicon" style="width: 40px; height: 40px;"/>
+		</a>
+		<h1 class="text-center">SAPACA</h1>
+		<h4 class="text-center">FaceRecognition</h4>
+	</div>
+</div>
+
+<div id="wrapper" class="sidebar-top toggled">
+	<!-- Sidebar -->
+	<div id="sidebar-wrapper">
+		<ul class="sidebar-nav">
+			<li>
+				<a href="./home.html"><img src="./pic/home_iconx40.png" alt="Home Icon"/>Home</a>
+			</li>
+			<li>
+				<a href="./face_detection.html">Face Detection</a>
+			</li>
+			<li>
+				<a href="./browse_images.html">Browse Images</a>
+			</li>
+			<li>
+				<a href="./statistics.html">Statistics</a>
+			</li>
+			<li>
+				<a href="./about_us.html">About Us</a>
+			</li>
+			<li>
+				<a href="./login.html">Logout</a>
+			</li>
+		</ul>
+	</div>
+
+	<!-- Page Content -->
+	<div id="page-content-wrapper">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- <div class="col-lg-7" th:if="${}"> -->
+				<img id="detectingResult" class="img-rounded col-lg-7" th:src="@{/get_current_image/}" alt="Picture"/>
+				<!-- </div>
+                <div class="col-lg-7" th:unless="${}">
+                    <img id="detectingResult" class="img-rounded" src="./pic/Detecting.png" alt="Picture"/>
+                </div> -->
+				<div class="col-lg-5">
+					<!-- <p th:if="${is_face_detected==false and faces_empty==false}"></p> -->
+					<h1 th:if="${is_face_detected}">Label Image</h1>
+					<div th:if="${is_face_detected}">
+						<form class="form-horizontal" action="labelImage();" th:action="@{/next_face.html}" method="POST">
+							<div class="form-group">
+								<label for="vorname" class="col-sm-2 control-label">Vorname:</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" id="vorname" name="firstName"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nachname" class="col-sm-2 control-label">Nachname:</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" id="nachname" name="lastName"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="alter" class="col-sm-2 control-label">Alter:    </label>
+								<div class="col-sm-10">
+									<input class="form-control" type="number" id="alter" name="age"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nationalitaet" class="col-sm-2 control-label">Nationalität:</label>
+								<div class="col-sm-10">
+									<select class="form-control" id="nationalitaet" name="nationality">
+										<option>-</option>
+										<option>Deutschland</option>
+										<option>England</option>
+										<option>USA</option>
+										<option>Frankreich</option>
+										<option>Sonstiges</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="gender" class="col-sm-2 control-label">Geschlecht:</label>
+								<div class="col-sm-5">
+									<select class="form-control" id="gender" name="gender">
+										<option>-</option>
+										<option th:selected="${classified_gender == 'MALE'}">männlich</option>
+										<option th:selected="${classified_gender == 'FEMALE'}">weiblich</option>
+										<option th:selected="${classified_gender == 'UNKNOWN'}">unbekannt</option>
+									</select>
+								</div>
+								<input class="btn btn-default col-sm-4" type="submit" id="genderclassification" name="genderClassification" value="Geschlechtserkennung"></input>
+							</div>
+							<div class="form-group">
+								<label for="location" class="col-sm-2 control-label">Location</label>
+								<div class="col-sm-10">
+									<input class="form-control" type="text" id="location" name="location"></input>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-10">
+									<input class="fd-btn btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Ist ein Gesicht!"></input>
+									<input class="fd-btn btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
+									<input class="fd-btn btn btn-default" type="submit" id="eyedetection" name="eyeDetection" value="Eye Detection"></input>
+									<button class="fd-btn btn btn-default" type="submit" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+											aria-controls="collapseExample" value="attributes" name="attributes">
+										Attributes
+									</button>
+									<div th:if="${attributes_expanded}" class="collapse in" id="collapseExample">
+										<div class="well">
+											Gender: <p id="att_gender_conf" style="display:inline" th:text="${classified_gender}"></p>
+											<br></br>Gender Confidence: <p id="att_gender_conf" style="display:inline" th:text="${gender_confidence}"></p>
+											<br></br>Age: <p id="att_age" style="display:inline" th:text="${age}"></p>
+											<br></br>Range: <p id="att_age_range" style="display:inline" th:text="${age_range}"></p>
+											<br></br>Race: <p id="att_race" style="display:inline" th:text="${race}"></p>
+											<br></br>Confidence: <p id="att_race_conf" style="display:inline" th:text="${race_confidence}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<script th:if="${faces_empty}">
+                            alert("Alle erkannten Gesichter wurden bereits angezeigt.");
+                        </script>
+					<p th:if="${faces_empty}">Alle erkannten Gesichter wurden bereits angezeigt.</p>
+				</div>
+				<div class="row col-lg-7">
+					<form class="upload_image_button" action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
+						<input class="btn btn-default" onchange="this.form.submit()" type="file" name="uploadedFile" accept="image/*" ></input>
+					</form>
+				</div>
 			</div>
 		</div>
+	</div>
+</div>
 
-		<div id="wrapper" class="sidebar-top toggled">
-        <!-- Sidebar -->
-       <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li>
-                    <a href="./home.html"><img src="./pic/home_iconx40.png" alt="Home Icon"/>Home</a>
-                </li>
-                <li>
-                    <a href="./face_detection.html">Face Detection</a>
-                </li>
-                <li>
-                    <a href="./browse_images.html">Browse Images</a>
-                </li>
-                <li>
-                    <a href="./statistics.html">Statistics</a>
-                </li>
-                <li>
-                    <a href="./about_us.html">About Us</a>
-                </li>
-                <li>
-                    <a href="./login.html">Logout</a>
-                </li>
-            </ul>
-        </div>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
 
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-            <div class="container-fluid">
-                <div class="row">	
-                	<!-- <div class="col-lg-7" th:if="${}"> -->
-                    	<img id="detectingResult" class="img-rounded col-lg-7" th:src="@{/get_current_image/}" alt="Picture"/>
-                    <!-- </div>	
-                    <div class="col-lg-7" th:unless="${}">
-                    	<img id="detectingResult" class="img-rounded" src="./pic/Detecting.png" alt="Picture"/>
-                    </div> -->
-                    <div class="col-lg-5">
-                        <h1>Additional Information </h1>
-                      	<p th:if="${is_face_detected==false and faces_empty==false}">Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
-                        Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla 
-                        Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla Some Bla </p>
-                        <div th:if="${is_face_detected}">
-                            <form class="form-horizontal" action="labelImage();" th:action="@{/next_face.html}" method="POST">
-                            	<div class="form-group">
-                                	<label for="vorname" class="col-sm-2 control-label">Vorname:</label>
-                                	<div class="col-sm-10">  
-                                		<input class="form-control" type="text" id="vorname" name="firstName"></input>
-                                	</div>
-                                </div>
-                                <div class="form-group">
-                                	<label for="nachname" class="col-sm-2 control-label">Nachname:</label>
-                                	<div class="col-sm-10">  
-                                		<input class="form-control" type="text" id="nachname" name="lastName"></input>
-                                	</div>
-                                </div>
-                                <div class="form-group">
-                                	<label for="alter" class="col-sm-2 control-label">Alter:    </label>
-                                	<div class="col-sm-10">  
-                                		<input class="form-control" type="number" id="alter" name="age"></input>
-                                	</div>
-                                </div>
-                                <div class="form-group">
-                                	<label for="nationalitaet" class="col-sm-2 control-label">Nationalität:</label>
-                                	<div class="col-sm-10">  
-                                		<select class="form-control" id="nationalitaet" name="nationality">
-                                					<option>-</option>
-                                                    <option>Deutschland</option>
-                                                    <option>England</option>
-                                                    <option>USA</option>
-                                                    <option>Frankreich</option>
-                                                    <option>Sonstiges</option>
-                                		</select>
-                                	</div>
-                                </div>
-                                <div class="form-group">
-                                	<label for="gender" class="col-sm-2 control-label">Geschlecht:</label>
-                               		<div class="col-sm-5">
-                                		<select class="form-control" id="gender" name="gender">
-                                					<option>-</option>
-                                                    <option th:selected="${classified_gender == 'MALE'}">männlich</option>
-                                                    <option th:selected="${classified_gender == 'FEMALE'}">weiblich</option>
-                                                    <option th:selected="${classified_gender == 'UNKNOWN'}">unbekannt</option>
-                               	    	</select>
-                               		</div>
-                               		<input class="btn btn-default col-sm-4" type="submit" id="genderclassification" name="genderClassification" value="Geschlechtserkennung"></input>
-                               	</div>
-                               	<div class="form-group">
-                                	<label for="location" class="col-sm-2 control-label">Location</label>
-                                	<div class="col-sm-10">  
-                                		<input class="form-control" type="text" id="location" name="location"></input>
-                                	</div>
-                                </div>
-                                <div class="form-group">
-                                	<div class="col-sm-10">
-                                		<input class="fd-btn btn btn-default" type="submit" id="facedetected" name="faceDetected" value="Ist ein Gesicht!"></input>
-                                		<input class="fd-btn btn btn-default" type="submit" id="nofacedetected" name="noFaceDetected" value="Ist kein Gesicht!"></input>
-                                		<input class="fd-btn btn btn-default" type="submit" id="eyedetection" name="eyeDetection" value="Eye Detection"></input>
-                                		<input class="fd-btn btn btn-default" type="submit" id="bindtogooglesearch" name="bindtogooglesearch" value="Suche in Google Search"></input>
-										<button class="fd-btn btn btn-default" type="submit" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" 
-										aria-controls="collapseExample" value="attributes" name="attributes">
-											Attributes
-										</button>
-										<div th:if="${attributes_expanded}" class="collapse in" id="collapseExample">
-											<div class="well">
-												Gender: <p id="att_gender_conf" style="display:inline" th:text="${classified_gender}"></p>
-												<br></br>Gender Confidence: <p id="att_gender_conf" style="display:inline" th:text="${gender_confidence}"></p>
-                                                <br></br>Age: <p id="att_age" style="display:inline" th:text="${age}"></p>
-                                                <br></br>Range: <p id="att_age_range" style="display:inline" th:text="${age_range}"></p>
-                                                <br></br>Race: <p id="att_race" style="display:inline" th:text="${race}"></p>
-                                                <br></br>Confidence: <p id="att_race_conf" style="display:inline" th:text="${race_confidence}"></p>
-											</div>
-										</div>
-                                	</div>
-                                </div>
-                            </form>
-                    </div>
-                    <p th:if="${faces_empty}">Alle erkannten Gesichter wurden bereits angezeigt.</p>
-                </div>
-                <div class="row col-lg-7">
-                	<form class="upload_image_button" action="uploadImage();" th:action="@{/face_detection.html}" method="POST" enctype="multipart/form-data">
-       					<input class="btn btn-default" onchange="this.form.submit()" type="file" name="uploadedFile" accept="image/*" ></input>
-    				</form>
-    			</div>
-            </div>
-        </div>
-	 </div>
-    </div>
-
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Menu Toggle Script -->
-    <script>
+<!-- Menu Toggle Script -->
+<script>
     $("#menu-toggle").click(function(e) {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
     </script>
-	</body>
+</body>
 </html>
