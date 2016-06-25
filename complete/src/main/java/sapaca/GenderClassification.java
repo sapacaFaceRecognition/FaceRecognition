@@ -35,15 +35,6 @@ public class GenderClassification {
 
 	}
 
-	private static void printUsage() {
-		System.console().writer().println(
-				"stitching img1 img2 [...imgN]\n\n"
-						+ "Flags:\n"
-						+ "  --try_use_gpu (yes|no)\n"
-						+ "  --output <result_img>\n"
-						+ "      The default is 'result.jpg'.");
-	}
-
 	private String replaceSlashesInUrl(String url) {
 		if(url.length() > 1) {
 			String temp = url.replace(":", "%3A");
